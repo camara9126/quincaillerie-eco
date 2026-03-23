@@ -78,7 +78,11 @@
                         <a href="#" class="dropdown-toggle text-muted ms-2" data-bs-toggle="dropdown"><small><i
                                     class="fa fa-home me-2"></i> Mon Compte</small></a>
                         <div class="dropdown-menu rounded">
-                            <a href="{{ route('login') }}" class="dropdown-item"> Connexion</a>
+                            @auth
+                                <a href="{{ route('dashboard') }}" class="dropdown-item"> Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="dropdown-item"> Connexion</a>
+                            @endauth
                             <!--<a href="#" class="dropdown-item"> Wishlist</a>-->
                             <a href="#" class="dropdown-item"> Mon Panier</a>
                             <!--<a href="#" class="dropdown-item"> Notifications</a>-->

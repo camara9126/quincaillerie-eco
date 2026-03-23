@@ -53,6 +53,12 @@
                     <div class="sidebar-divider"></div>
 
                     <li>
+                        <a href="{{ route('home') }}">
+                            <i class="fas fa-shop"></i>
+                            <span>Boutique</span>
+                        </a>
+                    </li>
+                    <!--<li>
                         <a href="#">
                             <i class="fas fa-shopping-cart"></i>
                             <span>Commandes</span>
@@ -70,7 +76,7 @@
                             <i class="fas fa-star"></i>
                             <span>Avis</span>
                         </a>
-                    </li>
+                    </li>-->
 
                     <div class="sidebar-divider"></div>
 
