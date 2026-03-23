@@ -13,7 +13,11 @@
 
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Rechercher...">
+                    <form method="get" action="{{route('categorie.search')}}" class="form-inline">
+                        
+                        <input type="text" name="search"  placeholder="Rechercher...">                                                   
+                            
+                    </form>
                 </div>
 
                 <div class="user-menu">
@@ -70,13 +74,22 @@
                                             <td>
                                                 <div class="action-buttons">
                                                     <a href="{{ route('categorie.show', $c->id) }}" class="action-btn"><i class="fas fa-edit"></i></a>
-                                                    <a href="{{ route('categorie.destroy', $c->id) }}" class="action-btn delete"><i class="fas fa-trash"></i></a>
+                                                    <form action="{{route('categorie.destroy', $c->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button type="submit" class="action-btn delete" title="Supprimer">
+                                                            <i class="fa fa-trash"></i>
+                                                        </button>
+                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center mt-4">
+                                {{$categorie->links()}}
+                            </div>                            
                         </div>
                     </div>
                 </div>

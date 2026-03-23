@@ -10,8 +10,7 @@
        <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <h2>
-                    <i class="fas fa-tools"></i>
-                   Eco B-D
+                   <img src="{{asset('images/logo-blanc.jpeg')}}" width="100" alt="">
                 </h2>
                 <p>Dashboard d'administration</p>
             </div>
@@ -19,7 +18,7 @@
             <nav class="sidebar-nav">
                 <ul>
                     <li>
-                        <a href="#" class="">
+                        <a href="{{ route('dashboard') }}" class="">
                             <i class="fas fa-chart-pie"></i>
                             <span>Tableau de bord</span>
                         </a>
@@ -81,6 +80,7 @@
                             <span>Paramètres</span>
                         </a>
                     </li>
+                    
                     <li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

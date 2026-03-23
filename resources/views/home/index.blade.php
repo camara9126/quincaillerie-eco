@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Eco Business Distribution</title>
+    <title>Accueil | Eco Business Distribution</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="quincaillerie, btp, matériaux construction, outillage" name="keywords">
     <meta content="Votre quincaillerie de confiance pour tous vos projets de construction et rénovation" name="description">
@@ -78,7 +78,11 @@
                         <a href="#" class="dropdown-toggle text-muted ms-2" data-bs-toggle="dropdown"><small><i
                                     class="fa fa-home me-2"></i> Mon Compte</small></a>
                         <div class="dropdown-menu rounded">
-                            <a href="{{ route('login') }}" class="dropdown-item"> Connexion</a>
+                            @auth
+                                <a href="{{ route('dashboard') }}" class="dropdown-item"> Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="dropdown-item"> Connexion</a>
+                            @endauth
                             <!--<a href="#" class="dropdown-item"> Wishlist</a>-->
                             <a href="#" class="dropdown-item"> Mon Panier</a>
                             <!--<a href="#" class="dropdown-item"> Notifications</a>-->
@@ -96,7 +100,7 @@
             <div class="col-md-4 col-lg-3 text-center text-lg-start">
                 <div class="d-inline-flex align-items-center">
                     <a href="" class="navbar-brand p-0">
-                        <img src="img/logo-vert.jpeg" width="90" alt="">
+                        <img src="{{asset('images/logo-vert.jpeg')}}" width="90" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
                         </h1>
@@ -148,42 +152,14 @@
                     <div class="collapse navbar-collapse rounded-bottom" id="allCat">
                         <div class="navbar-nav ms-auto py-0">
                             <ul class="list-unstyled categories-bars">
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Outillage électrique</a>
-                                        <span>(12)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Électricité</a>
-                                        <span>(15)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Plomberie</a>
-                                        <span>(18)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Irrigation</a>
-                                        <span>(25)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Menuiserie</a>
-                                        <span>(14)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Plomberie sanitaire</a>
-                                        <span>(14)</span>
-                                    </div>
-                                </li>
+                                @foreach($categories as $c)
+                                    <li>
+                                        <div class="categories-bars-item">
+                                            <a href="#">{{$c->nom}}</a>
+                                            <span>({{$c->article->count()}})</span>
+                                        </div>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -192,7 +168,7 @@
             <div class="col-12 col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
                     <a href="" class="navbar-brand d-block d-lg-none">
-                        <img src="img/logo-blanc.jpeg" width="80" alt="">
+                        <img src="{{asset('images/logo-blanc.jpeg')}}" width="80" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
                         </h1>
@@ -203,9 +179,9 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ms-auto py-0">
-                            <a href="test.html" class="nav-item nav-link active">Accueil</a>
-                            <a href="test.html" class="nav-item nav-link">Boutique</a>
-                            <a href="test.html" class="nav-item nav-link">Fiche produit</a>
+                            <a href="/" class="nav-item nav-link active">Accueil</a>
+                            <a href="{{ route('boutique') }}" class="nav-item nav-link">Boutique</a>
+                            <!--<a href="#" class="nav-item nav-link">Fiche produit</a>
                             <div class="nav-item dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0">
@@ -214,61 +190,32 @@
                                     <a href="cheackout.html" class="dropdown-item">Commander</a>
                                     <a href="404.html" class="dropdown-item">404</a>
                                 </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link me-2">Contact</a>
+                            </div>-->
+                            <a href="{{ route('contact') }}" class="nav-item nav-link me-2">Contact</a>
                             <div class="nav-item dropdown d-block d-lg-none mb-3">
                                 <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Catégories</a>
                                 <div class="dropdown-menu m-0">
                                     <ul class="list-unstyled categories-bars">
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Outillage électrique</a>
-                                                <span>(12)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Électricité</a>
-                                                <span>(15)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Plomberie</a>
-                                                <span>(18)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Irrigation</a>
-                                                <span>(25)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Menuiserie</a>
-                                                <span>(14)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Plomberie sanitaire</a>
-                                                <span>(14)</span>
-                                            </div>
-                                        </li>
+                                        @foreach($categories as $c)
+                                            <li>
+                                                <div class="categories-bars-item">
+                                                    <a href="#">{{$c->nom}}</a>
+                                                    <span>({{$c->article->count()}})</span>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
                         <a href="https://wa.me/+221776512724" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="fa fa-phone-alt me-2"></i>+221776512724</a>
+                                class="fa fa-whatsapp-alt me-2"></i>+221776512724</a>
                     </div>
                 </nav>
             </div>
         </div>
     </div>
     <!-- Navbar & Hero End -->
-
     <!-- Carousel Start -->
     <div class="container-fluid carousel bg-light px-0">
         <div class="row g-0 justify-content-end">
@@ -276,7 +223,7 @@
                 <div class="header-carousel owl-carousel bg-light py-5">
                     <div class="row g-0 header-carousel-item align-items-center">
                         <div class="col-xl-6 carousel-img wow fadeInLeft" data-wow-delay="0.1s">
-                            <img src="img/outillage-banner.jpg" class="img-fluid w-100" alt="Outillage professionnel">
+                            <img src="{{asset('assets/img/outillage-banner.jpg')}}" class="img-fluid w-100" alt="Outillage professionnel">
                         </div>
                         <div class="col-xl-6 carousel-content p-4">
                             <h4 class="text-uppercase fw-bold mb-4 wow fadeInRight" data-wow-delay="0.1s"
@@ -289,7 +236,7 @@
                     </div>
                     <div class="row g-0 header-carousel-item align-items-center">
                         <div class="col-xl-6 carousel-img wow fadeInLeft" data-wow-delay="0.1s">
-                            <img src="img/ciment.png" class="img-fluid w-100" alt="Matériaux construction">
+                            <img src="{{asset('assets/img/ciment.png')}}" class="img-fluid w-100" alt="Matériaux construction">
                         </div>
                         <div class="col-xl-6 carousel-content p-4">
                             <h4 class="text-uppercase fw-bold mb-4 wow fadeInRight" data-wow-delay="0.1s"
@@ -304,7 +251,7 @@
             </div>
             <!--<div class="col-12 col-lg-5 col-xl-3 wow fadeInRight" data-wow-delay="0.1s">
                 <div class="carousel-header-banner h-100">
-                    <img src="img/Perceuse.jpg" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="Quincaillerie">
+                    <img src="{{asset('assets/img/Perceuse.jpg')}}" class="img-fluid w-100 h-100" style="object-fit: cover;" alt="Quincaillerie">
                     <div class="carousel-banner-offer">
                         <p class="bg-primary text-white rounded fs-3 py-2 px-3 mb-0 me-3">-15 000 FCFA</p>
                         <p class="text-primary fs-3 fw-bold mb-0">Offre spéciale</p>
@@ -411,7 +358,7 @@
                             <h1 class="display-3 text-secondary mb-0">-20% <span
                                     class="text-primary fw-normal">sur toute la gamme</span></h1>
                         </div>
-                        <img src="img/Perceuse.jpg" class="img-fluid" alt="Perceuse" style="max-width: 150px;">
+                        <img src="{{asset('assets/img/Perceuse.jpg')}}" class="img-fluid" alt="Perceuse" style="max-width: 150px;">
                     </a>
                 </div>
                 <!--<div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
@@ -422,7 +369,7 @@
                             <h1 class="display-3 text-secondary mb-0">-15% <span
                                     class="text-primary fw-normal">pour les pros</span></h1>
                         </div>
-                        <img src="img/ciment.png" class="img-fluid" alt="Ciment" style="max-width: 150px;">
+                        <img src="{{asset('assets/img/ciment.png')}}" class="img-fluid" alt="Ciment" style="max-width: 150px;">
                     </a>
                 </div>-->
             </div>
@@ -458,895 +405,100 @@
                 <div class="tab-content">
                     <div id="tab-1" class="tab-pane fade show p-0 active">
                         <div class="row g-3">
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/Perceuse.jpg" class="img-fluid w-100 rounded-top" alt="Perceuse Bosch">
-                                            <div class="product-new">New</div>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                            @foreach($articles as $a)
+                                <div class="col-6 col-md-6 col-lg-4 col-xl-3">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="{{asset('storage/'. $a->image)}}" class="img-fluid w-100 rounded-top" alt="Perceuse Bosch">
+                                                <!--<div class="product-new">New</div>-->
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-0">
+                                                <a href="{{ route('category', $a->categorie->slug)}}" class="d-block mb-2">{{$a->categorie->nom}}</a>
+                                                <a href="{{ route('detail', $a->slug)}}" class="d-block  h6">{{strtoupper($a->nom)}}</a>
+                                                <!--<del class="me-2 fs-3">95 000 FCFA</del>-->
+                                                <span class="text-primary ">{{$a->prix}} FCFA</span>
                                             </div>
                                         </div>
-                                        <div class="text-center rounded-bottom p-0">
-                                            <a href="#" class="d-block mb-2">Outillage</a>
-                                            <a href="#" class="d-block  h6">Perceuse Bosch <br> Professional</a>
-                                            <!--<del class="me-2 fs-3">95 000 FCFA</del>-->
-                                            <span class="text-primary ">85 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
+                                         <!--<div class="product-item-add border border-top-0 rounded-bottom text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                               <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></span></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></span></a>
+                                                </div>
                                             </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/meuleuse-dewalt.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Meuleuse Dewalt">
-                                            <p class="product-sale">Promo</p>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Outillage</a>
-                                            <a href="#" class="d-block  h6">Meuleuse Dewalt <br> 125mm</a>
-                                            <!--<del class="me-2 fs-3">75 000 FCFA</del>-->
-                                            <span class="text-primary">65 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/ciment-dangote.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Ciment Dangote">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Matériaux</a>
-                                            <a href="#" class="d-block  h6">Ciment Dangote <br> 42.5R (sac 50kg)</a>
-                                            <!--<del class="me-2 fs-3">5 500 FCFA</del>-->
-                                            <span class="text-primary ">5 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.7s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/marteau-stanley.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Marteau Stanley">
-                                            <p class="product-new">New</p>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Outillage manuel</a>
-                                            <a href="#" class="d-block  h6">Marteau de charpentier <br> Stanley</a>
-                                            <!--<del class="me-2 fs-3">8 500 FCFA</del>-->
-                                            <span class="text-primary ">7 500 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/fer-a-beton.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Fer à béton">
-                                            <p class="product-sale">Promo</p>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Matériaux</a>
-                                            <a href="#" class="d-block  h6">Fer à béton HA12 <br> (barre 12m)</a>
-                                            <!--<del class="me-2 fs-3">7 500 FCFA</del>-->
-                                            <span class="text-primary ">6 900 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/peinture-akzo.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Peinture Dulux">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Peinture</a>
-                                            <a href="#" class="d-block  h6">Peinture Dulux <br> Mate 10L</a>
-                                            <!--<del class="me-2 fs-3">28 500 FCFA</del>-->
-                                            <span class="text-primary ">25 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/echelle-aluminium.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Echelle aluminium">
-                                            <div class="product-new">New</div>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Équipement</a>
-                                            <a href="#" class="d-block  h6">Échelle télescopique <br> 3.8m</a>
-                                            <!--<del class="me-2 fs3">45 000 FCFA</del>-->
-                                            <span class="text-primary ">39 900 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-6 col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.7s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/tuyau-pvc.jpg" class="img-fluid w-100 rounded-top" alt="Tuyau PVC">
-                                            <p class="product-sale">Promo</p>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Plomberie</a>
-                                            <a href="#" class="d-block h4">Tuyau PVC pression <br> Ø50mm (4m)</a>
-                                            <!--<del class="me-2 fs-3">6 500 FCFA</del>-->
-                                            <span class="text-primary ">5 800 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                     <div id="tab-2" class="tab-pane fade show p-0">
                         <div class="row g-4">
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/visseuse-makita.jpg" class="img-fluid rounded-top" alt="Visseuse Makita">
-                                            <div class="product-new">New</div>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                            @foreach($nouveau as $n)
+                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                    <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
+                                        <div class="product-item-inner border rounded">
+                                            <div class="product-item-inner-item">
+                                                <img src="{{asset('storage/'. $n->image)}}" class="img-fluid rounded-top" alt="Visseuse Makita">
+                                                <div class="product-new">New</div>
+                                                <div class="product-details">
+                                                    <a href="#"><i class="fa fa-eye fa-1x"></i></a>
+                                                </div>
+                                            </div>
+                                            <div class="text-center rounded-bottom p-4">
+                                                <a href="#" class="d-block mb-2">{{$n->categorie->nom}}</a>
+                                                <a href="#" class="d-block h4">{{strtoupper($n->nom)}}</a>
+                                                <!--<del class="me-2 fs-3">110 000 FCFA</del>-->
+                                                <span class="text-primary ">{{$n->prix}} FCFA</span>
                                             </div>
                                         </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Outillage</a>
-                                            <a href="#" class="d-block h4">Visseuse Makita <br> 18V</a>
-                                            <!--<del class="me-2 fs-3">110 000 FCFA</del>-->
-                                            <span class="text-primary ">99 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
+                                        <!--<div class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                                            <a href="#"
+                                                class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
+                                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex">
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star text-primary"></i>
+                                                    <i class="fas fa-star"></i>
+                                                </div>
+                                                <div class="d-flex">
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-random"></i></span></a>
+                                                    <a href="#"
+                                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                                            class="rounded-circle btn-sm-square border"><i
+                                                                class="fas fa-heart"></i></span></a>
+                                                </div>
                                             </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/brouette.jpg" class="img-fluid w-100 rounded-top" alt="Brouette">
-                                            <div class="product-new">New</div>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Manutention</a>
-                                            <a href="#" class="d-block h4">Brouette de chantier <br> cuve acier</a>
-                                            <!--<del class="me-2 fs-3">25 000 FCFA</del>-->
-                                            <span class="text-primary ">22 500 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
+                                        </div>-->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/parpaing.jpg" class="img-fluid w-100 rounded-top" alt="Parpaing">
-                                            <div class="product-new">New</div>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Matériaux</a>
-                                            <a href="#" class="d-block h4">Parpaing creux <br> 20x20x40</a>
-                                            <span class="text-primary ">600 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.7s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/scie-circulaire.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Scie circulaire">
-                                            <div class="product-new">New</div>
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Outillage</a>
-                                            <a href="#" class="d-block h4">Scie circulaire <br> 1400W</a>
-                                            <!--<del class="me-2 fs-3">65 000 FCFA</del>-->
-                                            <span class="text-primary ">59 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-3" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/coffre-outils.jpg" class="img-fluid w-100 rounded-top" alt="Coffre à outils">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Rangement</a>
-                                            <a href="#" class="d-block h4">Coffre à outils <br> 108 pièces</a>
-                                            <!--<del class="me-2 fs-3">45 000 FCFA</del>-->
-                                            <span class="text-primary ">39 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/pompe-eau.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Pompe à eau">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Plomberie</a>
-                                            <a href="#" class="d-block h4">Pompe à eau <br> 1.5CV</a>
-                                            <!--<del class="me-2 fs-3">85 000 FCFA</del>-->
-                                            <span class="text-primary ">75 000 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/boite-derivation.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Boîte dérivation">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Électricité</a>
-                                            <a href="#" class="d-block h4">Boîte dérivation <br> IP55</a>
-                                            <span class="text-primary fs-2">2 500 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.7s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/trepied.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Trépied chantier">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Équipement</a>
-                                            <a href="#" class="d-block h4">Trépied chantier <br> 2m</a>
-                                            <span class="text-primary fs-2">15 500 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div id="tab-4" class="tab-pane fade show p-0">
-                        <div class="row g-4">
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/disjoncteur.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Disjoncteur">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Électricité</a>
-                                            <a href="#" class="d-block h4">Disjoncteur Legrand <br> 20A</a>
-                                            <span class="text-primary fs-2">4 500 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.3s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/serpilliere.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Serpillière">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Nettoyage</a>
-                                            <a href="#" class="d-block h4">Serpillière microfibre <br> lot de 3</a>
-                                            <span class="text-primary fs-2">2 200 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.5s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/gants-travail.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Gants de travail">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">EPI</a>
-                                            <a href="#" class="d-block h4">Gants de travail <br> cuir (paire)</a>
-                                            <span class="text-primary fs-2">3 500 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-md-6 col-lg-4 col-xl-3">
-                                <div class="product-item rounded wow fadeInUp" data-wow-delay="0.7s">
-                                    <div class="product-item-inner border rounded">
-                                        <div class="product-item-inner-item">
-                                            <img src="img/rouleau-peinture.jpg" class="img-fluid w-100 rounded-top"
-                                                alt="Rouleau peinture">
-                                            <div class="product-details">
-                                                <a href="#"><i class="fa fa-eye fa-1x"></i></a>
-                                            </div>
-                                        </div>
-                                        <div class="text-center rounded-bottom p-4">
-                                            <a href="#" class="d-block mb-2">Peinture</a>
-                                            <a href="#" class="d-block h4">Rouleau peinture <br> lot de 2</a>
-                                            <span class="text-primary fs-2">2 800 FCFA</span>
-                                        </div>
-                                    </div>
-                                    <div
-                                        class="product-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
-                                        <a href="#"
-                                            class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
-                                                class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <div class="d-flex">
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star text-primary"></i>
-                                                <i class="fas fa-star"></i>
-                                            </div>
-                                            <div class="d-flex">
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-random"></i></span></a>
-                                                <a href="#"
-                                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                                        class="rounded-circle btn-sm-square border"><i
-                                                            class="fas fa-heart"></i></span></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -1362,7 +514,7 @@
                 <div class="col-6 col-lg-6 wow fadeInLeft" data-wow-delay="0.1s">
                     <a href="#">
                         <div class="bg-primary rounded position-relative">
-                            <img src="img/outillage-banner.jpg" class="img-fluid w-100 rounded" alt="Outillage">
+                            <img src="{{asset('assets/img/outillage-banner.jpg')}}" class="img-fluid w-100 rounded" alt="Outillage">
                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center rounded p-4"
                                 style="background: rgba(255, 255, 255, 0.5);">
                                 <h3 class="display-5 text-primary">Perceuses <br> <span>sans fil</span></h3>
@@ -1375,13 +527,13 @@
                 <div class="col-6 col-lg-6 wow fadeInRight" data-wow-delay="0.2s">
                     <a href="#">
                         <div class="text-center bg-primary rounded position-relative">
-                            <img src="img/materiaux-banner.jpg" class="img-fluid w-100" alt="Matériaux">
+                            <img src="{{asset('assets/img/materiaux-banner.jpg')}}" class="img-fluid w-100" alt="Matériaux">
                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center rounded p-4"
                                 style="background: rgba(108, 232, 132, 0.5);">
                                 <h2 class="display-2 text-secondary">PROMO</h2>
                                 <h4 class="display-5 text-white mb-4">Jusqu'à -30%</h4>
                                 <a href="#" class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Voir
-                                    Now</a>
+                                    Maintenant</a>
                             </div>
                         </div>
                     </a>
@@ -1401,205 +553,116 @@
             </div>
             <div class="productList-carousel owl-carousel pt-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="productImg-carousel owl-carousel productList-item">
-                    <div class="productImg-item products-mini-item border">
-                        <div class="row g-0">
-                            <div class="col-5">
-                                <div class="products-mini-img border-end h-100">
-                                    <img src="img/perceuse.jpg" class="img-fluid w-100 h-100" alt="Perceuse">
-                                    <div class="products-mini-icon rounded-circle bg-primary">
-                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                    @foreach($materiaux as $m)
+                        <div class="productImg-item products-mini-item border">
+                            <div class="row g-0">
+                                <div class="col-5">
+                                    <div class="products-mini-img border-end h-100">
+                                        <img src="{{asset('storage/'.$m->image)}}" class="img-fluid w-100 h-100" alt="Perceuse">
+                                        <div class="products-mini-icon rounded-circle bg-primary">
+                                            <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="products-mini-content p-3">
+                                        <a href="#" class="d-block mb-2">{{$m->categorie->nom}}</a>
+                                        <a href="#" class="d-block h4">{{$m->nom}}</a>
+                                        <!--<del class="me-2 fs-3">95 000 FCFA</del>-->
+                                        <span class="text-primary fs-2">{{$m->prix}} FCFA</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-7">
-                                <div class="products-mini-content p-3">
-                                    <a href="#" class="d-block mb-2">Outillage</a>
-                                    <a href="#" class="d-block h4">Perceuse Bosch <br> Professionnelle</a>
-                                    <!--<del class="me-2 fs-3">95 000 FCFA</del>-->
-                                    <span class="text-primary fs-2">85 000 FCFA</span>
+                            <!--<div class="products-mini-add border p-3">
+                                <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                        class="fas fa-shopping-cart me-2"></i> Ajouter</a>
+                                <div class="d-flex">
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                            class="rounded-circle btn-sm-square border"><i
+                                                class="fas fa-random"></i></span></a>
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                            class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
-                        <div class="products-mini-add border p-3">
-                            <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
-                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                            <div class="d-flex">
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                        class="rounded-circle btn-sm-square border"><i
-                                            class="fas fa-random"></i></span></a>
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                        class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="productImg-item products-mini-item border">
-                        <div class="row g-0">
-                            <div class="col-5">
-                                <div class="products-mini-img border-end h-100">
-                                    <img src="img/meuleuse-dewalt.jpg" class="img-fluid w-100 h-100" alt="Meuleuse">
-                                    <div class="products-mini-icon rounded-circle bg-primary">
-                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="products-mini-content p-3">
-                                    <a href="#" class="d-block mb-2">Outillage</a>
-                                    <a href="#" class="d-block h4">Meuleuse Dewalt <br> 125mm</a>
-                                    <!--<del class="me-2 fs-3">75 000 FCFA</del>-->
-                                    <span class="text-primary fs-2">65 000 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="products-mini-add border p-3">
-                            <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
-                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                            <div class="d-flex">
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                        class="rounded-circle btn-sm-square border"><i
-                                            class="fas fa-random"></i></span></a>
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                        class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="productImg-item products-mini-item border">
-                        <div class="row g-0">
-                            <div class="col-5">
-                                <div class="products-mini-img border-end h-100">
-                                    <img src="img/marteau-stanley.jpg" class="img-fluid w-100 h-100" alt="Marteau">
-                                    <div class="products-mini-icon rounded-circle bg-primary">
-                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="products-mini-content p-3">
-                                    <a href="#" class="d-block mb-2">Outillage manuel</a>
-                                    <a href="#" class="d-block h4">Marteau Stanley <br> 500g</a>
-                                    <!--<del class="me-2 fs-3">8 500 FCFA</del>-->
-                                    <span class="text-primary fs-2">7 500 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="products-mini-add border p-3">
-                            <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
-                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                            <div class="d-flex">
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                        class="rounded-circle btn-sm-square border"><i
-                                            class="fas fa-random"></i></span></a>
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                        class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+                    
                 </div>
                 <div class="productImg-carousel owl-carousel productList-item">
-                    <div class="productImg-item products-mini-item border">
-                        <div class="row g-0">
-                            <div class="col-5">
-                                <div class="products-mini-img border-end h-100">
-                                    <img src="img/ciment-dangote.jpg" class="img-fluid w-100 h-100" alt="Ciment">
-                                    <div class="products-mini-icon rounded-circle bg-primary">
-                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                    @foreach($outillages as $o)
+                        <div class="productImg-item products-mini-item border">
+                            <div class="row g-0">
+                                <div class="col-5">
+                                    <div class="products-mini-img border-end h-100">
+                                        <img src="{{asset('storage/'. $o->image)}}" class="img-fluid w-100 h-100" alt="Ciment">
+                                        <div class="products-mini-icon rounded-circle bg-primary">
+                                            <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="products-mini-content p-3">
+                                        <a href="#" class="d-block mb-2">{{$o->categorie->nom}}</a>
+                                        <a href="#" class="d-block h4">{{$o->nom}}</a>
+                                        <!--<del class="me-2 fs-3">5 500 FCFA</del>-->
+                                        <span class="text-primary fs-2">{{$o->prix}} FCFA</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-7">
-                                <div class="products-mini-content p-3">
-                                    <a href="#" class="d-block mb-2">Matériaux</a>
-                                    <a href="#" class="d-block h4">Ciment Dangote <br> 42.5R</a>
-                                    <!--<del class="me-2 fs-3">5 500 FCFA</del>-->
-                                    <span class="text-primary fs-2">5 000 FCFA</span>
+                            <!--<div class="products-mini-add border p-3">
+                                <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                        class="fas fa-shopping-cart me-2"></i> Ajouter</a>
+                                <div class="d-flex">
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                            class="rounded-circle btn-sm-square border"><i
+                                                class="fas fa-random"></i></span></a>
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                            class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
-                        <div class="products-mini-add border p-3">
-                            <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
-                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                            <div class="d-flex">
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                        class="rounded-circle btn-sm-square border"><i
-                                            class="fas fa-random"></i></span></a>
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                        class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="productImg-item products-mini-item border">
-                        <div class="row g-0">
-                            <div class="col-5">
-                                <div class="products-mini-img border-end h-100">
-                                    <img src="img/fer-a-beton.jpg" class="img-fluid w-100 h-100" alt="Fer à béton">
-                                    <div class="products-mini-icon rounded-circle bg-primary">
-                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                    @endforeach
+                </div>
+                <div class="productImg-carousel owl-carousel productList-item">
+                    @foreach($plomberies as $p)
+                        <div class="productImg-item products-mini-item border">
+                            <div class="row g-0">
+                                <div class="col-5">
+                                    <div class="products-mini-img border-end h-100">
+                                        <img src="{{asset('storage/'. $p->image)}}" class="img-fluid w-100 h-100" alt="Ciment">
+                                        <div class="products-mini-icon rounded-circle bg-primary">
+                                            <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="products-mini-content p-3">
+                                        <a href="#" class="d-block mb-2">{{$p->categorie->nom}}</a>
+                                        <a href="#" class="d-block h4">{{$p->nom}}</a>
+                                        <!--<del class="me-2 fs-3">5 500 FCFA</del>-->
+                                        <span class="text-primary fs-2">{{$p->prix}} FCFA</span>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-7">
-                                <div class="products-mini-content p-3">
-                                    <a href="#" class="d-block mb-2">Matériaux</a>
-                                    <a href="#" class="d-block h4">Fer à béton HA12 <br> 12m</a>
-                                    <!--<del class="me-2 fs-3">7 500 FCFA</del>-->
-                                    <span class="text-primary fs-2">6 900 FCFA</span>
+                            <!--<div class="products-mini-add border p-3">
+                                <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                        class="fas fa-shopping-cart me-2"></i> Ajouter</a>
+                                <div class="d-flex">
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                            class="rounded-circle btn-sm-square border"><i
+                                                class="fas fa-random"></i></span></a>
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                            class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
-                        <div class="products-mini-add border p-3">
-                            <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
-                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                            <div class="d-flex">
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                        class="rounded-circle btn-sm-square border"><i
-                                            class="fas fa-random"></i></span></a>
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                        class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="productImg-item products-mini-item border">
-                        <div class="row g-0">
-                            <div class="col-5">
-                                <div class="products-mini-img border-end h-100">
-                                    <img src="img/parpaing.jpg" class="img-fluid w-100 h-100" alt="Parpaing">
-                                    <div class="products-mini-icon rounded-circle bg-primary">
-                                        <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-7">
-                                <div class="products-mini-content p-3">
-                                    <a href="#" class="d-block mb-2">Matériaux</a>
-                                    <a href="#" class="d-block h4">Parpaing creux <br> 20x20x40</a>
-                                    <span class="text-primary fs-2">600 FCFA</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="products-mini-add border p-3">
-                            <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
-                                    class="fas fa-shopping-cart me-2"></i> Ajouter</a>
-                            <div class="d-flex">
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-3"><span
-                                        class="rounded-circle btn-sm-square border"><i
-                                            class="fas fa-random"></i></span></a>
-                                <a href="#"
-                                    class="text-primary d-flex align-items-center justify-content-center me-0"><span
-                                        class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></span></a>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -1620,7 +683,7 @@
                         <div class="row g-0">
                             <div class="col-5">
                                 <div class="products-mini-img border-end h-100">
-                                    <img src="img/visseuse-makita.jpg" class="img-fluid w-100 h-100" alt="Visseuse Makita">
+                                    <img src="{{asset('assets/img/visseuse-makita.jpg')}}" class="img-fluid w-100 h-100" alt="Visseuse Makita">
                                     <div class="products-mini-icon rounded-circle bg-primary">
                                         <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
                                     </div>
@@ -1655,7 +718,7 @@
                         <div class="row g-0">
                             <div class="col-5">
                                 <div class="products-mini-img border-end h-100">
-                                    <img src="img/echelle-aluminium.jpg" class="img-fluid w-100 h-100" alt="Echelle">
+                                    <img src="{{asset('assets/img/echelle-aluminium.jpg')}}" class="img-fluid w-100 h-100" alt="Echelle">
                                     <div class="products-mini-icon rounded-circle bg-primary">
                                         <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
                                     </div>
@@ -1690,7 +753,7 @@
                         <div class="row g-0">
                             <div class="col-5">
                                 <div class="products-mini-img border-end h-100">
-                                    <img src="img/pompe-eau.jpg" class="img-fluid w-100 h-100" alt="Pompe à eau">
+                                    <img src="{{asset('assets/img/pompe-eau.jpg')}}" class="img-fluid w-100 h-100" alt="Pompe à eau">
                                     <div class="products-mini-icon rounded-circle bg-primary">
                                         <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
                                     </div>

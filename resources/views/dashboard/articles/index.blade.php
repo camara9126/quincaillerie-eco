@@ -13,7 +13,11 @@
 
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Rechercher...">
+                    <form method="get" action="{{route('article.search')}}" class="form-inline">
+                        
+                        <input type="text" name="search"  placeholder="Rechercher...">                                                   
+                            
+                    </form>
                 </div>
 
                 <div class="user-menu">
@@ -37,7 +41,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des articles</span>
+                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des articles ( {{$articles->count()}} )</span>
                         <a href="{{ route('article.create') }}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Nouveau article →</a>
                     </div>
                     
@@ -60,6 +64,7 @@
                                         <th>Catégorie</th>
                                         <th>Prix</th>
                                         <th>Stock</th>
+                                        <th>Etiquette</th>
                                         <th>Statut</th>
                                         <th>Actions</th>
                                     </tr>
@@ -79,18 +84,28 @@
                                         <td>{{$a->categorie->nom}}</td>
                                         <td><strong>{{$a->prix}} FCFA</strong></td>
                                         <td><span class="badge-success">{{$a->stock}} en stock</span></td>
-                                        <td><span class="badge-success">{{$a->statut ? 'Publié' : 'En attente'}}</span></td>
+                                        <td>{{$a->etiquette ?? 'Pas d"etiquette'}}</td>
+                                        <td><span class="badge-{{$a->statut ? 'success' : 'warning'}}">{{$a->statut ? 'Publié' : 'En attente'}}</span></td>
                                         <td>
                                             <div class="action-buttons">
-                                                <button class="action-btn" title="Modifier"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn" title="Dupliquer"><i class="fas fa-copy"></i></button>
-                                                <button class="action-btn delete" title="Supprimer"><i class="fas fa-trash"></i></button>
+                                                <a href="{{ route('article.edit', $a->id) }}" class="action-btn" title="Modifier"><i class="fas fa-edit"></i></a>
+                                                <form action="{{route('article.destroy', $a->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="action-btn delete" title="Supprimer">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                                <!--<a href="" class="action-btn" title="Dupliquer"><i class="fas fa-copy"></i></a>-->
                                             </div>
                                         </td>
                                     </tr>
                                     @endforeach
                                 </tbody>
                             </table>
+                            <div class="d-flex justify-content-center mt-4">
+                                {{$articles->links()}}
+                            </div>
                         </div>
                     </div>
                 </div>

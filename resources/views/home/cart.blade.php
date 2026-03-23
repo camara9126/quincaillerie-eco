@@ -1,34 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 
 <head>
     <meta charset="utf-8">
-    <title>Electro - Electronics Website Template</title>
+    <title>Panier | Eco Business Distribution</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="" name="keywords">
-    <meta content="" name="description">
+    <meta content="quincaillerie, btp, matériaux construction, outillage" name="keywords">
+    <meta content="Votre quincaillerie de confiance pour tous vos projets de construction et rénovation" name="description">
 
     <!-- Google Web Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!-- Icon Font Stylesheet -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
-    <link href="lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
-
+    <link href="{{ asset('assets/lib/animate/animate.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 </head>
 
 <body>
@@ -48,47 +45,46 @@
         <div class="row gx-0 align-items-center">
             <div class="col-lg-4 text-center text-lg-start mb-lg-0">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <a href="#" class="text-muted me-2"> Help</a><small> / </small>
+                    <a href="#" class="text-muted me-2"> Aide</a><small> / </small>
                     <a href="#" class="text-muted mx-2"> Support</a><small> / </small>
                     <a href="#" class="text-muted ms-2"> Contact</a>
                 </div>
             </div>
             <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
-                <small class="text-dark">Call Us:</small>
-                <a href="#" class="text-muted">(+012) 1234 567890</a>
+                <small class="text-dark">Appelez-nous :</small>
+                <a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a>
             </div>
 
             <div class="col-lg-4 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <div class="dropdown">
+                    <!--<div class="dropdown">
                         <a href="#" class="dropdown-toggle text-muted me-2" data-bs-toggle="dropdown"><small>
-                                USD</small></a>
+                                FCFA</small></a>
                         <div class="dropdown-menu rounded">
                             <a href="#" class="dropdown-item"> Euro</a>
-                            <a href="#" class="dropdown-item"> Dolar</a>
+                            <a href="#" class="dropdown-item"> Dollar</a>
                         </div>
                     </div>
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle text-muted mx-2" data-bs-toggle="dropdown"><small>
-                                English</small></a>
+                                Français</small></a>
                         <div class="dropdown-menu rounded">
-                            <a href="#" class="dropdown-item"> English</a>
-                            <a href="#" class="dropdown-item"> Turkish</a>
-                            <a href="#" class="dropdown-item"> Spanol</a>
-                            <a href="#" class="dropdown-item"> Italiano</a>
+                            <a href="#" class="dropdown-item"> Français</a>
+                            <a href="#" class="dropdown-item"> Anglais</a>
+                            <a href="#" class="dropdown-item"> Arabe</a>
                         </div>
-                    </div>
+                    </div>-->
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle text-muted ms-2" data-bs-toggle="dropdown"><small><i
-                                    class="fa fa-home me-2"></i> My Dashboard</small></a>
+                                    class="fa fa-home me-2"></i> Mon Compte</small></a>
                         <div class="dropdown-menu rounded">
-                            <a href="#" class="dropdown-item"> Login</a>
-                            <a href="#" class="dropdown-item"> Wishlist</a>
-                            <a href="#" class="dropdown-item"> My Card</a>
-                            <a href="#" class="dropdown-item"> Notifications</a>
-                            <a href="#" class="dropdown-item"> Account Settings</a>
-                            <a href="#" class="dropdown-item"> My Account</a>
-                            <a href="#" class="dropdown-item"> Log Out</a>
+                            <a href="{{ route('login') }}" class="dropdown-item"> Connexion</a>
+                            <!--<a href="#" class="dropdown-item"> Wishlist</a>-->
+                            <a href="#" class="dropdown-item"> Mon Panier</a>
+                            <!--<a href="#" class="dropdown-item"> Notifications</a>-->
+                            <!--<a href="#" class="dropdown-item"> Paramètres</a>-->
+                            <!--<a href="#" class="dropdown-item"> Mon Profil</a>-->
+                            <!--<a href="#" class="dropdown-item"> Déconnexion</a>-->
                         </div>
                     </div>
                 </div>
@@ -100,9 +96,10 @@
             <div class="col-md-4 col-lg-3 text-center text-lg-start">
                 <div class="d-inline-flex align-items-center">
                     <a href="" class="navbar-brand p-0">
-                        <h1 class="display-5 text-primary m-0"><i
-                                class="fas fa-shopping-bag text-secondary me-2"></i>Electro</h1>
-                        <!-- <img src="img/logo.png" alt="Logo"> -->
+                        <img src="img/logo-vert.jpeg" width="90" alt="">
+                        <h1 class="display-5 text-primary m-0">
+                            <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
+                        </h1>
                     </a>
                 </div>
             </div>
@@ -110,13 +107,14 @@
                 <div class="position-relative ps-4">
                     <div class="d-flex border rounded-pill">
                         <input class="form-control border-0 rounded-pill w-100 py-3" type="text"
-                            data-bs-target="#dropdownToggle123" placeholder="Search Looking For?">
+                            placeholder="Rechercher un produit...">
                         <select class="form-select text-dark border-0 border-start rounded-0 p-3" style="width: 200px;">
-                            <option value="All Category">All Category</option>
-                            <option value="Pest Control-2">Category 1</option>
-                            <option value="Pest Control-3">Category 2</option>
-                            <option value="Pest Control-4">Category 3</option>
-                            <option value="Pest Control-5">Category 4</option>
+                            <option value="All Category">Toutes catégories</option>
+                            <option value="Outillage">Menuiserie</option>
+                            <option value="Électricité">Électricité</option>
+                            <option value="Plomberie">Plomberie</option>
+                            <option value="Quincaillerie">Irrigation </option>
+                            <option value="Matériaux">Plomberie Sanitaire</option>
                         </select>
                         <button type="button" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i
                                 class="fas fa-search"></i></button>
@@ -126,12 +124,12 @@
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center">
                     <a href="#" class="text-muted d-flex align-items-center justify-content-center me-3"><span
-                            class="rounded-circle btn-md-square border"><i class="fas fa-random"></i></i></a>
+                            class="rounded-circle btn-md-square border"><i class="fas fa-random"></i></span></a>
                     <a href="#" class="text-muted d-flex align-items-center justify-content-center me-3"><span
-                            class="rounded-circle btn-md-square border"><i class="fas fa-heart"></i></a>
+                            class="rounded-circle btn-md-square border"><i class="fas fa-heart"></i></span></a>
                     <a href="#" class="text-muted d-flex align-items-center justify-content-center"><span
                             class="rounded-circle btn-md-square border"><i class="fas fa-shopping-cart"></i></span>
-                        <span class="text-dark ms-2">$0.00</span></a>
+                        <span class="text-dark ms-2">0 FCFA</span></a>
                 </div>
             </div>
         </div>
@@ -145,41 +143,19 @@
                 <nav class="navbar navbar-light position-relative" style="width: 250px;">
                     <button class="navbar-toggler border-0 fs-4 w-100 px-0 text-start" type="button"
                         data-bs-toggle="collapse" data-bs-target="#allCat">
-                        <h4 class="m-0"><i class="fa fa-bars me-2"></i>All Categories</h4>
+                        <h4 class="m-0"><i class="fa fa-bars me-2"></i>Toutes catégories</h4>
                     </button>
                     <div class="collapse navbar-collapse rounded-bottom" id="allCat">
                         <div class="navbar-nav ms-auto py-0">
                             <ul class="list-unstyled categories-bars">
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Accessories</a>
-                                        <span>(3)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Electronics & Computer</a>
-                                        <span>(5)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Laptops & Desktops</a>
-                                        <span>(2)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">Mobiles & Tablets</a>
-                                        <span>(8)</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="categories-bars-item">
-                                        <a href="#">SmartPhone & Smart TV</a>
-                                        <span>(5)</span>
-                                    </div>
-                                </li>
+                                @foreach($categories as $c)
+                                    <li>
+                                        <div class="categories-bars-item">
+                                            <a href="#">{{$c->nom}}</a>
+                                            <span>({{$c->article->count()}})</span>
+                                        </div>
+                                    </li>
+                                @endforeach
                             </ul>
                         </div>
                     </div>
@@ -188,9 +164,10 @@
             <div class="col-12 col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
                     <a href="" class="navbar-brand d-block d-lg-none">
-                        <h1 class="display-5 text-secondary m-0"><i
-                                class="fas fa-shopping-bag text-white me-2"></i>Electro</h1>
-                        <!-- <img src="img/logo.png" alt="Logo"> -->
+                        <img src="{{asset('images/logo-blanc.jpeg')}}" width="80" alt="">
+                        <h1 class="display-5 text-primary m-0">
+                            <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
+                        </h1>
                     </a>
                     <button class="navbar-toggler ms-auto" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarCollapse">
@@ -198,61 +175,37 @@
                     </button>
                     <div class="collapse navbar-collapse" id="navbarCollapse">
                         <div class="navbar-nav ms-auto py-0">
-                            <a href="index.html" class="nav-item nav-link">Home</a>
-                            <a href="shop.html" class="nav-item nav-link">Shop</a>
-                            <a href="single.html" class="nav-item nav-link">Single Page</a>
+                            <a href="/" class="nav-item nav-link active">Accueil</a>
+                            <a href="{{ route('boutique') }}" class="nav-item nav-link">Boutique</a>
+                            <!--<a href="#" class="nav-item nav-link">Fiche produit</a>
                             <div class="nav-item dropdown">
-                                <a href="#" class="nav-link active" data-bs-toggle="dropdown"><span
-                                        class="dropdown-toggle">Pages</span></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
                                 <div class="dropdown-menu m-0">
-                                    <a href="bestseller.html" class="dropdown-item">Bestseller</a>
-                                    <a href="cart.html" class="dropdown-item active">Cart Page</a>
-                                    <a href="cheackout.html" class="dropdown-item">Cheackout</a>
-                                    <a href="404.html" class="dropdown-item">404 Page</a>
+                                    <a href="bestseller.html" class="dropdown-item">Meilleures ventes</a>
+                                    <a href="cart.html" class="dropdown-item">Panier</a>
+                                    <a href="cheackout.html" class="dropdown-item">Commander</a>
+                                    <a href="404.html" class="dropdown-item">404</a>
                                 </div>
-                            </div>
-                            <a href="contact.html" class="nav-item nav-link me-2">Contact</a>
+                            </div>-->
+                            <a href="{{ route('contact') }}" class="nav-item nav-link me-2">Contact</a>
                             <div class="nav-item dropdown d-block d-lg-none mb-3">
-                                <a href="#" class="nav-link" data-bs-toggle="dropdown"><span class="dropdown-toggle">All
-                                        Category</span></a>
+                                <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Catégories</a>
                                 <div class="dropdown-menu m-0">
                                     <ul class="list-unstyled categories-bars">
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Accessories</a>
-                                                <span>(3)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Electronics & Computer</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Laptops & Desktops</a>
-                                                <span>(2)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">Mobiles & Tablets</a>
-                                                <span>(8)</span>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div class="categories-bars-item">
-                                                <a href="#">SmartPhone & Smart TV</a>
-                                                <span>(5)</span>
-                                            </div>
-                                        </li>
+                                        @foreach($categories as $c)
+                                            <li>
+                                                <div class="categories-bars-item">
+                                                    <a href="#">{{$c->nom}}</a>
+                                                    <span>({{$c->article->count()}})</span>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <a href="" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="fa fa-mobile-alt me-2"></i> +0123 456 7890</a>
+                        <a href="https://wa.me/+221776512724" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
+                                class="fa fa-whatsapp-alt me-2"></i>+221776512724</a>
                     </div>
                 </nav>
             </div>
@@ -431,108 +384,105 @@
     <!-- Cart Page End -->
 
     <!-- Footer Start -->
-    <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
-        <div class="container py-5">
-            <div class="row g-4 rounded mb-5" style="background: rgba(255, 255, 255, .03);">
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
+    <div class="container-fluid footer py-4 wow fadeIn" data-wow-delay="0.2s">
+        <div class="container py-4">
+            <div class="row g-2 rounded mb-3" style="background: rgba(255, 255, 255, .03);">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fas fa-map-marker-alt fa-2x text-primary"></i>
+                            style="width: 50px; height: 50px;">
+                            <i class="fas fa-map-marker-alt fa-1x text-primary"></i>
                         </div>
                         <div>
-                            <h4 class="text-white">Address</h4>
-                            <p class="mb-2">123 Street New York.USA</p>
+                            <h2 class="text-white">Adresse</h2>
+                            <p class="mb-2"> Passage à niveau, Diamaguène, Saint-Louis</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fas fa-envelope fa-2x text-primary"></i>
+                            style="width: 50px; height: 50px;">
+                            <i class="fas fa-envelope fa-1x text-primary"></i>
                         </div>
                         <div>
-                            <h4 class="text-white">Mail Us</h4>
-                            <p class="mb-2">info@example.com</p>
+                            <h2 class="text-white">Email</h2>
+                            <p class="mb-2">contact@ecobusinessdistribution</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
+                <div class=" col-6 col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fa fa-phone-alt fa-2x text-primary"></i>
+                            style="width: 50px; height: 50px;">
+                            <i class="fa fa-phone-alt fa-1x text-primary"></i>
                         </div>
                         <div>
-                            <h4 class="text-white">Telephone</h4>
-                            <p class="mb-2">(+012) 3456 7890</p>
+                            <h2 class="text-white">Téléphone</h2>
+                            <p class="mb-2">+221 33 961 19 68</p>
+                            <p class="mb-2">+221 77 651 27 24</p>
+                            <p class="mb-2">+221 70 808 61 68</p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
-                    <div class="rounded p-4">
+                <div class=" col-6 col-md-6 col-lg-6 col-xl-3">
+                    <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
-                            style="width: 70px; height: 70px;">
-                            <i class="fab fa-firefox-browser fa-2x text-primary"></i>
+                            style="width: 50px; height: 50px;">
+                            <i class="fab fa-whatsapp fa-1x text-primary"></i>
                         </div>
                         <div>
-                            <h4 class="text-white">Yoursite@ex.com</h4>
-                            <p class="mb-2">(+012) 3456 7890</p>
+                            <h2 class="text-white">WhatsApp</h2>
+                            <p class="mb-2"><a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a></p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="row g-5">
-                <div class="col-md-6 col-lg-6 col-xl-3">
+            <div class="row g-2">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-3">
                     <div class="footer-item d-flex flex-column">
                         <div class="footer-item">
-                            <h4 class="text-primary mb-4">Newsletter</h4>
-                            <p class="text-white mb-3">Dolor amet sit justo amet elitr clita ipsum elitr est.Lorem ipsum
-                                dolor sit amet, consectetur adipiscing elit consectetur adipiscing elit.</p>
+                            <h2 class="text-primary mb-4">Newsletter</h2>
+                            <p class="mb-3">Recevez nos offres et nouveautés</p>
                             <div class="position-relative mx-auto rounded-pill">
                                 <input class="form-control rounded-pill w-100 py-3 ps-4 pe-5" type="text"
-                                    placeholder="Enter your email">
+                                    placeholder="Votre email">
                                 <button type="button"
-                                    class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">SignUp</button>
+                                    class="btn btn-primary rounded-pill position-absolute top-0 end-0 py-2 mt-2 me-2">OK</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-3">
                     <div class="footer-item d-flex flex-column">
-                        <h4 class="text-primary mb-4">Customer Service</h4>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Contact Us</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Returns</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Order History</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Site Map</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Testimonials</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> My Account</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Unsubscribe Notification</a>
+                        <h4 class="text-primary mb-4">Service client</h4>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Contact</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Retours</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Historique</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Plan du site</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Avis</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Mon compte</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-3">
                     <div class="footer-item d-flex flex-column">
-                        <h4 class="text-primary mb-4">Information</h4>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> About Us</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Delivery infomation</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Privacy Policy</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Terms & Conditions</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Warranty</a>
+                        <h4 class="text-primary mb-4">Informations</h4>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> À propos</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Livraison</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Confidentialité</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Conditions</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Garantie</a>
                         <a href="#" class=""><i class="fas fa-angle-right me-2"></i> FAQ</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Seller Login</a>
                     </div>
                 </div>
-                <div class="col-md-6 col-lg-6 col-xl-3">
+                <div class="col-6 col-md-6 col-lg-6 col-xl-3">
                     <div class="footer-item d-flex flex-column">
-                        <h4 class="text-primary mb-4">Extras</h4>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Brands</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Gift Vouchers</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Affiliates</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Wishlist</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Order History</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Track Your Order</a>
-                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Track Your Order</a>
+                        <h4 class="text-primary mb-4">Paiement</h4>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Orange Money</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Wave</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Carte bancaire</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Paypal</a>
+                        <a href="#" class=""><i class="fas fa-angle-right me-2"></i> Virement</a>
                     </div>
                 </div>
             </div>
@@ -547,16 +497,10 @@
             <div class="row g-4 align-items-center">
                 <div class="col-md-6 text-center text-md-start mb-md-0">
                     <span class="text-white"><a href="#" class="border-bottom text-white"><i
-                                class="fas fa-copyright text-light me-2"></i>Your Site Name</a>, All right
-                        reserved.</span>
+                                class="fas fa-copyright text-light me-2"></i>Eco Business Distribution</a>, Tous droits réservés.</span>
                 </div>
                 <div class="col-md-6 text-center text-md-end text-white">
-
-                    <!--/*** This template is free as long as you keep the below author’s credit link/attribution link/backlink. ***/-->
-                    <!--/*** If you'd like to use the template without the below author’s credit link/attribution link/backlink, ***/-->
-                    <!--/*** you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". ***/-->
-                    Designed By <a class="border-bottom text-white" href="https://htmlcodex.com">HTML Codex</a>.
-                    Distributed By <a class="border-bottom text-white" href="https://themewagon.com">ThemeWagon</a>
+                    Designed By <a class="border-bottom text-white" href="https://bcmgroupe.com">BCM Groupe 2026</a>
                 </div>
             </div>
         </div>
@@ -571,12 +515,11 @@
     <!-- JavaScript Libraries -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
-    <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-
+    <script src="{{ asset('assets/lib/wow/wow.min.js') }}"></script>
+    <script src="{{ asset('assets/lib/owlcarousel/owl.carousel.min.js') }}"></script>
 
     <!-- Template Javascript -->
-    <script src="js/main.js"></script>
+    <script src="{{ asset('assets/js/main.js') }}"></script>
 </body>
 
 </html>

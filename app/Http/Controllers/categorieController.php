@@ -16,6 +16,23 @@ class categorieController extends Controller
         return view('dashboard.categories.index', compact('categorie'));
     }
 
+
+        /**
+     * Recherche article.
+     */
+    public function search(Request $request)
+    {
+        $search = $request->query('search');
+
+        $categorie = categorie::when($search, function ($query, $search) {
+
+                $query->where('nom', 'like', "%{$search}%");
+
+        })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=;
+
+        return view('dashboard.categories.index', compact('categorie', 'search'));
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -83,6 +100,10 @@ class categorieController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $categorie= categorie::findOrFail($id);
+
+        $categorie->destroy($id);
+
+        return redirect()->route('categorie.index')->with('success', 'Categorie supprimée avec success.');
     }
 }

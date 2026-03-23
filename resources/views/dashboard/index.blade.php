@@ -51,7 +51,7 @@
                     <div class="stat-card">
                         <div class="stat-info">
                             <h3>Articles</h3>
-                            <div class="number">156</div>
+                            <div class="number">{{$articles->count()}}</div>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-box"></i>
@@ -60,7 +60,7 @@
                     <div class="stat-card">
                         <div class="stat-info">
                             <h3>Catégories</h3>
-                            <div class="number">12</div>
+                            <div class="number">{{$categories->count()}}</div>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-tags"></i>

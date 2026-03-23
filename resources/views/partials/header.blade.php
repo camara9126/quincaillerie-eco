@@ -1,3 +1,13 @@
+<?php
+
+    use App\Models\article;
+    use App\Models\categorie;
+
+    $categories= categorie::latest()->get();
+    $articles= article::latest()->get();
+
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -8,11 +18,15 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+     <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('assets/lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
+     <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
     <style>
@@ -457,8 +471,8 @@
         /* Form */
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(1, 1fr);
+            gap: 1.3rem;
         }
 
         .form-group {
@@ -472,17 +486,17 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 500;
-            font-size: 0.95rem;
+            font-weight: 300;
+            font-size: 0.85rem;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 0.75rem 1rem;
+            padding: 0.70rem 0.5rem;
             border: 1px solid var(--gray-300);
             border-radius: 8px;
             font-family: inherit;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
             transition: border-color 0.2s;
         }
 
@@ -495,7 +509,7 @@
         .image-upload {
             border: 2px dashed var(--gray-300);
             border-radius: 8px;
-            padding: 2rem;
+            padding: 1rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;
@@ -507,7 +521,7 @@
         }
 
         .image-upload i {
-            font-size: 2rem;
+            font-size: 1rem;
             color: var(--gray-600);
             margin-bottom: 0.5rem;
         }

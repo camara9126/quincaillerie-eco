@@ -33,8 +33,8 @@
    
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-plus-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> Ajouter un nouvel article</span>
-                        <span class="badge-success">Formulaire d'ajout</span>
+                        <span><i class="fas fa-plus-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> Modification article</span>
+                        <span class="badge-success">Formulaire d'edit</span>
                     </div>
 
                     @if ($errors->any())
@@ -48,17 +48,18 @@
                     @endif
 
                     <div class="card-body">
-                        <form method="post" action="{{ route('article.store') }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('article.update', ['article' => $article->id]) }}" enctype="multipart/form-data">
                             @csrf
+                            @method('Put')
                             <div class="form-grid">
                                 <div class="form-group">
                                     <label>Nom du produit *</label>
-                                    <input type="text" name="nom" placeholder="Ex: Perceuse Bosch GBH 2-26" required>
+                                    <input type="text" name="nom" value="{{$article->nom}}" placeholder="Ex: Perceuse Bosch GBH 2-26" required>
                                 </div>
                                 <div class="form-group">
                                     <label>Catégorie *</label>
                                     <select name="categorie_id" required>
-                                        <option value="">Sélectionner une catégorie</option>
+                                        <option value="{{$article->categorie->id}}">{{$article->categorie->nom}}</option>
                                         @foreach($categorie as $c)
                                             <option value="{{$c->id}}">{{$c->nom}}</option>
                                         @endforeach
@@ -67,42 +68,33 @@
 
                                 <div class="form-group">
                                     <label>Prix (FCFA) *</label>
-                                    <input type="number" name="prix" placeholder="Ex: 85000" required>
+                                    <input type="number" name="prix" value="{{$article->prix}}" placeholder="Ex: 85000" required>
                                 </div>
 
                                 <div class="form-group">
                                     <label>Stock *</label>
-                                    <input type="number" name="stock" placeholder="Ex: 50" required>
+                                    <input type="number" name="stock" value="{{$article->stock}}" placeholder="Ex: 50" required>
                                 </div>
                                
                                 <div class="form-group full-width">
                                     <label>Description </label>
-                                    <textarea rows="4" name="description" placeholder="Description complète, caractéristiques..."></textarea>
+                                    <textarea rows="4" name="description" placeholder="Description complète, caractéristiques...">{{$article->description}}</textarea>
                                 </div>
 
                                 <div class="form-group full-width">
                                     <label>Images du produit</label>
-                                    <div class="image-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <input type="file" name="image" class="form-file">Cliquez ou glissez-déposez des images ici
-                                        <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
-                                    </div>
+                                    <img src="{{asset('storage/'.$article->image)}}" width="100" alt="">
+                                    <input type="file" name="image" class="form-file">Cliquez l'images ici
                                 </div>
                                 <div class="form-group">
                                     <label>Images galerie 1</label>
-                                    <div class="image-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <input type="file" name="gal_1" class="form-file">Cliquez ou glissez-déposez des images ici
-                                        <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
-                                    </div>
+                                    <img src="{{asset('storage/'.$article->gal_1)}}" width="100" alt="">
+                                    <input type="file" name="gal_1" class="form-file">Cliquez l'images ici
                                 </div>
                                 <div class="form-group">
                                     <label>Images galerie 2</label>
-                                    <div class="image-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <input type="file" name="gal_2" class="form-file">Cliquez ou glissez-déposez des images ici
-                                        <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
-                                    </div>
+                                    <img src="{{asset('storage/'.$article->gal_2)}}" width="100" alt="">
+                                    <input type="file" name="gal_2" class="form-file">Cliquez l'images ici
                                 </div>
                                 <div class="form-group">
                                     <label>Statut</label>
@@ -124,7 +116,7 @@
                             <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
                                 <a href="{{ route('article.index') }}" type="button" class="btn-outline">Annuler</a>
                                 <button type="submit" class="btn-primary">
-                                    <i class="fas fa-save"></i> Enregistrer l'article
+                                    <i class="fas fa-save"></i> Enregistrer la Modification
                                 </button>
                             </div>
                         </form>
