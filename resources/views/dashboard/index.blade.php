@@ -91,7 +91,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i> Articles récents</span>
-                        <a href="#" style="color: var(--primary); text-decoration: none; font-weight: 500;">Voir tout →</a>
+                        <a href="{{ route('article.index') }}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Voir tout →</a>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -102,107 +102,43 @@
                                         <th>Catégorie</th>
                                         <th>Prix</th>
                                         <th>Stock</th>
+                                        <th>Etiquette</th>
                                         <th>Statut</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($article as $a)
                                     <tr>
                                         <td>
                                             <div class="product-info">
-                                                <div class="product-img">
-                                                    <i class="fas fa-tools"></i>
-                                                </div>
+                                                <img src="{{asset('storage/'. $a->image)}}" width="50" alt="">
                                                 <div>
-                                                    <div style="font-weight: 600;">Perceuse Bosch Pro</div>
-                                                    <div style="font-size: 0.85rem; color: var(--gray-600);">GBH 2-26</div>
+                                                    <div style="font-weight: 600;">{{$a->nom}}</div>
+                                                    <!--<div style="font-size: 0.85rem; color: var(--gray-600);">GBH 2-26</div>-->
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>Outillage électrique</td>
-                                        <td><strong>85 000 FCFA</strong></td>
-                                        <td><span class="badge-success">45 en stock</span></td>
-                                        <td><span class="badge-success">Publié</span></td>
+                                        <td>{{$a->categorie->nom}}</td>
+                                        <td><strong>{{$a->prix}} FCFA</strong></td>
+                                        <td><span class="badge-success">{{$a->stock}} en stock</span></td>
+                                        <td>{{$a->etiquette ?? 'Pas d"etiquette'}}</td>
+                                        <td><span class="badge-{{$a->statut ? 'success' : 'warning'}}">{{$a->statut ? 'Publié' : 'En attente'}}</span></td>
                                         <td>
                                             <div class="action-buttons">
-                                                <button class="action-btn" title="Modifier"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn" title="Dupliquer"><i class="fas fa-copy"></i></button>
-                                                <button class="action-btn delete" title="Supprimer"><i class="fas fa-trash"></i></button>
+                                                <a href="{{ route('article.edit', $a->id) }}" class="action-btn" title="Modifier"><i class="fas fa-edit"></i></a>
+                                                <form action="{{route('article.destroy', $a->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="action-btn delete" title="Supprimer">
+                                                        <i class="fa fa-trash"></i>
+                                                    </button>
+                                                </form>
+                                                <!--<a href="" class="action-btn" title="Dupliquer"><i class="fas fa-copy"></i></a>-->
                                             </div>
                                         </td>
                                     </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product-info">
-                                                <div class="product-img">
-                                                    <i class="fas fa-tools"></i>
-                                                </div>
-                                                <div>
-                                                    <div style="font-weight: 600;">Meuleuse Dewalt</div>
-                                                    <div style="font-size: 0.85rem; color: var(--gray-600);">125mm 850W</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Outillage électrique</td>
-                                        <td><strong>65 000 FCFA</strong></td>
-                                        <td><span class="badge-success">32 en stock</span></td>
-                                        <td><span class="badge-success">Publié</span></td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn"><i class="fas fa-copy"></i></button>
-                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product-info">
-                                                <div class="product-img">
-                                                    <i class="fas fa-tools"></i>
-                                                </div>
-                                                <div>
-                                                    <div style="font-weight: 600;">Ciment Dangote</div>
-                                                    <div style="font-size: 0.85rem; color: var(--gray-600);">42.5R (sac 50kg)</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Matériaux</td>
-                                        <td><strong>5 000 FCFA</strong></td>
-                                        <td><span class="badge-warning">8 en stock</span></td>
-                                        <td><span class="badge-success">Publié</span></td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn"><i class="fas fa-copy"></i></button>
-                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <div class="product-info">
-                                                <div class="product-img">
-                                                    <i class="fas fa-tools"></i>
-                                                </div>
-                                                <div>
-                                                    <div style="font-weight: 600;">Échelle télescopique</div>
-                                                    <div style="font-size: 0.85rem; color: var(--gray-600);">3.8m aluminium</div>
-                                                </div>
-                                            </div>
-                                        </td>
-                                        <td>Équipement</td>
-                                        <td><strong>39 900 FCFA</strong></td>
-                                        <td><span class="badge-success">15 en stock</span></td>
-                                        <td><span class="badge-success">Publié</span></td>
-                                        <td>
-                                            <div class="action-buttons">
-                                                <button class="action-btn"><i class="fas fa-edit"></i></button>
-                                                <button class="action-btn"><i class="fas fa-copy"></i></button>
-                                                <button class="action-btn delete"><i class="fas fa-trash"></i></button>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

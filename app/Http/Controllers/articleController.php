@@ -21,7 +21,7 @@ class articleController extends Controller
     }
 
     /**
-     * Recherche article.
+     * Recherche article par l'Admin.
      */
     public function search(Request $request)
     {

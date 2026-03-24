@@ -26,6 +26,8 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <!-- Icon Logo -->
+     <link rel="shortcut icon" href="{{asset('images/logo-vert.jpeg')}}"/>
 </head>
 
 <body>
@@ -52,28 +54,11 @@
             </div>
             <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
                 <small class="text-dark">Appelez-nous :</small>
-                <a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a>
+                <a href="tel:+221776512724" class="text-muted">+221776512724</a>
             </div>
 
             <div class="col-lg-4 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <!--<div class="dropdown">
-                        <a href="#" class="dropdown-toggle text-muted me-2" data-bs-toggle="dropdown"><small>
-                                FCFA</small></a>
-                        <div class="dropdown-menu rounded">
-                            <a href="#" class="dropdown-item"> Euro</a>
-                            <a href="#" class="dropdown-item"> Dollar</a>
-                        </div>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle text-muted mx-2" data-bs-toggle="dropdown"><small>
-                                Français</small></a>
-                        <div class="dropdown-menu rounded">
-                            <a href="#" class="dropdown-item"> Français</a>
-                            <a href="#" class="dropdown-item"> Anglais</a>
-                            <a href="#" class="dropdown-item"> Arabe</a>
-                        </div>
-                    </div>-->
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle text-muted ms-2" data-bs-toggle="dropdown"><small><i
                                     class="fa fa-home me-2"></i> Mon Compte</small></a>
@@ -99,7 +84,7 @@
         <div class="row gx-0 align-items-center text-center">
             <div class="col-md-4 col-lg-3 text-center text-lg-start">
                 <div class="d-inline-flex align-items-center">
-                    <a href="" class="navbar-brand p-0">
+                    <a href="/" class="navbar-brand p-0">
                         <img src="{{asset('images/logo-vert.jpeg')}}" width="90" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
@@ -108,21 +93,14 @@
                 </div>
             </div>
             <div class="col-md-4 col-lg-6 text-center">
-                <div class="position-relative ps-4">
-                    <div class="d-flex border rounded-pill">
-                        <input class="form-control border-0 rounded-pill w-100 py-3" type="text"
-                            placeholder="Rechercher un produit...">
-                        <select class="form-select text-dark border-0 border-start rounded-0 p-3" style="width: 200px;">
-                            <option value="All Category">Toutes catégories</option>
-                            <option value="Outillage">Menuiserie</option>
-                            <option value="Électricité">Électricité</option>
-                            <option value="Plomberie">Plomberie</option>
-                            <option value="Quincaillerie">Irrigation </option>
-                            <option value="Matériaux">Plomberie Sanitaire</option>
-                        </select>
-                        <button type="button" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i
-                                class="fas fa-search"></i></button>
-                    </div>
+                <div class="position-relative ps-3">   
+                    <form method="get" action="{{route('recherche')}}">
+                        <div class="d-flex border rounded-pill">
+                            <input class="form-control border-0 rounded-pill py-3" type="text" name="search" placeholder="Rechercher un produit...">
+                        
+                            <button type="submit" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
@@ -167,7 +145,7 @@
             </div>
             <div class="col-12 col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-                    <a href="" class="navbar-brand d-block d-lg-none">
+                    <a href="/" class="navbar-brand d-block d-lg-none">
                         <img src="{{asset('images/logo-blanc.jpeg')}}" width="80" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
@@ -208,14 +186,15 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="https://wa.me/+221776512724" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="fa fa-whatsapp-alt me-2"></i>+221776512724</a>
+                        <a href="https://wa.me/+221771764106" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
+                                class="bi bi-whatsapp-alt me-2"></i>+221771764106</a>
                     </div>
                 </nav>
             </div>
         </div>
     </div>
     <!-- Navbar & Hero End -->
+
     <!-- Carousel Start -->
     <div class="container-fluid carousel bg-light px-0">
         <div class="row g-0 justify-content-end">
@@ -377,6 +356,7 @@
     </div>
     <!-- Products Offer End -->
 
+    
 
     <!-- Our Products Start -->
     <div class="container-fluid product py-5">
@@ -455,7 +435,7 @@
                     <div id="tab-2" class="tab-pane fade show p-0">
                         <div class="row g-4">
                             @foreach($nouveau as $n)
-                                <div class="col-md-6 col-lg-4 col-xl-3">
+                                <div class="col-6 col-md-6 col-lg-4 col-xl-3">
                                     <div class="product-item rounded wow fadeInUp" data-wow-delay="0.1s">
                                         <div class="product-item-inner border rounded">
                                             <div class="product-item-inner-item">
@@ -465,9 +445,9 @@
                                                     <a href="#"><i class="fa fa-eye fa-1x"></i></a>
                                                 </div>
                                             </div>
-                                            <div class="text-center rounded-bottom p-4">
-                                                <a href="#" class="d-block mb-2">{{$n->categorie->nom}}</a>
-                                                <a href="#" class="d-block h4">{{strtoupper($n->nom)}}</a>
+                                            <div class="text-center rounded-bottom p-0">
+                                                <a href="{{ route('category', $n->categorie->slug)}}" class="d-block mb-2">{{$n->categorie->nom}}</a>
+                                                <a href="{{ route('detail', $n->slug)}}" class="d-block h6">{{strtoupper($n->nom)}}</a>
                                                 <!--<del class="me-2 fs-3">110 000 FCFA</del>-->
                                                 <span class="text-primary ">{{$n->prix}} FCFA</span>
                                             </div>
@@ -566,8 +546,8 @@
                                 </div>
                                 <div class="col-7">
                                     <div class="products-mini-content p-3">
-                                        <a href="#" class="d-block mb-2">{{$m->categorie->nom}}</a>
-                                        <a href="#" class="d-block h4">{{$m->nom}}</a>
+                                        <a href="{{ route('category', $m->categorie->slug)}}" class="d-block mb-2">{{$m->categorie->nom}}</a>
+                                        <a href="{{ route('detail', $m->slug)}}" class="d-block h4">{{$m->nom}}</a>
                                         <!--<del class="me-2 fs-3">95 000 FCFA</del>-->
                                         <span class="text-primary fs-2">{{$m->prix}} FCFA</span>
                                     </div>
@@ -604,8 +584,8 @@
                                 </div>
                                 <div class="col-7">
                                     <div class="products-mini-content p-3">
-                                        <a href="#" class="d-block mb-2">{{$o->categorie->nom}}</a>
-                                        <a href="#" class="d-block h4">{{$o->nom}}</a>
+                                        <a href="{{ route('category', $o->categorie->slug)}}" class="d-block mb-2">{{$o->categorie->nom}}</a>
+                                        <a href="{{ route('detail', $o->slug)}}" class="d-block h4">{{$o->nom}}</a>
                                         <!--<del class="me-2 fs-3">5 500 FCFA</del>-->
                                         <span class="text-primary fs-2">{{$o->prix}} FCFA</span>
                                     </div>
@@ -641,8 +621,8 @@
                                 </div>
                                 <div class="col-7">
                                     <div class="products-mini-content p-3">
-                                        <a href="#" class="d-block mb-2">{{$p->categorie->nom}}</a>
-                                        <a href="#" class="d-block h4">{{$p->nom}}</a>
+                                        <a href="{{ route('category', $p->categorie->slug)}}" class="d-block mb-2">{{$p->categorie->nom}}</a>
+                                        <a href="{{ route('detail', $p->slug)}}" class="d-block h4">{{$p->nom}}</a>
                                         <!--<del class="me-2 fs-3">5 500 FCFA</del>-->
                                         <span class="text-primary fs-2">{{$p->prix}} FCFA</span>
                                     </div>
@@ -839,7 +819,7 @@
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>
-                            <p class="mb-2"><a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a></p>
+                            <p class="mb-2"><a href="https://wa.me/+221771764106" class="text-muted">+221771764106</a></p>
                         </div>
                     </div>
                 </div>

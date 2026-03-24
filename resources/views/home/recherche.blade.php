@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>Panier | Eco Business Distribution</title>
+    <title>recherche Produit | Eco Business Distribution</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="quincaillerie, btp, matériaux construction, outillage" name="keywords">
     <meta content="Votre quincaillerie de confiance pour tous vos projets de construction et rénovation" name="description">
@@ -27,7 +27,7 @@
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
     <!-- Icon Logo -->
-     <link rel="shortcut icon" href="{{asset('images/logo-vert.jpeg')}}"/>    
+     <link rel="shortcut icon" href="{{asset('images/logo-vert.jpeg')}}"/>
 </head>
 
 <body>
@@ -59,28 +59,15 @@
 
             <div class="col-lg-4 text-center text-lg-end">
                 <div class="d-inline-flex align-items-center" style="height: 45px;">
-                    <!--<div class="dropdown">
-                        <a href="#" class="dropdown-toggle text-muted me-2" data-bs-toggle="dropdown"><small>
-                                FCFA</small></a>
-                        <div class="dropdown-menu rounded">
-                            <a href="#" class="dropdown-item"> Euro</a>
-                            <a href="#" class="dropdown-item"> Dollar</a>
-                        </div>
-                    </div>
-                    <div class="dropdown">
-                        <a href="#" class="dropdown-toggle text-muted mx-2" data-bs-toggle="dropdown"><small>
-                                Français</small></a>
-                        <div class="dropdown-menu rounded">
-                            <a href="#" class="dropdown-item"> Français</a>
-                            <a href="#" class="dropdown-item"> Anglais</a>
-                            <a href="#" class="dropdown-item"> Arabe</a>
-                        </div>
-                    </div>-->
                     <div class="dropdown">
                         <a href="#" class="dropdown-toggle text-muted ms-2" data-bs-toggle="dropdown"><small><i
                                     class="fa fa-home me-2"></i> Mon Compte</small></a>
                         <div class="dropdown-menu rounded">
-                            <a href="{{ route('login') }}" class="dropdown-item"> Connexion</a>
+                            @auth
+                                <a href="{{ route('dashboard') }}" class="dropdown-item"> Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="dropdown-item"> Connexion</a>
+                            @endauth
                             <!--<a href="#" class="dropdown-item"> Wishlist</a>-->
                             <a href="#" class="dropdown-item"> Mon Panier</a>
                             <!--<a href="#" class="dropdown-item"> Notifications</a>-->
@@ -97,8 +84,8 @@
         <div class="row gx-0 align-items-center text-center">
             <div class="col-md-4 col-lg-3 text-center text-lg-start">
                 <div class="d-inline-flex align-items-center">
-                    <a href="" class="navbar-brand p-0">
-                        <img src="img/logo-vert.jpeg" width="90" alt="">
+                    <a href="/" class="navbar-brand p-0">
+                        <img src="{{asset('images/logo-vert.jpeg')}}" width="90" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
                         </h1>
@@ -158,7 +145,7 @@
             </div>
             <div class="col-12 col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-                    <a href="" class="navbar-brand d-block d-lg-none">
+                    <a href="/" class="navbar-brand d-block d-lg-none">
                         <img src="{{asset('images/logo-blanc.jpeg')}}" width="80" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
@@ -210,175 +197,173 @@
 
     <!-- Single Page Header start -->
     <div class="container-fluid page-header py-5">
-        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Cart Page</h1>
+        <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Recherche Produits</h1>
         <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/">Accueil</a></li>
             <li class="breadcrumb-item"><a href="#">Pages</a></li>
-            <li class="breadcrumb-item active text-white">Cart Page</li>
+            <li class="breadcrumb-item active text-white"></li>
         </ol>
     </div>
     <!-- Single Page Header End -->
 
-    <!-- Cart Page Start -->
-    <div class="container-fluid py-5">
-        <div class="container py-5">
-            <div class="table-responsive">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Model</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
-                            <th scope="col">Handle</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">
-                                <p class="mb-0 py-4">Apple iPad Mini</p>
-                            </th>
-                            <td>
-                                <p class="mb-0 py-4">G2356</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity py-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td class="py-4">
-                                <button class="btn btn-md rounded-circle bg-light border">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <p class="mb-0 py-4">Apple iPad Mini</p>
-                            </th>
-                            <td>
-                                <p class="mb-0 py-4">G2356</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity py-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td class="py-4">
-                                <button class="btn btn-md rounded-circle bg-light border">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <th scope="row">
-                                <p class="mb-0 py-4">Apple iPad Mini</p>
-                            </th>
-                            <td>
-                                <p class="mb-0 py-4">G2356</p>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td>
-                                <div class="input-group quantity py-4" style="width: 100px;">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                            <i class="fa fa-minus"></i>
-                                        </button>
-                                    </div>
-                                    <input type="text" class="form-control form-control-sm text-center border-0"
-                                        value="1">
-                                    <div class="input-group-btn">
-                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                            <i class="fa fa-plus"></i>
-                                        </button>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <p class="mb-0 py-4">2.99 $</p>
-                            </td>
-                            <td class="py-4">
-                                <button class="btn btn-md rounded-circle bg-light border">
-                                    <i class="fa fa-times text-danger"></i>
-                                </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <div class="mt-5">
-                <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4" placeholder="Coupon Code">
-                <button class="btn btn-primary rounded-pill px-4 py-3" type="button">Apply Coupon</button>
-            </div>
-            <div class="row g-4 justify-content-end">
-                <div class="col-8"></div>
-                <div class="col-sm-8 col-md-7 col-lg-6 col-xl-4">
-                    <div class="bg-light rounded">
-                        <div class="p-4">
-                            <h1 class="display-6 mb-4">Cart <span class="fw-normal">Total</span></h1>
-                            <div class="d-flex justify-content-between mb-4">
-                                <h5 class="mb-0 me-4">Subtotal:</h5>
-                                <p class="mb-0">$96.00</p>
-                            </div>
-                            <div class="d-flex justify-content-between">
-                                <h5 class="mb-0 me-4">Shipping</h5>
-                                <div>
-                                    <p class="mb-0">Flat rate: $3.00</p>
-                                </div>
-                            </div>
-                            <p class="mb-0 text-end">Shipping to Ukraine.</p>
+     <!-- Services Start -->
+    <div class="container-fluid px-0">
+        <div class="row  g-0">
+            <div class="col-6 col-md-6 col-lg-6 border-start border-end wow fadeInUp" data-wow-delay="0.1s">
+                <div class="p-4">
+                    <div class="d-inline-flex align-items-center">
+                        <i class="fa fa-truck fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Livraison partout</h6>
+                            <!--<p class="mb-0">À partir de 50 000 FCFA</p>-->
                         </div>
-                        <div class="py-4 mb-4 border-top border-bottom d-flex justify-content-between">
-                            <h5 class="mb-0 ps-4 me-4">Total</h5>
-                            <p class="mb-0 pe-4">$99.00</p>
+                    </div>
+                </div>
+            </div>            
+            <div class="col-6 col-md-6 col-lg-6 border-end wow fadeInUp" data-wow-delay="0.6s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-clock fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Service rapide</h6>
+                            <!--<p class="mb-0">Traitement 24h</p>-->
                         </div>
-                        <button class="btn btn-primary rounded-pill px-4 py-3 text-uppercase mb-4 ms-4"
-                            type="button">Proceed Checkout</button>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Cart Page End -->
+            <!--<div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.2s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-undo-alt fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Retour gratuit</h6>
+                            <p class="mb-0">Satisfait ou remboursé</p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!--<div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.3s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-headset fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Support 24/7</h6>
+                            <p class="mb-0">À votre écoute</p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!--<div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.4s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-gift fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Carte cadeau</h6>
+                            <p class="mb-0">Offrez un cadeau utile</p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <!--<div class="col-6 col-md-4 col-lg-2 border-end wow fadeInUp" data-wow-delay="0.5s">
+                <div class="p-4">
+                    <div class="d-flex align-items-center">
+                        <i class="fas fa-shield-alt fa-2x text-primary"></i>
+                        <div class="ms-4">
+                            <h6 class="text-uppercase mb-2">Paiement sécurisé</h6>
+                            <p class="mb-0">Orange Money, Wave, carte</p>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
 
-    <!-- Footer Start -->
+    </div>
+    <!-- Services End -->
+
+    <!-- Products Offer Start -->
+    <!--<div class="container-fluid bg-light py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-6 wow fadeInLeft" data-wow-delay="0.2s">
+                    <a href="#" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                        <div>
+                            <p class="text-muted mb-3">Find The Best Camera for You!</p>
+                            <h3 class="text-primary">Smart Camera</h3>
+                            <h1 class="display-3 text-secondary mb-0">40% <span
+                                    class="text-primary fw-normal">Off</span></h1>
+                        </div>
+                        <img src="img/product-1.png" class="img-fluid" alt="">
+                    </a>
+                </div>
+                <div class="col-lg-6 wow fadeInRight" data-wow-delay="0.3s">
+                    <a href="#" class="d-flex align-items-center justify-content-between border bg-white rounded p-4">
+                        <div>
+                            <p class="text-muted mb-3">Find The Best Whatches for You!</p>
+                            <h3 class="text-primary">Smart Whatch</h3>
+                            <h1 class="display-3 text-secondary mb-0">20% <span
+                                    class="text-primary fw-normal">Off</span></h1>
+                        </div>
+                        <img src="img/product-2.png" class="img-fluid" alt="">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>-->
+    <!-- Products Offer End -->
+
+
+    <!-- Bestseller Products Start -->
+    <div class="container-fluid products pt-5">
+        <div class="container products-mini py-5">
+            <div class="mx-auto text-center mb-5" style="max-width: 700px;">
+                <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius wow fadeInUp"
+                    data-wow-delay="0.1s">Recherche</h4>
+                <p class="mb-0 wow fadeInUp" data-wow-delay="0.2s">Resultat de votre recherche .</p>
+            </div>
+            <div class="row g-4">
+                @foreach($articles as $a)
+                    <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
+                        <div class="products-mini-item border">
+                            <div class="row g-0">
+                                <div class="col-5">
+                                    <div class="products-mini-img border-end h-100">
+                                        <img src="{{asset('storage/'. $a->image)}}" class="img-fluid w-100 h-100" alt="Image">
+                                        <div class="products-mini-icon rounded-circle bg-primary">
+                                            <a href="#"><i class="fa fa-eye fa-1x text-white"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-7">
+                                    <div class="products-mini-content p-3">
+                                        <a href="{{route('category', $a->categorie->slug)}}" class="d-block mb-2">{{$a->categorie->nom}}</a>
+                                        <a href="{{route('detail', $a->slug)}}" class="d-block h4">{{$a->nom}}</a>
+                                        <span class="text-primary fs-5">{{$a->prix}} FCFA</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--<div class="products-mini-add border p-3">
+                                <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4"><i
+                                        class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
+                                <div class="d-flex">
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-3"><span
+                                            class="rounded-circle btn-sm-square border"><i
+                                                class="fas fa-random"></i></i></a>
+                                    <a href="#"
+                                        class="text-primary d-flex align-items-center justify-content-center me-0"><span
+                                            class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></a>
+                                </div>
+                            </div>-->
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </div>
+    <!-- Bestseller Products End -->
+
+
+   <!-- Footer Start -->
     <div class="container-fluid footer py-4 wow fadeIn" data-wow-delay="0.2s">
         <div class="container py-4">
             <div class="row g-2 rounded mb-3" style="background: rgba(255, 255, 255, .03);">
@@ -428,7 +413,7 @@
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>
-                            <p class="mb-2"><a href="https://wa.me/+221771764106" class="text-muted">+221771764106  </a></p>
+                            <p class="mb-2"><a href="https://wa.me/+221771764106" class="text-muted">+221771764106</a></p>
                         </div>
                     </div>
                 </div>

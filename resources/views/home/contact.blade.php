@@ -26,6 +26,8 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <!-- Icon Logo -->
+     <link rel="shortcut icon" href="{{asset('images/logo-vert.jpeg')}}"/>    
 </head>
 
 <body>
@@ -52,7 +54,7 @@
             </div>
             <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
                 <small class="text-dark">Appelez-nous :</small>
-                <a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a>
+                <a href="tel+221776512724" class="text-muted">+221776512724</a>
             </div>
 
             <div class="col-lg-4 text-center text-lg-end">
@@ -95,7 +97,7 @@
         <div class="row gx-0 align-items-center text-center">
             <div class="col-md-4 col-lg-3 text-center text-lg-start">
                 <div class="d-inline-flex align-items-center">
-                    <a href="" class="navbar-brand p-0">
+                    <a href="/" class="navbar-brand p-0">
                         <img src="{{asset('images/logo-vert.jpeg')}}" width="90" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
@@ -105,20 +107,13 @@
             </div>
             <div class="col-md-4 col-lg-6 text-center">
                 <div class="position-relative ps-4">
-                    <div class="d-flex border rounded-pill">
-                        <input class="form-control border-0 rounded-pill w-100 py-3" type="text"
-                            placeholder="Rechercher un produit...">
-                        <select class="form-select text-dark border-0 border-start rounded-0 p-3" style="width: 200px;">
-                            <option value="All Category">Toutes catégories</option>
-                            <option value="Outillage">Menuiserie</option>
-                            <option value="Électricité">Électricité</option>
-                            <option value="Plomberie">Plomberie</option>
-                            <option value="Quincaillerie">Irrigation </option>
-                            <option value="Matériaux">Plomberie Sanitaire</option>
-                        </select>
-                        <button type="button" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i
-                                class="fas fa-search"></i></button>
-                    </div>
+                     <form method="get" action="{{route('recherche')}}">
+                        <div class="d-flex border rounded-pill">
+                            <input class="form-control border-0 rounded-pill py-3" type="text" name="search" placeholder="Rechercher un produit...">
+                        
+                            <button type="submit" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
@@ -163,7 +158,7 @@
             </div>
             <div class="col-12 col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-                    <a href="" class="navbar-brand d-block d-lg-none">
+                    <a href="/" class="navbar-brand d-block d-lg-none">
                         <img src="{{asset('images/logo-blanc.jpeg')}}" width="80" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
@@ -204,8 +199,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="https://wa.me/+221776512724" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="fa fa-whatsapp-alt me-2"></i>+221776512724</a>
+                        <a href="tel:+221776512724" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
+                                class="fa fa-phone-alt me-2"></i>+221776512724</a>
                     </div>
                 </nav>
             </div>
@@ -217,7 +212,7 @@
     <div class="container-fluid page-header py-5">
         <h1 class="text-center text-white display-6 wow fadeInUp" data-wow-delay="0.1s">Contact Us</h1>
         <ol class="breadcrumb justify-content-center mb-0 wow fadeInUp" data-wow-delay="0.3s">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item"><a href="/">Accueil</a></li>
             <li class="breadcrumb-item"><a href="#">Pages</a></li>
             <li class="breadcrumb-item active text-white">Contact</li>
         </ol>
@@ -231,8 +226,7 @@
                 <div class="row g-4">
                     <div class="col-12">
                         <div class="text-center mx-auto wow fadeInUp" data-wow-delay="0.1s" style="max-width: 900px;">
-                            <h4 class="text-primary border-bottom border-primary border-2 d-inline-block pb-2">Get in
-                                touch</h4>
+                            <h4 class="text-primary border-bottom border-primary border-2 d-inline-block pb-2">Entrer en contact</h4>
                             <p class="mb-5 fs-5 text-dark">Nous sommes là pour vous ! Comment pouvons-nous vous aider ? Nous sommes là pour vous !
                             </p>
                         </div>
@@ -286,10 +280,16 @@
                         </form>
                     </div>
                     <div class="col-lg-5 wow fadeInUp" data-wow-delay="0.2s">
-                        <div class="h-100 rounded">
-                            <iframe class="rounded w-100" style="height: 100%;"
+                        <div class="h-100 rounded mt-5">
+                            <ul>
+                                <li> <i class="fas fa-envelope fa-1x text-primary"></i> Email : contact@ecobusinessdistribution</li>
+                                <li> <i class="bi bi-whatsapp fa-1x text-primary"></i> Whatsapp : +221 77 176 41 06</li>
+                                <li> <i class="fas fa-phone fa-1x text-primary"></i> Telephone +221 33 961 19 68 / +221 70 808 61 68</li>
+                                <li> <i class="fas fa-map-marker fa-1x text-primary"></i> Adresse : Passage à niveau, Diamaguène, Saint-Louis</li>
+                            </ul>
+                            <!--<iframe class="rounded w-100" style="height: 100%;"
                                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d387191.33750346623!2d-73.97968099999999!3d40.6974881!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c24fa5d33f083b%3A0xc80b8f06e177fe62!2sNew%20York%2C%20NY%2C%20USA!5e0!3m2!1sen!2sbd!4v1694259649153!5m2!1sen!2sbd"
-                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>-->
                         </div>
                     </div>
                 </div>
@@ -348,7 +348,7 @@
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>
-                            <p class="mb-2"><a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a></p>
+                            <p class="mb-2"><a href="https://wa.me/+221771764106" class="text-muted">+221771764106</a></p>
                         </div>
                     </div>
                 </div>

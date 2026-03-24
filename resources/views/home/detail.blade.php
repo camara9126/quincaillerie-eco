@@ -26,6 +26,8 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    <!-- Icon Logo -->
+     <link rel="shortcut icon" href="{{asset('images/logo-vert.jpeg')}}"/>    
 </head>
 
 <body>
@@ -52,7 +54,7 @@
             </div>
             <div class="col-lg-4 text-center d-flex align-items-center justify-content-center">
                 <small class="text-dark">Appelez-nous :</small>
-                <a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a>
+                <a href="tel:+221776512724" class="text-muted">+221776512724</a>
             </div>
 
             <div class="col-lg-4 text-center text-lg-end">
@@ -99,7 +101,7 @@
         <div class="row gx-0 align-items-center text-center">
             <div class="col-md-4 col-lg-3 text-center text-lg-start">
                 <div class="d-inline-flex align-items-center">
-                    <a href="" class="navbar-brand p-0">
+                    <a href="/" class="navbar-brand p-0">
                         <img src="{{asset('images/logo-vert.jpeg')}}" width="90" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
@@ -109,20 +111,13 @@
             </div>
             <div class="col-md-4 col-lg-6 text-center">
                 <div class="position-relative ps-4">
-                    <div class="d-flex border rounded-pill">
-                        <input class="form-control border-0 rounded-pill w-100 py-3" type="text"
-                            placeholder="Rechercher un produit...">
-                        <!--<select class="form-select text-dark border-0 border-start rounded-0 p-3" style="width: 200px;">
-                            <option value="All Category">Toutes catégories</option>
-                            <option value="Outillage">Menuiserie</option>
-                            <option value="Électricité">Électricité</option>
-                            <option value="Plomberie">Plomberie</option>
-                            <option value="Quincaillerie">Irrigation </option>
-                            <option value="Matériaux">Plomberie Sanitaire</option>
-                        </select>-->
-                        <button type="button" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i
-                                class="fas fa-search"></i></button>
-                    </div>
+                    <form method="get" action="{{route('recherche')}}">
+                        <div class="d-flex border rounded-pill">
+                            <input class="form-control border-0 rounded-pill py-3" type="text" name="search" placeholder="Rechercher un produit...">
+                        
+                            <button type="submit" class="btn btn-primary rounded-pill py-3 px-5" style="border: 0;"><i class="fas fa-search"></i></button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="col-md-4 col-lg-3 text-center text-lg-end">
@@ -167,7 +162,7 @@
             </div>
             <div class="col-12 col-lg-9">
                 <nav class="navbar navbar-expand-lg navbar-light bg-primary ">
-                    <a href="" class="navbar-brand d-block d-lg-none">
+                    <a href="/" class="navbar-brand d-block d-lg-none">
                         <img src="{{asset('images/logo-blanc.jpeg')}}" width="80" alt="">
                         <h1 class="display-5 text-primary m-0">
                             <!--<i class="fas fa-tools text-secondary me-2"></i>BTP Matériaux-->
@@ -208,8 +203,8 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="https://wa.me/+221776512724" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="fa fa-whatsapp-alt me-2"></i>+221776512724</a>
+                        <a href="https://wa.me/+221771764106" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
+                                class="bi bi-whatsapp-alt me-2"></i>+221771764106</a>
                     </div>
                 </nav>
             </div>
@@ -245,7 +240,7 @@
                             @foreach($categories as $c)
                                 <li>
                                     <div class="categories-item">
-                                        <a href="#" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
+                                        <a href="{{ route('category', $c->slug)}}" class="text-dark"><i class="fas fa-apple-alt text-secondary me-2"></i>
                                             {{$c->nom}}</a>
                                         <span>({{$c->article->count()}})</span>
                                     </div>
@@ -267,7 +262,7 @@
                             <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
                             <label for="Categories-3" class="text-dark"> White</label>
                         </div>
-                    </div>-->
+                    </div>
                     <div class="featured-product mb-4">
                         <h4 class="mb-3">Produits phares</h4>
                         @foreach($phares as $p)
@@ -290,12 +285,11 @@
                                 </div>
                             </div>
                         @endforeach
-                            <div class="d-flex justify-content-center my-4">
-                                <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
-                            </div>
-                        
+                        <div class="d-flex justify-content-center my-4">
+                            <a href="#" class="btn btn-primary px-4 py-3 rounded-pill w-100">Vew More</a>
+                        </div>
                     </div>
-                    <!--<a href="#">
+                    <a href="#">
                         <div class="position-relative">
                             <img src="img/product-banner-2.jpg" class="img-fluid w-100 rounded" alt="Image">
                             <div class="text-center position-absolute d-flex flex-column align-items-center justify-content-center rounded p-4"
@@ -332,46 +326,51 @@
                             </div>
                         </div>
                         <div class="col-xl-6">
-                            <h4 class="fw-bold mb-3">{{$article->nom}}</h4>
-                            <p class="mb-3">Categorie: {{$article->categorie->nom}}</p>
-                            <h5 class="fw-bold mb-3">3,35 $</h5>
-                            <div class="d-flex mb-4">
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star text-secondary"></i>
-                                <i class="fa fa-star"></i>
-                            </div>
-                            <div class="mb-3">
-                                <div class="btn btn-primary d-inline-block rounded text-white py-1 px-4 me-2"><i
-                                        class="fab fa-facebook-f me-1"></i> Share</div>
-                                <div class="btn btn-secondary d-inline-block rounded text-white py-1 px-4 ms-2"><i
-                                        class="fab fa-twitter ms-1"></i> Share</div>
-                            </div>
-                            <div class="d-flex flex-column mb-3">
-                                <small>Product SKU: N/A</small>
-                                <small>Available: <strong class="text-primary">{{$article->stock}} articles en stock</strong></small>
-                            </div>
-                            <p class="mb-4">The generated Lorem Ipsum is therefore always free from repetition injected
-                                humour, or non-characteristic words etc.</p>
-                            <p class="mb-4">Susp endisse ultricies nisi vel quam suscipit. Sabertooth peacock flounder;
-                                chain pickerel hatchetfish, pencilfish snailfish</p>
-                            <div class="input-group quantity mb-5" style="width: 100px;">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                        <i class="fa fa-minus"></i>
-                                    </button>
+                            <form action="{{ route('commande') }}" method="post">
+                                @csrf
+                                <input type="hidden" name="image" value="{{$article->image}}">
+                                <input type="hidden" name="nom" value="{{$article->nom}}">
+                                <input type="hidden" name="prix" value="{{$article->prix}}">
+                                <input type="hidden" name="categorie" value="{{$article->categorie->nom}}">
+                                <h4 class="fw-bold mb-3">{{$article->nom}}</h4>
+                                <p class="mb-3">Categorie: {{$article->categorie->nom}}</p>
+                                <h5 class="fw-bold mb-3">{{$article->prix}} FCFA</h5>
+
+                                <div class="d-flex mb-4">
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star text-secondary"></i>
+                                    <i class="fa fa-star"></i>
                                 </div>
-                                <input type="text" class="form-control form-control-sm text-center border-0" value="1">
-                                <div class="input-group-btn">
-                                    <button class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                        <i class="fa fa-plus"></i>
-                                    </button>
+                                <div class="mb-3">
+                                    <div class="btn btn-primary d-inline-block rounded text-white py-1 px-4 me-2"><i
+                                            class="fab fa-facebook-f me-1"></i> Partager</div>
+                                    <div class="btn btn-secondary d-inline-block rounded text-white py-1 px-4 ms-2"><i
+                                            class="fab fa-twitter ms-1"></i> Partager</div>
                                 </div>
-                            </div>
-                            <a href="#"
-                                class="btn btn-primary border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i
-                                    class="fa fa-shopping-bag me-2 text-white"></i> Add to cart</a>
+                                <div class="d-flex flex-column mb-3">
+                                    <!--<small>Product SKU: N/A</small>-->
+                                    <small>Disponible: <strong class="text-primary"> en stock</strong></small>
+                                </div>
+                                <p>🔧 <strong>Qualité professionnelle</strong> – Conçu pour durer et résister aux conditions de chantier les plus exigeantes. Idéal pour les professionnels du BTP et les bricoleurs avertis.</p>
+                                <p>✅ <strong>Garantie satisfait ou remboursé</strong> – Essayez sans risque pendant 30 jours.</p>
+                                
+                                <!--<div class="input-group quantity mb-5" style="width: 100px;">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                            <i class="fa fa-minus"></i>
+                                        </button>
+                                    </div>
+                                    <input type="text" class="form-control form-control-sm text-center border-0" value="1">
+                                    <div class="input-group-btn">
+                                        <button class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                            <i class="fa fa-plus"></i>
+                                        </button>
+                                    </div>
+                                </div>-->
+                                <button type="submit" class="btn btn-primary border border-secondary rounded-pill px-4 py-2 mb-4 text-primary" ><i class="bi bi-whatsapp me-2 text-white"></i> Commander</button>
+                            </form>
                         </div>
                         <div class="col-lg-12">
                             <nav>
@@ -387,33 +386,44 @@
                             <div class="tab-content mb-5">
                                 <div class="tab-pane active" id="nav-about" role="tabpanel"
                                     aria-labelledby="nav-about-tab">
-                                    <p>Our new <b class="fw-bold">HPB12 / A12 battery</b> is rated at 2000mAh and
-                                        designed to power up Black and Decker / FireStorm line of 12V tools allowing
-                                        users to run multiple devices off the same battery pack. The HPB12 is compatible
-                                        with the following Black and Decker power tool models:
-                                    </p>
-                                    <b class="fw-bold">Black & Decker Drills and Drivers:</b>
-                                    <p class="small">BD12PSK, BDG1200K, BDGL12K, BDID1202, CD1200SK, CD12SFK, CDC1200K,
-                                        CDC120AK, CDC120ASB, CP122K, CP122KB, CP12K, CP12KB, EPC12, EPC126, EPC126BK,
-                                        EPC12CA, EPC12CABK, HP122K, HP122KD, HP126F2B, HP126F2K, HP126F3B, HP126F3K,
-                                        HP126FBH, HP126FSC, HP126FSH, HP126K, HP128F3B, HP12K, HP12KD, HPD1200, HPD1202,
-                                        HPD1202KF, HPD12K-2, PS122K, PS122KB, PS12HAK, SS12, SX3000, SX3500, XD1200,
-                                        XD1200K, XTC121
-                                    </p>
-                                    <b class="fw-bold">lack & Decker Impact Wrenches:</b>
-                                    <p class="small">SX5000, XTC12IK, XTC12IKH</p>
-                                    <b class="fw-bold">Black & Decker Multi-Tools:</b>
-                                    <p class="small">KC2000FK</p>
-                                    <b class="fw-bold">Black & Decker Nailers:</b>
-                                    <p class="small">BDBN1202</p>
-                                    <b class="fw-bold">Black & Decker Screwdrivers:</b>
-                                    <p class="small">HP9019K</p>
-                                    <b class="fw-bold mb-0">Best replacement for the following Black and Decker OEM
-                                        battery part numbers:</b>
-                                    <p class="small">HPB12, A12, A12EX, A12-XJ, A1712, B-8315, BD1204L, BD-1204L,
-                                        BPT1047, FS120B, FS120BX, FSB12.</p>
+                                    <!-- Version complète pour fiche produit -->
+                                    <div class="product-description-full">
+                                        <h5>📦 Description du produit</h5>
+                                        <p>Ce produit de quincaillerie haut de gamme a été spécialement conçu pour répondre aux besoins des professionnels du bâtiment et des travaux publics. Fabriqué avec des matériaux de première qualité, il allie robustesse, fiabilité et performance pour vos chantiers les plus exigeants.</p>
+
+                                        <b>✨ Caractéristiques techniques</b>
+                                        <ul>
+                                            <li><strong>Matériau :</strong> Acier traité anti-corrosion / Aluminium de qualité supérieure</li>
+                                            <li><strong>Normes :</strong> Conforme aux normes CE et ISO 9001</li>
+                                            <li><strong>Finition :</strong> Traitement anti-rouille, peinture époxy résistante aux chocs</li>
+                                            <li><strong>Ergonomie :</strong> Poignée antidérapante avec prise en main confortable</li>
+                                            <li><strong>Compatibilité :</strong> S'adapte à la majorité des équipements de chantier standard</li>
+                                        </ul>
+
+                                        <b>🔧 Domaines d'application</b>
+                                        <ul>
+                                            <li>🏗️ <strong>Chantiers de construction</strong> – Utilisation intensive quotidienne</li>
+                                            <li>🔨 <strong>Rénovation et bricolage</strong> – Idéal pour les travaux domestiques</li>
+                                            <li>⚡ <strong>Maintenance industrielle</strong> – Adapté aux environnements exigeants</li>
+                                            <li>🛠️ <strong>Travaux publics</strong> – Résistance aux conditions extérieures</li>
+                                        </ul>
+
+                                        <b>💪 Avantages</b>
+                                        <ul>
+                                            <li>✅ <strong>Durabilité exceptionnelle</strong> – Conçu pour durer dans le temps</li>
+                                            <li>✅ <strong>Facilité d'utilisation</strong> – Prise en main intuitive</li>
+                                            <li>✅ <strong>Entretien simplifié</strong> – Nettoyage et maintenance rapides</li>
+                                            <li>✅ <strong>Rapport qualité-prix imbattable</strong> – Performance à prix compétitif</li>
+                                            <li>✅ <strong>Livraison rapide</strong> – Expédition sous 24h (stock disponible)</li>
+                                        </ul>
+
+                                        <div class="info-supplementaire">
+                                            <p>⚠️ <strong>Information :</strong> Pour toute question relative à la compatibilité ou à l'utilisation de ce produit, n'hésitez pas à contacter notre service client. Nous sommes à votre disposition pour vous conseiller.</p>
+                                            <p>📞 <strong>Service client :</strong> (+221) 33 961 19 68 / WhatsApp : (+221) 77 176 41 06</p>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="tab-pane" id="nav-mission" role="tabpanel"
+                                <!--<div class="tab-pane" id="nav-mission" role="tabpanel"
                                     aria-labelledby="nav-mission-tab">
                                     <div class="d-flex">
                                         <img src="img/avatar.jpg" class="img-fluid rounded-circle p-3"
@@ -463,7 +473,7 @@
                                     <p class="mb-0">Diam dolor diam ipsum et tempor sit. Aliqu diam amet diam et eos
                                         labore.
                                         Clita erat ipsum et lorem et sit</p>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                         <!--<form action="#">
@@ -526,19 +536,23 @@
                         <div class="related-item-inner border rounded">
                             <div class="related-item-inner-item">
                                 <img src="{{asset('storage/'. $p->image)}}" class="img-fluid w-100 rounded-top" alt="">
-                                <div class="related-new">New</div>
+                                <div class="related-new">
+                                    @if($p->etiquette == 'nouveau')
+                                        <div class="product-new">New</div>
+                                    @endif
+                                </div>
                                 <div class="related-details">
                                     <a href="#"><i class="fa fa-eye fa-1x"></i></a>
                                 </div>
                             </div>
                             <div class="text-center rounded-bottom p-4">
-                                <a href="#" class="d-block mb-2">{{$p->categorie->nom}}</a>
-                                <a href="#" class="d-block h4">{{$p->nom}}</a>
+                                <a href="{{route('category', $p->categorie->slug)}}" class="d-block mb-2">{{$p->categorie->nom}}</a>
+                                <a href="{{route('detail', $p->slug)}}" class="d-block h4">{{$p->nom}}</a>
                                 <!--<del class="me-2 fs-5">$1,050.00</del>-->
                                 <span class="text-primary fs-5">{{$p->prix}}</span>
                             </div>
                         </div>
-                        <div class="related-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
+                        <!--<div class="related-item-add border border-top-0 rounded-bottom  text-center p-4 pt-0">
                             <a href="#" class="btn btn-primary border-secondary rounded-pill py-2 px-4 mb-4"><i
                                     class="fas fa-shopping-cart me-2"></i> Add To Cart</a>
                             <div class="d-flex justify-content-between align-items-center">
@@ -559,7 +573,7 @@
                                             class="rounded-circle btn-sm-square border"><i class="fas fa-heart"></i></a>
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                     </div>
                 @endforeach
             </div>
@@ -617,7 +631,7 @@
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>
-                            <p class="mb-2"><a href="https://wa.me/+221776512724" class="text-muted">+221776512724</a></p>
+                            <p class="mb-2"><a href="https://wa.me/+221771764106" class="text-muted">+221771764106</a></p>
                         </div>
                     </div>
                 </div>
