@@ -133,7 +133,7 @@
                                 @foreach($categories as $c)
                                     <li>
                                         <div class="categories-bars-item">
-                                            <a href="#">{{$c->nom}}</a>
+                                            <a href="{{ route('category', $c->slug)}}">{{$c->nom}}</a>
                                             <span>({{$c->article->count()}})</span>
                                         </div>
                                     </li>
@@ -187,7 +187,7 @@
                             </div>
                         </div>
                         <a href="https://wa.me/+221771764106" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="fa fa-whatsapp-alt me-2"></i>+221771764106</a>
+                                class="bi bi-whatsapp me-2"></i>+221771764106</a>
                     </div>
                 </nav>
             </div>
@@ -409,7 +409,7 @@
                     <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
                             style="width: 50px; height: 50px;">
-                            <i class="fab fa-whatsapp fa-1x text-primary"></i>
+                            <i class="bi bi-whatsapp fa-1x text-primary"></i>
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>

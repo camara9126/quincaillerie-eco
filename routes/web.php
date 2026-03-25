@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\articleController;
 use App\Http\Controllers\categorieController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\ProfileController;
 use App\Models\article;
 use App\Models\categorie;
@@ -36,9 +38,14 @@ Route::get('/contact', function () {
     return view('home.contact', compact('categories'));
 })->name('contact');
 
+Route::get('/test', function () {
+
+    return view('test');
+})->name('test');
+
 
 // Detail article
-Route::get('/detail/{slug}', [HomeController::class, 'detail'])->name('detail');
+Route::get('/article/{slug}', [HomeController::class, 'detail'])->name('detail');
 
 // Detail categorie
 Route::get('/category/{slug}', [HomeController::class, 'category'])->name('category');
@@ -46,7 +53,7 @@ Route::get('/category/{slug}', [HomeController::class, 'category'])->name('categ
 // Recherche Client 
 Route::get('/recherche', [HomeController::class, 'search'])->name('recherche');
 
-// Route Commande
+// Route Commande en ligne
 Route::post('/commande', [HomeController::class, 'commande'])->name('commande');
 
 
@@ -62,10 +69,12 @@ Route::get('/dashboard', function () {
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::patch('/profile/{entreprise}', [ProfileController::class, 'entrepriseUpdate'])->name('entreprise.eUpdate');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
 
+// Routes Articles et Categories
 Route::middleware('auth')->group(function () {
     // Route Categorie
     Route::resource('/categorie', categorieController::class);
@@ -81,6 +90,20 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Routes Mouvements
+Route::middleware('auth')->group(function () {
+    Route::get('/mouvements', [MouvementController::class, 'index'])->name('mouvements');
+    Route::post('/mouvements', [MouvementController::class, 'stock'])->name('stock');
+
+});
+
+
+// Routes Clients
+Route::middleware('auth')->group(function () {
+    Route::resource('/clients', ClientController::class);
+    //Route::post('/client', [MouvementController::class, 'stock']);
+
+});
 
 
 

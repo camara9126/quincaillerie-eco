@@ -17,6 +17,8 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
 
+     <!-- Scripts -->
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Libraries Stylesheet -->
     <link href="{{ asset('assets/lib/animate/animate.min.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/lib/owlcarousel/assets/owl.carousel.min.css') }}" rel="stylesheet">
@@ -133,7 +135,7 @@
                                 @foreach($categories as $c)
                                     <li>
                                         <div class="categories-bars-item">
-                                            <a href="#">{{$c->nom}}</a>
+                                            <a href="{{ route('category', $c->slug)}}">{{$c->nom}}</a>
                                             <span>({{$c->article->count()}})</span>
                                         </div>
                                     </li>
@@ -187,7 +189,7 @@
                             </div>
                         </div>
                         <a href="https://wa.me/+221776512724" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="bi bi-whatsapp-alt me-2"></i>+221771764106</a>
+                                class="bi bi-whatsapp me-2"></i>+221771764106</a>
                     </div>
                 </nav>
             </div>
@@ -609,7 +611,7 @@
                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center rounded p-4"
                                 style="background: rgba(255, 255, 255, 0.5);">
                                 <h3 class="display-5 text-primary">EOS Rebel <br> <span>T7i Kit</span></h3>
-                                <p class="fs-4 text-muted">$899.99</p>
+                                <p class="fs-4 text-muted">150000 FCFA</p>
                                 <a href="#" class="btn btn-primary rounded-pill align-self-start py-2 px-4">Shop Now</a>
                             </div>
                         </div>
@@ -621,7 +623,7 @@
                             <img src="{{asset('assets/img/aluminium.png')}}" class="img-fluid w-100" alt="">
                             <div class="position-absolute top-0 start-0 w-100 h-100 d-flex flex-column justify-content-center rounded p-4"
                                 style="background: rgba(242, 139, 0, 0.5);">
-                                <h2 class="display-2 text-secondary">SALE</h2>
+                                <h2 class="display-2 text-secondary">Vente</h2>
                                 <h4 class="display-5 text-white mb-4">Get UP To 50% Off</h4>
                                 <a href="#" class="btn btn-secondary rounded-pill align-self-center py-2 px-4">Shop
                                     Now</a>
@@ -681,7 +683,7 @@
                     <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
                             style="width: 50px; height: 50px;">
-                            <i class="fab fa-whatsapp fa-1x text-primary"></i>
+                            <i class="bi bi-whatsapp fa-1x text-primary"></i>
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>

@@ -16,19 +16,7 @@
                     <input type="text" placeholder="Rechercher...">
                 </div>
 
-                <div class="user-menu">
-                    <i class="fas fa-bell"></i>
-                    <i class="fas fa-envelope"></i>
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <span>AD</span>
-                        </div>
-                        <div class="user-info">
-                            <div style="font-weight: 600;">Admin</div>
-                            <div style="font-size: 0.85rem; color: var(--gray-600);">admin@btpmateriaux.sn</div>
-                        </div>
-                    </div>
-                </div>
+                @include('partials.userMenu')
             </nav>  
    
                 <div class="card">
@@ -47,87 +35,121 @@
                         </div>
                     @endif
 
-                    <div class="card-body">
-                        <form method="post" action="{{ route('article.store') }}" enctype="multipart/form-data">
-                            @csrf
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label>Nom du produit *</label>
-                                    <input type="text" name="nom" placeholder="Ex: Perceuse Bosch GBH 2-26" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>Catégorie *</label>
-                                    <select name="categorie_id" required>
-                                        <option value="">Sélectionner une catégorie</option>
-                                        @foreach($categorie as $c)
-                                            <option value="{{$c->id}}">{{$c->nom}}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Prix (FCFA) *</label>
-                                    <input type="number" name="prix" placeholder="Ex: 85000" required>
-                                </div>
-
-                                <div class="form-group">
-                                    <label>Stock *</label>
-                                    <input type="number" name="stock" placeholder="Ex: 50" required>
-                                </div>
-                               
-                                <div class="form-group full-width">
-                                    <label>Description </label>
-                                    <textarea rows="4" name="description" placeholder="Description complète, caractéristiques..."></textarea>
-                                </div>
-
-                                <div class="form-group full-width">
-                                    <label>Images du produit</label>
-                                    <div class="image-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <input type="file" name="image" class="form-file">Cliquez ou glissez-déposez des images ici
-                                        <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
+                    <div class="card col-md-10 mx-auto shadow-sm">
+                        <div class="card-body">
+                            <form method="post" action="{{ route('article.store') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="form-grid">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Nom du produit *</label>
+                                            <input type="text" name="nom" placeholder="Ex: Perceuse Bosch GBH 2-26" required>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Catégorie *</label>
+                                            <select name="categorie_id" required>
+                                                <option value="">Sélectionner une catégorie</option>
+                                                @foreach($categorie as $c)
+                                                    <option value="{{$c->id}}">{{$c->nom}}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Images galerie 1</label>
-                                    <div class="image-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <input type="file" name="gal_1" class="form-file">Cliquez ou glissez-déposez des images ici
-                                        <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
+                                    
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Prix d'achat (FCFA) *</label>
+                                            <input type="number" name="prix_achat"  required>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Prix de vente (FCFA) *</label>
+                                            <input type="number" name="prix" placeholder="Ex: 85000" required>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="form-group">
-                                    <label>Images galerie 2</label>
-                                    <div class="image-upload">
-                                        <i class="fas fa-cloud-upload-alt"></i>
-                                        <input type="file" name="gal_2" class="form-file">Cliquez ou glissez-déposez des images ici
-                                        <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
+                                    
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Stock *</label>
+                                            <input type="number" name="stock" placeholder="Ex: 50" required>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Stock Minimun *</label>
+                                            <select name="stock_min">
+                                                <option value="5">5</option>
+                                                <option value="10">10</option>
+                                                <option value="15">15</option>
+                                            </select>
+                                        </div>                                    
                                     </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Étiquettes</label>
+                                            <select name="etiquette">
+                                                <option value="">Pas d'etiquette</option>
+                                                <option value="promo">Promo</option>
+                                                <option value="nouveau">Nouveau</option>
+                                                <option value="vedette">Vedette</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Designation </label>
+                                            <input type="text" name="designation" placeholder="Ex: Perceuse Bosch GBH 2-26">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-8 mx-auto full-width">
+                                        <label>Images du produit</label>
+                                        <div class="image-upload">
+                                            <i class="fas fa-cloud-upload-alt"></i>
+                                            <input type="file" name="image" class="form-file">Cliquez ou glissez-déposez des images ici
+                                            <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Images galerie 1</label>
+                                            <div class="image-upload">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                                <input type="file" name="gal_1" class="form-file">Cliquez ou glissez-déposez des images ici
+                                                <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
+                                            </div>
+                                        </div>
+                                        <div class="col-6">
+                                            <label>Images galerie 2</label>
+                                            <div class="image-upload">
+                                                <i class="fas fa-cloud-upload-alt"></i>
+                                                <input type="file" name="gal_2" class="form-file">Cliquez ou glissez-déposez des images ici
+                                                <p style="font-size: 0.85rem; color: var(--gray-600);">PNG, JPG jusqu'à 5MB</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-7 full-width">
+                                            <label>Description </label>
+                                            <textarea rows="4" name="description" placeholder="Description complète, caractéristiques..."></textarea>
+                                        </div>
+
+                                        <div class="col-5">
+                                            <label>Statut</label>
+                                            <select name="statut">
+                                                <option value="1">Publié</option>
+                                                <option value="0">En attente</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    
+                                    
                                 </div>
-                                <div class="form-group">
-                                    <label>Statut</label>
-                                    <select name="statut">
-                                        <option value="1">Publié</option>
-                                        <option value="0">En attente</option>
-                                    </select>
+                                <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
+                                    <a href="{{ route('article.index') }}" type="button" class="btn-outline">Annuler</a>
+                                    <button type="submit" class="btn-primary">
+                                        <i class="fas fa-save"></i> Enregistrer l'article
+                                    </button>
                                 </div>
-                                <div class="form-group">
-                                    <label>Étiquettes</label>
-                                    <select name="etiquette">
-                                        <option value="">Pas d'etiquette</option>
-                                        <option value="promo">Promo</option>
-                                        <option value="nouveau">Nouveau</option>
-                                        <option value="vedette">Vedette</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
-                                <a href="{{ route('article.index') }}" type="button" class="btn-outline">Annuler</a>
-                                <button type="submit" class="btn-primary">
-                                    <i class="fas fa-save"></i> Enregistrer l'article
-                                </button>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
 

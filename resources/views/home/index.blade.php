@@ -133,7 +133,7 @@
                                 @foreach($categories as $c)
                                     <li>
                                         <div class="categories-bars-item">
-                                            <a href="#">{{$c->nom}}</a>
+                                            <a href="{{ route('category', $c->slug)}}">{{$c->nom}}</a>
                                             <span>({{$c->article->count()}})</span>
                                         </div>
                                     </li>
@@ -187,7 +187,7 @@
                             </div>
                         </div>
                         <a href="https://wa.me/+221771764106" class="btn btn-secondary rounded-pill py-2 px-4 px-lg-3 mb-3 mb-md-3 mb-lg-0"><i
-                                class="bi bi-whatsapp-alt me-2"></i>+221771764106</a>
+                                class="bi bi-whatsapp me-2"></i>+221771764106</a>
                     </div>
                 </nav>
             </div>
@@ -202,13 +202,13 @@
                 <div class="header-carousel owl-carousel bg-light py-5">
                     <div class="row g-0 header-carousel-item align-items-center">
                         <div class="col-xl-6 carousel-img wow fadeInLeft" data-wow-delay="0.1s">
-                            <img src="{{asset('assets/img/outillage-banner.jpg')}}" class="img-fluid w-100" alt="Outillage professionnel">
+                            <img src="{{asset('assets/img/boutik.jpeg')}}" class="img-fluid w-100" alt="Outillage professionnel">
                         </div>
                         <div class="col-xl-6 carousel-content p-4">
                             <h4 class="text-uppercase fw-bold mb-4 wow fadeInRight" data-wow-delay="0.1s"
-                                style="letter-spacing: 3px;">Jusqu'à -25%</h4>
+                                style="letter-spacing: 3px;">Bienvenue chez <br> Eco Business Distribution</h4>
                             <!--<h5 class="display-3 text-capitalize mb-2 wow fadeInRight" data-wow-delay="0.3s">Sur l'outillage électroportatif</h5>-->
-                            <p class="text-dark wow fadeInRight" data-wow-delay="0.5s">Perceuses, meuleuses, visseuses professionnelles</p>
+                            <p class="text-dark wow fadeInRight" data-wow-delay="0.5s">Votre partenaire de confiance !</p>
                             <a class="btn btn-primary rounded-pill py-2 px-3 wow fadeInRight" data-wow-delay="0.7s"
                                 href="#">Je profite</a>
                         </div>
@@ -815,7 +815,7 @@
                     <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
                             style="width: 50px; height: 50px;">
-                            <i class="fab fa-whatsapp fa-1x text-primary"></i>
+                            <i class="bi bi-whatsapp fa-1x text-primary"></i>
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>

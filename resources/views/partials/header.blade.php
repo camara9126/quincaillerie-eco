@@ -6,6 +6,8 @@
     $categories= categorie::latest()->get();
     $articles= article::latest()->get();
 
+    // Alert sotck
+    $alerte = article::produitsEnAlerte()->count();
 ?>
 
 <!DOCTYPE html>
@@ -20,6 +22,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
      <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <!-- Libraries Stylesheet -->
@@ -41,7 +44,7 @@
             --primary-dark: #146c43;
             --primary-light: #d1e7dd;
             --white: #ffffff;
-            --gray-100: #f8f9fa;
+            --gray-100: #f5f7fb;
             --gray-200: #e9ecef;
             --gray-300: #dee2e6;
             --gray-600: #6c757d;
@@ -369,10 +372,10 @@
         }
 
         .card-header {
-            padding: 1.25rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             border-bottom: 1px solid var(--gray-200);
             background: var(--white);
-            font-weight: 600;
+            font-weight: 500;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -472,7 +475,7 @@
         .form-grid {
             display: grid;
             grid-template-columns: repeat(1, 1fr);
-            gap: 1.3rem;
+            gap: 1.1rem;
         }
 
         .form-group {
@@ -486,13 +489,12 @@
         label {
             display: block;
             margin-bottom: 0.5rem;
-            font-weight: 300;
-            font-size: 0.85rem;
+            font-weight: 600;
+            font-size: 1.0rem;
         }
 
         input, select, textarea {
             width: 100%;
-            padding: 0.70rem 0.5rem;
             border: 1px solid var(--gray-300);
             border-radius: 8px;
             font-family: inherit;
@@ -509,7 +511,6 @@
         .image-upload {
             border: 2px dashed var(--gray-300);
             border-radius: 8px;
-            padding: 1rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s;

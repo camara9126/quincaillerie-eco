@@ -15,20 +15,8 @@
                     <i class="fas fa-search"></i>
                     <input type="text" placeholder="Rechercher...">
                 </div>
-
-                <div class="user-menu">
-                    <i class="fas fa-bell"></i>
-                    <i class="fas fa-envelope"></i>
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <span>AD</span>
-                        </div>
-                        <div class="user-info">
-                            <div style="font-weight: 600;">Admin</div>
-                            <div style="font-size: 0.85rem; color: var(--gray-600);">admin@btpmateriaux.sn</div>
-                        </div>
-                    </div>
-                </div>
+                
+                @include('partials.userMenu')
             </nav>
 
             <!-- Content Area -->
@@ -40,9 +28,9 @@
                         <button class="btn-outline" style="margin-right: 0.5rem;">
                             <i class="fas fa-download"></i> Exporter
                         </button>
-                        <button class="btn-primary">
-                            <i class="fas fa-plus"></i> Nouvel article
-                        </button>
+                        <a href="{{ route('home') }}" class="btn-primary">
+                            <i class="fas fa-shop"></i>Boutique
+                        </a>
                     </div>
                 </div>
 
@@ -98,6 +86,7 @@
                             <table>
                                 <thead>
                                     <tr>
+                                        <th>Code</th>
                                         <th>Produit</th>
                                         <th>Catégorie</th>
                                         <th>Prix</th>
@@ -114,11 +103,12 @@
                                             <div class="product-info">
                                                 <img src="{{asset('storage/'. $a->image)}}" width="50" alt="">
                                                 <div>
-                                                    <div style="font-weight: 600;">{{$a->nom}}</div>
+                                                    <div style="font-weight: 600;">{{$a->code}}</div>
                                                     <!--<div style="font-size: 0.85rem; color: var(--gray-600);">GBH 2-26</div>-->
                                                 </div>
                                             </div>
                                         </td>
+                                        <td>{{$a->nom}}</td>
                                         <td>{{$a->categorie->nom}}</td>
                                         <td><strong>{{$a->prix}} FCFA</strong></td>
                                         <td><span class="badge-success">{{$a->stock}} en stock</span></td>

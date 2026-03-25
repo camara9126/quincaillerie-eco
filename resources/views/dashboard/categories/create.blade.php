@@ -16,19 +16,7 @@
                     <input type="text" placeholder="Rechercher...">
                 </div>
 
-                <div class="user-menu">
-                    <i class="fas fa-bell"></i>
-                    <i class="fas fa-envelope"></i>
-                    <div class="user-profile">
-                        <div class="user-avatar">
-                            <span>AD</span>
-                        </div>
-                        <div class="user-info">
-                            <div style="font-weight: 600;">Admin</div>
-                            <div style="font-size: 0.85rem; color: var(--gray-600);">admin@btpmateriaux.sn</div>
-                        </div>
-                    </div>
-                </div>
+                @include('partials.userMenu')
             </nav>  
    
                 <div class="card">

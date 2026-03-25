@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
+use App\Models\entreprise;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
@@ -35,6 +37,53 @@ class ProfileController extends Controller
         $request->user()->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    }
+
+
+    /**
+     * Update the entreprise's profile information..
+     */
+    public function entrepriseUpdate(Request $request, string $entreprise)
+    {
+        $entreprise = entreprise::FindOrFail($entreprise);
+
+         $request->validate([
+            'telephone' => 'nullable|string|max:50',
+            'taux_tva' => 'numeric|max:100',
+            'adresse' => 'nullable|string',
+            'logo' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'ninea' => 'nullable',
+        ]);
+
+        // Gestion des logo
+        if ($request->hasFile('logo')) {
+            
+            if($entreprise->logo){
+                Storage::delete('public/logo/'.$entreprise->logo);
+            }
+
+            $filename = time().$request->file('logo')->getClientOriginalName();
+            $path = $request->file('logo')->storeAs('logo', $filename, 'public');
+            $request['logo'] = '/storage/' . $path;
+           
+        } else {
+            $entreprise->logo;
+        }
+
+        $entreprise->update([
+            'telephone' => $request->telephone,
+            'taux_tva' => $request->taux_tva,
+            'adresse' => $request->adresse,
+            'logo' => $path  ?? $entreprise->logo,
+            'ninea' => $request->ninea  ?? null,
+        ]);
+
+
+        // Lier l'utilisateur a l'entreprise
+        $user= $request->user();
+        $user->save();
+
+        return redirect()->back()->with('success', 'Entreprise mise a jour avec success');
     }
 
     /**

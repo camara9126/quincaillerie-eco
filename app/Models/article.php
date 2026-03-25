@@ -10,7 +10,11 @@ class article extends Model
     protected $fillable = [
         'nom',
         'slug',
+        'code',
+        'designation',
+        'prix_achat',
         'prix',
+        'reference',
         'description',
         'image',
         'gal_1',
@@ -27,6 +31,15 @@ class article extends Model
         return $this->belongsTo(categorie::class);
     }
 
+    public function mouvements() {
+        return $this->hasMany(mouvement_stock::class);
+    }
+
+    // Alerte stock minimum
+    public static function produitsEnAlerte()
+    {
+        return self::whereColumn('stock', '<=', 'stock_min');
+    }
 
     // creation de slug a chaque article
         protected static function boot()

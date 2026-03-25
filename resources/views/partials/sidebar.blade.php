@@ -2,9 +2,11 @@
 
     use App\Models\article;
     use App\Models\categorie;
+    use App\Models\client;
 
     $categories= categorie::latest()->get();
     $articles= article::latest()->get();
+    $clients= client::latest()->get();
 
 ?>
        <aside class="sidebar" id="sidebar">
@@ -31,12 +33,6 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('article.create') }}">
-                            <i class="fas fa-plus-circle"></i>
-                            <span>Ajouter un article</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="{{ route('categorie.index') }}">
                             <i class="fas fa-tags"></i>
                             <span>Catégories</span>
@@ -44,21 +40,22 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('categorie.create') }}">
-                           <i class="fas fa-plus-circle"></i>
-                            <span>Ajouter un catégorie</span>
+                        <a href="{{ route('mouvements') }}">
+                            <i class="fas fa-bars-staggered"></i>
+                            <span>Mouvement stock</span>
                         </a>
                     </li>
-                    
+
                     <div class="sidebar-divider"></div>
 
                     <li>
-                        <a href="{{ route('home') }}">
-                            <i class="fas fa-shop"></i>
-                            <span>Boutique</span>
+                        <a href="{{ route('clients.index') }}">
+                           <i class="fas fa-users"></i>
+                            <span>Client</span>
+                            <span class="badge">{{$clients->count()}}</span>
                         </a>
                     </li>
-                    <!--<li>
+                    <li>
                         <a href="#">
                             <i class="fas fa-shopping-cart"></i>
                             <span>Commandes</span>
@@ -66,6 +63,27 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('home') }}">
+                            <i class="fas fa-file-invoice-dollar"></i>
+                            <span>Factures</span>
+                        </a>
+                    </li>
+
+                    <div class="sidebar-divider"></div>
+
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Paiements</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#">
+                            <i class="fas fa-chart-bar"></i>
+                            <span>Rapports</span>
+                        </a>
+                    </li>
+                    <!--<li>
                         <a href="#">
                             <i class="fas fa-users"></i>
                             <span>Clients</span>

@@ -133,7 +133,7 @@
                                 @foreach($categories as $c)
                                     <li>
                                         <div class="categories-bars-item">
-                                            <a href="#">{{$c->nom}}</a>
+                                            <a href="{{ route('category', $c->slug)}}">{{$c->nom}}</a>
                                             <span>({{$c->article->count()}})</span>
                                         </div>
                                     </li>
@@ -313,15 +313,14 @@
 
 
     <!-- Bestseller Products Start -->
-    <div class="container-fluid products pt-5">
-        <div class="container products-mini py-5">
-            <div class="mx-auto text-center mb-5" style="max-width: 700px;">
-                <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius wow fadeInUp"
-                    data-wow-delay="0.1s">Recherche</h4>
+    <div class="container-fluid products pt-3">
+        <div class="container products-mini py-3">
+            <div class="mx-auto text-center mb-3" style="max-width: 700px;">
+                <!--<h4 class="text-primary mb-2 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius wow fadeInUp" data-wow-delay="0.1s">Recherche</h4>-->
                 <p class="mb-0 wow fadeInUp" data-wow-delay="0.2s">Resultat de votre recherche .</p>
             </div>
             <div class="row g-4">
-                @foreach($articles as $a)
+                @forelse($articles as $a)
                     <div class="col-md-6 col-lg-6 col-xl-4 wow fadeInUp" data-wow-delay="0.1s">
                         <div class="products-mini-item border">
                             <div class="row g-0">
@@ -356,7 +355,12 @@
                             </div>-->
                         </div>
                     </div>
-                @endforeach
+                @empty
+                <div class="mx-auto text-center mb-5" style="max-width: 700px;">
+                    <h4 class="text-primary mb-4 border-bottom border-primary border-2 d-inline-block p-2 title-border-radius wow fadeInUp"
+                        data-wow-delay="0.1s">Article non disponible !</h4>
+                </div>
+                @endforelse
             </div>
         </div>
     </div>
@@ -409,7 +413,7 @@
                     <div class="rounded p-3">
                         <div class="rounded-circle bg-secondary d-flex align-items-center justify-content-center mb-4"
                             style="width: 50px; height: 50px;">
-                            <i class="fab fa-whatsapp fa-1x text-primary"></i>
+                            <i class="bi bi-whatsapp fa-1x text-primary"></i>
                         </div>
                         <div>
                             <h2 class="text-white">WhatsApp</h2>

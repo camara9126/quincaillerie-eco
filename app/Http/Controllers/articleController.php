@@ -15,7 +15,7 @@ class articleController extends Controller
      */
     public function index()
     {
-        $articles= article::latest()->simplePaginate(10);
+        $articles= article::latest()->paginate(10);
 
         return view('dashboard.articles.index', compact('articles'));
     }
@@ -55,12 +55,15 @@ class articleController extends Controller
     {
          $request->validate([
             'nom' => 'required','string',
-            'description' => 'required',
+            'description' => 'nullable',
+            'prix_achat' => 'required',
             'prix' => 'required',
+            'designation' => 'nullable',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
             'gal_1' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'gal_2' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'stock' => 'required',
+            'stock_min' => 'required',
             'statut' => 'required',
             'etiquette' => 'nullable',
             'categorie_id' => 'required', 'exists:categorie,id',
@@ -92,12 +95,16 @@ class articleController extends Controller
         // creation de l'article
         Article::create([
             'nom' => $request->nom,
-            'description' => $request->description,
+            'description' => $request->description ?? null,
+            'prix_achat' => $request->prix_achat,
             'prix' => $request->prix,
+            'designation' => $request->designation ?? null,
+            'code' => $this->generateCode($request->user()->id),
+            'reference' => 'REF-' . now()->timestamp,
             'gal_1' => $gal_1 ?? null,
             'gal_2' => $gal_2 ?? null,
-            'en_promo' => $request->en_promo ?? null,
             'stock' => $request->stock,
+            'stock_min' => $request->stock_min,
             'statut' => $request->statut,
             'etiquette' => $request->etiquette ?? null,
             'categorie_id' => $request->categorie_id,
@@ -199,12 +206,13 @@ class articleController extends Controller
         // creation de l'article
         $article->update([
             'nom' => $request->nom,
-            'description' => $request->description,
-            'prix' => $request->prix,
+            'description' => $request->description ?? null,
+            'prix_achat' => $request->prix_achat,
+            'designation' => $request->designation ?? null,
             'gal_1' => $gal_1 ?? $article->gal_1,
             'gal_2' => $gal_2 ?? $article->gal_2,
-            'en_promo' => $request->en_promo ?? null,
             'stock' => $request->stock,
+            'stock_min' => $request->stock_min,
             'statut' => $request->statut,
             'etiquette' => $request->etiquette ?? null,
             'categorie_id' => $request->categorie_id,
@@ -224,5 +232,15 @@ class articleController extends Controller
         $article->destroy($id);
 
         return redirect()->route('article.index')->with('success', 'Article supprimée avec success.');
+    }
+
+    // Generateur de code produit 
+    private function generateCode(): string
+    {
+        $lastProduit = article::orderBy('id', 'desc')->first();
+
+        $number = $lastProduit ? intval(substr($lastProduit->code, -5)) + 1 : 1;
+
+        return 'PRD-' . str_pad($number, 5, '0', STR_PAD_LEFT);
     }
 }
