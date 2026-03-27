@@ -4,27 +4,22 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class venteItem extends Model
+class devis_details extends Model
 {
     protected $fillable = [
-        'vente_id',
+        'devis_id',
         'article_id',
         'quantite',
         'prix_unitaire',
-        'taux_tva',
-        'montant_tva',
-        'total_ttc',
         'total',
     ];
 
-     public function vente()
+    public function details()
     {
-        return $this->belongsTo(Vente::class);
+        return $this->hasMany(devis_details::class);
     }
 
-   
-    public function article()
-    {
+    public function article() {
         return $this->belongsTo(article::class);
     }
 }

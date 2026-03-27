@@ -3,9 +3,14 @@
 use App\Http\Controllers\articleController;
 use App\Http\Controllers\categorieController;
 use App\Http\Controllers\ClientController;
+use App\Http\Controllers\DevisController;
+use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MouvementController;
+use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RapportController;
+use App\Http\Controllers\VenteController;
 use App\Models\article;
 use App\Models\categorie;
 use Illuminate\Support\Facades\Route;
@@ -74,6 +79,11 @@ Route::middleware('auth')->group(function () {
 });
 
 
+Route::middleware('auth')->group(function () {
+    Route::get('/rapports', [RapportController::class, 'rapport'])->name('rapports.rapport');
+});
+
+
 // Routes Articles et Categories
 Route::middleware('auth')->group(function () {
     // Route Categorie
@@ -98,15 +108,32 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Routes Clients
+// Routes Clients, Devis et Commandes
 Route::middleware('auth')->group(function () {
     Route::resource('/clients', ClientController::class);
+    Route::resource('/commandes', VenteController::class);
+    Route::resource('/devis', DevisController::class);
+
+    Route::get('/devis/{devis}/facture', [DevisController::class, 'facture'])->name('devis.facture');
+
+    Route::get('/devis/{devis}/valider', [DevisController::class, 'valider'])->name('devis.valider');
+    Route::get('/devis/{devis}/refuser', [DevisController::class, 'refuser'])->name('devis.refuser');
+    Route::get('/devis/{devis}/convertir', [DevisController::class, 'convertir'])->name('devis.convertir');
     //Route::post('/client', [MouvementController::class, 'stock']);
 
 });
 
 
+// Routes Depenses, Recettes et Paiements
+Route::middleware('auth')->group(function () {
+    Route::resource('/paiements', PaiementController::class);
+    Route::put('/paiements/{id}/annuler', [PaiementController::class, 'annuler'])->name('paiements.annuler');
 
+    Route::resource('/recettes', VenteController::class);
+    Route::resource('/depenses', DepenseController::class);
+    //Route::post('/client', [MouvementController::class, 'stock']);
+
+});
 
 
 require __DIR__.'/auth.php';

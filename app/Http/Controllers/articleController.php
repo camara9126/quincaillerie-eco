@@ -45,7 +45,7 @@ class articleController extends Controller
     public function create()
     {
         $categorie= categorie::latest()->get();
-         return view('dashboard.articles.create', compact('categorie'));
+        return view('dashboard.articles.create', compact('categorie'));
     }
 
     /**

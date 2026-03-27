@@ -46,7 +46,7 @@ class ClientController extends Controller
             'entreprise_id' => $request->user()->entreprise_id,
         ]);
 
-        return redirect()->route('clients.index')->with('success', 'Client ajouté');
+        return redirect()->back()->with('success', 'Client ajouté');
     }
 
 
@@ -74,7 +74,7 @@ class ClientController extends Controller
             'adresse'
         ));
 
-        return redirect()->route('clients.index')->with('success', 'Client modifié');
+        return redirect()->back()->with('success', 'Client modifié');
 
     }
     

@@ -67,7 +67,7 @@
                                             <td>{{$c->adresse ?? 'Vide'}}</td>
                                             <td>
                                             <div class="action-buttons">
-                                                <a href="{{ route('clients.edit', $c->id) }}" class="action-btn" data-bs-toggle="modal"  data-bs-target="#clientEditModal" title="Modifier">
+                                                <a href="" class="action-btn" data-bs-toggle="modal" data-id="{{ $c->id }}" data-name="{{ $c->nom }}" data-phone="{{ $c->telephone }}" data-email="{{ $c->email }}" data-adress="{{$c->adresse }}" data-bs-target="#clientEditModal" title="Modifier">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
                                                 <form action="{{route('clients.destroy', $c->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
@@ -91,6 +91,17 @@
                             <div class="d-flex justify-content-center mt-4">
                                 {{$clients->links()}}
                             </div>
+
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif 
+
                             <!-- Nouveau client -->
                             <div class="modal fade" id="clientModal" tabindex="-1">
                                 <div class="modal-dialog">
@@ -135,7 +146,8 @@
                              <!-- Edit client -->
                             <div class="modal fade" id="clientEditModal" tabindex="-1">
                                 <div class="modal-dialog">
-                                    <form method="post" action="{{route('clients.update', $c->id)}}">
+
+                                    <form method="post" id="editClientForm" action="">
                                         @csrf
                                         @method('PUT')
                                         <div class="modal-content">
@@ -145,24 +157,26 @@
                                             </div>
 
                                             <div class="modal-body">
+                                                <input type="hidden" name="id" id="client_id">
+
                                                 <div class="mb-3">
                                                     <label>Nom du client</label>
-                                                    <input type="text" name="nom" value="{{$c->nom }}" class="form-control" required>
+                                                    <input type="text" name="nom" id="name" class="form-control" required>
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label>Téléphone</label>
-                                                    <input type="text" name="telephone" value="{{$c->telephone }}" class="form-control">
+                                                    <input type="text" name="telephone" id="phone" class="form-control">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label>Email</label>
-                                                    <input type="email" name="email" value="{{$c->email }}" class="form-control">
+                                                    <input type="email" name="email" id="email" class="form-control">
                                                 </div>
 
                                                 <div class="mb-3">
                                                     <label>Adresse</label>
-                                                    <textarea name="adresse" id="">{{$c->adresse }}</textarea>
+                                                    <textarea name="adresse" id="adress" class="form-control" rows="3"></textarea>
                                                 </div>
                                             </div>
 
@@ -176,5 +190,35 @@
                         </div>
                     </div>
                 </div>
+
+    <!--Recuperation des donnees client pour l'Edit -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const modal = document.getElementById('clientEditModal');
+            const form = document.getElementById('editClientForm');
+
+            modal.addEventListener('show.bs.modal', function (event) {
+                const button = event.relatedTarget;
+
+                // Récupération des données
+                const id = button.getAttribute('data-id');
+                const name = button.getAttribute('data-name');
+                const email = button.getAttribute('data-email');
+                const phone = button.getAttribute('data-phone');
+                const adress = button.getAttribute('data-adress');
+                
+                // Remplir le formulaire
+                modal.querySelector('#client_id').value = id;
+                modal.querySelector('#name').value = name;
+                modal.querySelector('#phone').value = phone;
+                modal.querySelector('#email').value = email;
+                modal.querySelector('#adress').value = adress;
+                
+                // Mettre à jour l'action du formulaire avec l'ID récupéré
+                const updateUrl = `/clients/${id}`;
+                form.action = updateUrl;
+            });
+        });
+    </script>
 
 @include('partials.footer')

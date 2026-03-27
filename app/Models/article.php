@@ -31,6 +31,10 @@ class article extends Model
         return $this->belongsTo(categorie::class);
     }
 
+    public function ventes() {
+        return $this->hasMany(vente::class);
+    }
+
     public function mouvements() {
         return $this->hasMany(mouvement_stock::class);
     }

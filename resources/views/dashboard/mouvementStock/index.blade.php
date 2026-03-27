@@ -83,14 +83,14 @@
                             </table>
                         </div> 
                          @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif 
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif 
                         <!-- Modal Nouveau mouvement stck-->
                         <div class="modal fade" id="exampleModal" tabindex="-1">
                             <div class="modal-dialog">

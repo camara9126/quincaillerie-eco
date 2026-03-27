@@ -21,8 +21,8 @@
    
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-plus-circle" style="color: var(--primary); margin-right: 0.5rem;"></i> Modification article</span>
                         <span class="badge-success">Formulaire d'edit</span>
+                        <a href="{{ route('article.index') }}" class="btn btn-outline-danger">Retour</a>
                     </div>
 
                     @if ($errors->any())

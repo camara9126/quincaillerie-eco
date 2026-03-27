@@ -13,4 +13,8 @@ class client extends Model
         'adresse',
     ];
 
+    public function ventes()
+    {
+        return $this->hasMany(Vente::class);
+    }
 }
