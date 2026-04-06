@@ -201,7 +201,7 @@ class DevisController extends Controller
 
         $articles= article::latest()->get();
 
-        $devis = Devis::with('client', 'details')->findOrFail($id);
+        $devis = devis::with('client', 'details')->findOrFail($id);
 
         $devis->load(['client', 'details']);
 //dd($devis);

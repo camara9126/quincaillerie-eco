@@ -26,7 +26,7 @@ class BonCommandeController extends Controller
      */
     public function create()
     {
-        $fournisseurs = Fournisseur::all();
+        $fournisseurs = fournisseur::all();
         $articles = article::all();
 
         return view('dashboard.bonCommandes.create', compact('fournisseurs', 'articles'));
