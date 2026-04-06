@@ -37,7 +37,7 @@
 
                     <div class="card col-md-10 mx-auto shadow-sm">
                         <div class="card-body">
-                            <form method="post" action="{{ route('article.store') }}" enctype="multipart/form-data">
+                            <form method="post" action="{{ route('articles.store') }}" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-grid">
                                     <div class="row">
@@ -52,6 +52,18 @@
                                                 @foreach($categorie as $c)
                                                     <option value="{{$c->id}}">{{$c->nom}}</option>
                                                 @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Fournisseur *</label>
+                                            <select name="fournisseur_id" required>
+                                                <option value="">Sélectionner le fournisseur</option>
+                                                    @foreach($fournisseur as $f)
+                                                        <option value="{{$f->id}}">{{$f->nom}}</option>
+                                                    @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -143,7 +155,7 @@
                                     
                                 </div>
                                 <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
-                                    <a href="{{ route('article.index') }}" type="button" class="btn-outline">Annuler</a>
+                                    <a href="{{ route('articles.index') }}" type="button" class="btn-outline">Annuler</a>
                                     <button type="submit" class="btn-primary">
                                         <i class="fas fa-save"></i> Enregistrer l'article
                                     </button>

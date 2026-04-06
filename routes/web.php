@@ -1,10 +1,12 @@
 <?php
 
 use App\Http\Controllers\articleController;
+use App\Http\Controllers\BonCommandeController;
 use App\Http\Controllers\categorieController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\DevisController;
 use App\Http\Controllers\DepenseController;
+use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\PaiementController;
@@ -12,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RapportController;
 use App\Http\Controllers\VenteController;
 use App\Models\article;
+use App\Models\bon_commande;
 use App\Models\categorie;
 use Illuminate\Support\Facades\Route;
 
@@ -93,7 +96,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/csearch', [categorieController::class, 'search'])->name('categorie.search');
 
     // Route Article
-    Route::resource('/article', articleController::class);
+    Route::resource('/articles', articleController::class);
 
     // Recheche article par Admin
     Route::get('/asearch', [articleController::class, 'search'])->name('article.search');
@@ -106,6 +109,18 @@ Route::middleware('auth')->group(function () {
     Route::post('/mouvements', [MouvementController::class, 'stock'])->name('stock');
 
 });
+
+// Routes Bon de Commande et Fournisseur
+Route::middleware('auth')->group(function () {
+    Route::resource('/bonCommande', BonCommandeController::class);
+    Route::get('bonCommande/{id}/envoyer', [BonCommandeController::class, 'envoyer'])->name('bonCommande.envoyer');
+    Route::get('bonCommande/{id}/recevoir', [BonCommandeController::class, 'recevoir'])->name('bonCommande.recevoir');
+    Route::get('bonCommande/{id}/facture', [BonCommandeController::class, 'facture'])->name('bonCommande.facture');
+
+    Route::resource('/fournisseurs', FournisseurController::class);
+
+});
+
 
 
 // Routes Clients, Devis et Commandes

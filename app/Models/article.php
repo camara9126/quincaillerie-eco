@@ -8,6 +8,7 @@ use Illuminate\Support\Str;
 class article extends Model
 {
     protected $fillable = [
+        'fournisseur_id',
         'nom',
         'slug',
         'code',
@@ -31,6 +32,11 @@ class article extends Model
         return $this->belongsTo(categorie::class);
     }
 
+     public function fournisseur()
+    {
+        return $this->belongsTo(Fournisseur::class);
+    }
+    
     public function ventes() {
         return $this->hasMany(vente::class);
     }

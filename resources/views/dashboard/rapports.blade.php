@@ -1070,14 +1070,14 @@
                 <!-- Page Header -->
                 <div class="page-header">
                     <h1>Tableau de bord</h1>
-                    <div>
+                    <!--<div>
                         <button class="btn-outline" style="margin-right: 0.5rem;">
                             <i class="fas fa-download"></i> Exporter
                         </button>
                         <a href="{{ route('home') }}" class="btn-primary">
                             <i class="fas fa-shop"></i>Boutique
                         </a>
-                    </div>
+                    </div>-->
                 </div>
 
                             <!-- Stats Cards -->

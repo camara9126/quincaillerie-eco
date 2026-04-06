@@ -40,9 +40,9 @@
                     @endif
 
                     <div class="card-header">
-                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des clients ( {{$clients->count()}} )</span>
-                       <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#clientModal">
-                            Nouveau client →
+                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des founisseurs (  )</span>
+                       <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#fournisseurModal">
+                            Nouveau fournisseur →
                         </button>
                     </div>
                     
@@ -59,18 +59,18 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @forelse($clients as $c)
+                                        @forelse($fournisseurs as $f)
                                         <tr>
-                                            <td>{{$c->nom}}</td>
-                                            <td>{{$c->telephone ?? 'Vide'}}</td>
-                                            <td>{{$c->email ?? 'Vide'}}</td>
-                                            <td>{{$c->adresse ?? 'Vide'}}</td>
+                                            <td>{{$f->nom}}</td>
+                                            <td>{{$f->telephone ?? 'Vide'}}</td>
+                                            <td>{{$f->email ?? 'Vide'}}</td>
+                                            <td>{{$f->adresse ?? 'Vide'}}</td>
                                             <td>
                                             <div class="action-buttons">
-                                                <a href="" class="action-btn" data-bs-toggle="modal" data-id="{{ $c->id }}" data-name="{{ $c->nom }}" data-phone="{{ $c->telephone }}" data-email="{{ $c->email }}" data-adress="{{$c->adresse }}" data-bs-target="#clientEditModal" title="Modifier">
+                                                <a href="" class="action-btn" data-bs-toggle="modal" data-id="{{ $f->id }}" data-name="{{ $f->nom }}" data-phone="{{ $f->telephone }}" data-email="{{ $f->email }}" data-adress="{{$f->adresse }}" data-bs-target="#fournisseurEditModal" title="Modifier">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{route('clients.destroy', $c->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
+                                                <form action="{{route('fournisseurs.destroy', $f->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="action-btn delete" title="Supprimer">
@@ -89,7 +89,7 @@
                                     </tbody>
                                 </table>  
                             <div class="d-flex justify-content-center mt-4">
-                                {{$clients->links()}}
+                                {{$fournisseurs->links()}}
                             </div>
 
                             @if ($errors->any())
@@ -102,20 +102,20 @@
                                 </div>
                             @endif 
 
-                            <!-- Nouveau client -->
-                            <div class="modal fade" id="clientModal" tabindex="-1">
+                            <!-- Nouveau fournisseur -->
+                            <div class="modal fade" id="fournisseurModal" tabindex="-1">
                                 <div class="modal-dialog">
-                                    <form method="post" action="{{route('clients.store')}}">
+                                    <form method="post" action="{{route('fournisseurs.store')}}">
                                         @csrf
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Nouveau client</h5>
+                                                <h5 class="modal-title">Nouveau fournisseur</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <div class="modal-body">
                                                 <div class="mb-3">
-                                                    <label>Nom du client</label>
+                                                    <label>Nom du fournisseur</label>
                                                     <input type="text" name="nom" class="form-control" required>
                                                 </div>
 
@@ -143,24 +143,24 @@
                                 </div>
                             </div>
 
-                             <!-- Edit client -->
-                            <div class="modal fade" id="clientEditModal" tabindex="-1">
+                             <!-- Edit founisseur -->
+                            <div class="modal fade" id="fournisseurEditModal" tabindex="-1">
                                 <div class="modal-dialog">
 
-                                    <form method="post" id="editClientForm" action="">
+                                    <form method="post" id="editFournisseurForm" action="">
                                         @csrf
                                         @method('PUT')
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Modification client</h5>
+                                                <h5 class="modal-title">Modification fournisseur</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
                                             <div class="modal-body">
-                                                <input type="hidden" name="id" id="client_id">
+                                                <input type="hidden" name="id" id="founisseur_id">
 
                                                 <div class="mb-3">
-                                                    <label>Nom du client</label>
+                                                    <label>Nom du founisseur</label>
                                                     <input type="text" name="nom" id="name" class="form-control" required>
                                                 </div>
 
@@ -191,11 +191,11 @@
                     </div>
                 </div>
 
-    <!--Recuperation des donnees client pour l'Edit -->
+    <!--Recuperation des donnees founisseur pour l'Edit -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const modal = document.getElementById('clientEditModal');
-            const form = document.getElementById('editClientForm');
+            const modal = document.getElementById('fournisseurEditModal');
+            const form = document.getElementById('editFournisseurForm');
 
             modal.addEventListener('show.bs.modal', function (event) {
                 const button = event.relatedTarget;
@@ -208,14 +208,14 @@
                 const adress = button.getAttribute('data-adress');
                 
                 // Remplir le formulaire
-                modal.querySelector('#client_id').value = id;
+                modal.querySelector('#founisseur_id').value = id;
                 modal.querySelector('#name').value = name;
                 modal.querySelector('#phone').value = phone;
                 modal.querySelector('#email').value = email;
                 modal.querySelector('#adress').value = adress;
                 
                 // Mettre à jour l'action du formulaire avec l'ID récupéré
-                const updateUrl = `/clients/${id}`;
+                const updateUrl = `/founisseurs/${id}`;
                 form.action = updateUrl;
             });
         });

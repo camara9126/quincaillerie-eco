@@ -30,7 +30,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des articles ( {{$articles->count()}} )</span>
-                        <a href="{{ route('article.create') }}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Nouveau article →</a>
+                        <a href="{{route('articles.create')}}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Nouveau article →</a>
                     </div>
                     
                     @if(Session::has('success'))
@@ -78,8 +78,8 @@
                                         <td><span class="badge-{{$a->statut ? 'success' : 'warning'}}">{{$a->statut ? 'Publié' : 'En attente'}}</span></td>
                                         <td>
                                             <div class="action-buttons">
-                                                <a href="{{ route('article.edit', $a->id) }}" class="action-btn" title="Modifier"><i class="fas fa-edit"></i></a>
-                                                <form action="{{route('article.destroy', $a->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
+                                                <a href="{{ route('articles.edit', $a->id) }}" class="action-btn" title="Modifier"><i class="fas fa-edit"></i></a>
+                                                <form action="{{route('articles.destroy', $a->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="action-btn delete" title="Supprimer">

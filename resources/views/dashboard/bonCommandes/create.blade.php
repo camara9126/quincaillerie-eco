@@ -29,7 +29,8 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Nouvelle comannde</span>
+                        <span><i class="fas fa-file-invoice" style="color: var(--primary); margin-right: 0.5rem;"></i>Creation de bon de commande </span>
+                        <a href="{{ route('bonCommande.index') }}" class="btn btn-outline-danger">Annuler</a>
                     </div>
                     
                     @if(Session::has('success'))
@@ -44,65 +45,47 @@
 
                     <div class="card-body">
                         @if ($errors->any())
-                                <div style="color: red; margin-bottom: 10px;">
-                                    @foreach ($errors->all() as $error)
-                                        <p>{{ $error }}</p>
-                                    @endforeach
-                                </div>
-                            @endif
-                            <h2 class="text-center mb-2">Nouvelle vente</h2>
+                            <div style="color: red; margin-bottom: 10px;">
+                                @foreach ($errors->all() as $error)
+                                    <p>{{ $error }}</p>
+                                @endforeach
+                            </div>
+                        @endif
 
-                            <form action="{{ route('commandes.store') }}" method="POST" class="contact-form">
+
+                        <div class="container">
+                            <h3>Créer un bon de commande</h3>
+
+                            <form action="{{ route('bonCommande.store') }}" method="POST">
                                 @csrf
-                                {{-- CLIENT --}}
-                                <div class="row mt-2">
-                                    <div class="col-7">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Client</label><br>
-                                            <select name="client_id" class="form-select" required>
-                                                <option value="">-- Sélectionner un client --</option>
-                                                @foreach($clients as $client)
-                                                    <option value="{{ $client->id }}">
-                                                        {{ ucfirst($client->nom) }}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>                                
-                                    </div>
-                                    <div class="col-5">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Nouveau Client</label><br>
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#clientModal">
-                                                Ajouter
-                                            </button>
-                                        </div>
-                                    </div>
+
+                                <!-- FOURNISSEUR -->
+                                <div class="mb-3">
+                                    <label>Fournisseur</label>
+                                    <select name="fournisseur_id" class="form-control" required>
+                                        <option value="">-- Choisir un fournisseur --</option>
+                                        @foreach($fournisseurs as $fournisseur)
+                                            <option value="{{ $fournisseur->id }}">{{ $fournisseur->nom }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
 
-                                <hr>
-
-                                {{-- PRODUITS --}}
-                                
-                                <div class="row mt-3">
-                                    <div class="col-6">
-                                        <h4>Articles</h4>
-                                    </div>
-                                </div>
-
-                                <table class="table table-bordered" id="table-produits">
+                                <!-- TABLE articles -->
+                                <table class="table table-bordered" id="table-articles">
                                     <thead>
                                         <tr>
-                                            <th>Produit</th>
+                                            <th>article</th>
                                             <th>Prix</th>
                                             <th>Quantité</th>
                                             <th>Total</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
+
                                     <tbody>
                                         <tr>
                                             <td>
-                                                <select name="articles[0][article_id]" class="form-control produit-select">
+                                                <select name="articles[0][article_id]" class="form-control article-select">
                                                     <option value="">Choisir</option>
                                                     @foreach($articles as $article)
                                                         <option value="{{ $article->id }}" data-prix="{{ $article->prix }}">
@@ -113,7 +96,7 @@
                                             </td>
 
                                             <td>
-                                                <input type="number" name="articles[0][prix]" class="form-control prix" readonly>
+                                                <input type="number" name="articles[0][prix]" class="form-control prix">
                                             </td>
 
                                             <td>
@@ -131,59 +114,28 @@
                                     </tbody>
                                 </table>
 
-                                <button type="button" id="addRow" class="btn btn-primary">+ Ajouter produit</button>
+                                <button type="button" id="addRow" class="btn btn-primary">+ Ajouter article</button>
 
-                                <!-- TOTAL -->
-                                <div class="mt-3">
+                                <!-- TOTAL GLOBAL -->
+                                <div class="mt-3 text-end">
                                     <h4>Total : <span id="total-global">0</span> FCFA</h4>
                                 </div>
 
-                                <br>
-                                <button type="submit" class="btn btn-primary btn-lg">
-                                    Enregistrer la vente
+                                <!-- NOTE -->
+                                <div class="mt-3">
+                                    <label>Note</label>
+                                    <textarea name="note" class="form-control"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-success mt-3">
+                                    Enregistrer
                                 </button>
                             </form>
-                            
-                            <!-- Nouveau client -->
-                            <div class="modal fade" id="clientModal" tabindex="-1">
-                                <div class="modal-dialog">
-                                    <form method="post" action="{{route('clients.store')}}">
-                                        @csrf
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title">Nouveau client</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                                            </div>
+                        </div>
 
-                                            <div class="modal-body">
-                                                <div class="mb-3">
-                                                    <label>Nom du client</label>
-                                                    <input type="text" name="nom" class="form-control" required>
-                                                </div>
 
-                                                <div class="mb-3">
-                                                    <label>Téléphone</label>
-                                                    <input type="text" name="telephone" class="form-control">
-                                                </div>
+<script>
 
-                                                <div class="mb-3">
-                                                    <label>Email</label>
-                                                    <input type="email" name="email" class="form-control">
-                                                </div>
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="submit" class="btn btn-primary">Enregistrer</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                    </div>
-                </div>
-
-    <!-- Fonction Javascript pour Ajout multiple produits -->
-    <script>
         let index = 1;
 
         // Ajouter ligne
@@ -192,7 +144,7 @@
             let row = `
             <tr>
                 <td>
-                    <select name="articles[${index}][article_id]" class="form-control produit-select">
+                    <select name="articles[${index}][article_id]" class="form-control article-select">
                         <option value="">Choisir</option>
                         @foreach($articles as $article)
                             <option value="{{ $article->id }}" data-prix="{{ $article->prix }}">
@@ -203,7 +155,7 @@
                 </td>
 
                 <td>
-                    <input type="number" name="articles[${index}][prix]" class="form-control prix" readonly>
+                    <input type="number" name="articles[${index}][prix]" class="form-control prix">
                 </td>
 
                 <td>
@@ -220,7 +172,7 @@
             </tr>
             `;
 
-            document.querySelector('#table-produits tbody').insertAdjacentHTML('beforeend', row);
+            document.querySelector('#table-articles tbody').insertAdjacentHTML('beforeend', row);
             index++;
         });
 
@@ -232,11 +184,12 @@
             }
         });
 
-        // Auto remplir prix
+        // Auto prix
         document.addEventListener('change', function(e){
-            if(e.target.classList.contains('produit-select')){
-                let prix = e.target.selectedOptions[0].dataset.prix;
+            if(e.target.classList.contains('article-select')){
+                let prix = e.target.selectedOptions[0].dataset.prix || 0;
                 let row = e.target.closest('tr');
+
                 row.querySelector('.prix').value = prix;
                 calculLigne(row);
             }
@@ -244,7 +197,7 @@
 
         // Calcul ligne
         document.addEventListener('input', function(e){
-            if(e.target.classList.contains('quantite')){
+            if(e.target.classList.contains('quantite') || e.target.classList.contains('prix')){
                 let row = e.target.closest('tr');
                 calculLigne(row);
             }
@@ -255,6 +208,7 @@
             let quantite = row.querySelector('.quantite').value || 0;
 
             let total = prix * quantite;
+
             row.querySelector('.total-ligne').value = total;
 
             calculTotal();
@@ -270,5 +224,6 @@
 
             document.getElementById('total-global').innerText = total.toLocaleString();
         }
-    </script>
+
+</script>
 @include('partials.footer')

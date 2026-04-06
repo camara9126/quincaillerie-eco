@@ -22,7 +22,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="badge-success">Formulaire d'edit</span>
-                        <a href="{{ route('article.index') }}" class="btn btn-outline-danger">Retour</a>
+                        <a href="{{ route('articles.index') }}" class="btn btn-outline-danger">Retour</a>
                     </div>
 
                     @if ($errors->any())
@@ -36,7 +36,7 @@
                     @endif
 
                     <div class="card-body">
-                        <form method="post" action="{{ route('article.update', ['article' => $article->id]) }}" enctype="multipart/form-data">
+                        <form method="post" action="{{ route('articles.update', ['article' => $article->id]) }}" enctype="multipart/form-data">
                             @csrf
                             @method('Put')
                                 <div class="form-grid">
@@ -48,11 +48,23 @@
                                         <div class="col-6">
                                             <label>Catégorie *</label>
                                             <select name="categorie_id" required>
-                                        <option value="{{$article->categorie->id}}">{{$article->categorie->nom}}</option>
+                                                <option value="{{$article->categorie->id}}">{{$article->categorie->nom}}</option>
                                                 @foreach($categorie as $c)
                                                     <option value="{{$c->id}}">{{$c->nom}}</option>
                                                 @endforeach
                                             </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label>Fournisseur *</label>
+                                                <select name="fournisseur_id" required>
+                                                    <option value="{{$article->fournisseur->id}}">{{$article->fournisseur->nom}}</option>
+                                                    @foreach($fournisseur as $f)
+                                                        <option value="{{$f->id}}">{{$f->nom}}</option>
+                                                    @endforeach
+                                                </select>
                                         </div>
                                     </div>
                                     
@@ -137,7 +149,7 @@
                                     
                                 </div>
                             <div style="display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem;">
-                                <a href="{{ route('article.index') }}" type="button" class="btn-outline">Annuler</a>
+                                <a href="{{ route('articles.index') }}" type="button" class="btn-outline">Annuler</a>
                                 <button type="submit" class="btn-primary">
                                     <i class="fas fa-save"></i> Enregistrer la Modification
                                 </button>

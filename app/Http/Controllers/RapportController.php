@@ -158,7 +158,7 @@ class RapportController extends Controller
             // Top article annee
             $yearToparticles = DB::table('vente_items')->join('articles', 'vente_items.article_id', '=', 'articles.id')->select('articles.nom as article', DB::raw('SUM(vente_items.total_ttc) as total'))->whereYear('vente_items.created_at', now()->year)->groupBy('articles.nom')->orderByDesc('total')->limit(10)->get();
 
-            $yearCategories = $yearToparticles->pluck('article');
+            $yearCategories = $yearToparticles->pluck('articles');
             $yearAmounts = $yearToparticles->pluck('total');
 
         return view('dashboard.rapports', compact('commandesMoisLabels','commandesMoisData','caLabels','caData','toparticlesLabels','toparticlesData','statutLabels','statutData', 'entreprise','monthlyData','quarterlyData','yearlyData','categories', 'amounts','yearAmounts','yearCategories'));

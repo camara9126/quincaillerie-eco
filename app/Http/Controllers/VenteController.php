@@ -55,10 +55,28 @@ class VenteController extends Controller
             'client_id' => 'required|exists:clients,id',
             'articles' => 'required|array|min:1',
             'statut',
-            'articles.*.article_id' => 'required|exists:articles,id',
+            'articles.*.article_id' => 'required',
             'articles.*.quantite' => 'required|numeric|min:1',
+            'articles.*.prix' => 'required|numeric|min:0',
         ]);
 
+
+
+             //dd($request->all());
+            $vente = Vente::create([
+                'client_id' => $request->client_id,
+                'reference' => 'VNT-' . time(),
+                'date' => now(),
+                'total' => 0,
+                'total_tva' => 0,
+                'total_ttc' => 0,
+                'statut' => 'impayee',
+                'user_id' => $request->user()->id,
+            ]);
+
+            $total = 0;
+            $total_tva = 0;
+            $total_ttc = 0;
 
         foreach ($request->articles as $item) {
 
@@ -86,27 +104,12 @@ class VenteController extends Controller
                 
                 return redirect()->back()->with('danger','Stock insuffisant pour cette article ');
             }
-
-            //dd($request->all());
-            $vente = Vente::create([
-                'client_id' => $request->client_id,
-                'reference' => 'VNT-' . time(),
-                'date' => now(),
-                'total' => 0,
-                'total_tva' => 0,
-                'total_ttc' => 0,
-                'statut' => 'impayee',
-                'user_id' => $request->user()->id,
-            ]);
-
-            $total = 0;
-            $total_tva = 0;
-            $total_ttc = 0;
-
+       
 
             // Creation vente item
             $entreprise= entreprise::findOrFail(1); // Recuperation de la TVA de l'entreprise
 
+            
             venteItem::create([
                 'vente_id' => $vente->id,
                 'article_id' => $item['article_id'],
@@ -122,9 +125,9 @@ class VenteController extends Controller
             $produit->decrement('stock', $item['quantite']);
 
             // Calcule total + total_tva + total_ttc
-            $total += $item['quantite'] * $produit->prix;
-            $total_tva += ($item['quantite'] * $produit->prix) * ($entreprise->taux_tva /100 );
-            $total_ttc += ($item['quantite'] * $produit->prix) + (($item['quantite'] * $produit->prix) * ($entreprise->taux_tva /100 ));
+            $total += $item['quantite'] *  $item['prix'];
+            $total_tva += ($item['quantite'] * $item['prix']) * ($entreprise->taux_tva /100 );
+            $total_ttc += ($item['quantite'] * $item['prix']) + (($item['quantite'] * $item['prix']) * ($entreprise->taux_tva /100 ));
             
             // Mise a jour total + total_tva + total_ttc
             $vente->update([
@@ -164,9 +167,9 @@ class VenteController extends Controller
     {
 
         $entreprise= entreprise::findOrFail(1);
-        $vente= vente::findOrFail($id);
+        $vente= vente::with('client', 'items')->findOrFail($id);
 //dd($vente);
-        $vente->load(['client', 'items.article']);
+        $vente->load(['client', 'items']);
 
         $pdf = Pdf::loadView('dashboard.commandes.facture', compact('vente', 'entreprise'));
 

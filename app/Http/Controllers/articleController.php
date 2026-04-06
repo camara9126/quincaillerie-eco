@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\article;
 use App\Models\categorie;
+use App\Models\fournisseur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -45,7 +46,9 @@ class articleController extends Controller
     public function create()
     {
         $categorie= categorie::latest()->get();
-        return view('dashboard.articles.create', compact('categorie'));
+        $fournisseur= fournisseur::latest()->get();
+
+        return view('dashboard.articles.create', compact('categorie','fournisseur'));
     }
 
     /**
@@ -54,6 +57,7 @@ class articleController extends Controller
     public function store(Request $request)
     {
          $request->validate([
+            'fournisseur_id' => 'required|exists:fournisseurs,id',
             'nom' => 'required','string',
             'description' => 'nullable',
             'prix_achat' => 'required',
@@ -94,6 +98,7 @@ class articleController extends Controller
 
         // creation de l'article
         Article::create([
+            'fournisseur_id' => $request->fournisseur_id,
             'nom' => $request->nom,
             'description' => $request->description ?? null,
             'prix_achat' => $request->prix_achat,
@@ -111,7 +116,7 @@ class articleController extends Controller
             'image' => $path,
         ]);
 
-        return redirect()->route('article.index')->with('success', 'Article crée avec success.');
+        return redirect()->route('articles.index')->with('success', 'Article crée avec success.');
 
     }
 
@@ -130,8 +135,9 @@ class articleController extends Controller
     {
         $article= article::findOrfail($id);
         $categorie= categorie::latest()->get();
+        $fournisseur= fournisseur::latest()->get();
 
-        return view('dashboard.articles.edit', compact('article', 'categorie'));
+        return view('dashboard.articles.edit', compact('article', 'categorie','fournisseur'));
     }
 
     /**
@@ -142,6 +148,7 @@ class articleController extends Controller
         $article= article::findorFail($id);
 
         $request->validate([
+            'fournisseur_id' => 'required|exists:fournisseurs,id',
             'nom' => 'string',
             'description' ,
             'prix',
@@ -206,6 +213,7 @@ class articleController extends Controller
         // creation de l'article
         $article->update([
             'nom' => $request->nom,
+            'fournisseur_id' => $request->fournisseur_id,
             'description' => $request->description ?? null,
             'prix_achat' => $request->prix_achat,
             'designation' => $request->designation ?? null,
@@ -219,7 +227,7 @@ class articleController extends Controller
             'image' => $path ?? $article->image,
         ]);
 
-        return redirect()->route('article.index')->with('success', 'Article modifiée avec success.');
+        return redirect()->route('articles.index')->with('success', 'Article modifiée avec success.');
     }
 
     /**
@@ -231,7 +239,7 @@ class articleController extends Controller
 
         $article->destroy($id);
 
-        return redirect()->route('article.index')->with('success', 'Article supprimée avec success.');
+        return redirect()->route('articles.index')->with('success', 'Article supprimée avec success.');
     }
 
     // Generateur de code produit 

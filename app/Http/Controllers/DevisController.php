@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Devis;
 use App\Models\Client;
 use App\Models\devis_details;
+use App\Models\entreprise;
 use App\Models\vente;
 use App\Models\venteItem;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -140,25 +141,54 @@ class DevisController extends Controller
     /**
      * Convertir devis en vente
      */
-    public function convertirEnVente($id)
+    public function convertir(Request $request, $id)
     {
-        $devis = Devis::with('details')->findOrFail($id);
+        $devis = Devis::with('client', 'details')->findOrFail($id);
 
         // Créer la vente
         $vente = vente::create([
+            'reference' => 'VNT-' . time(),
+            'date' => now(),
             'client_id' => $devis->client_id,
             'total' => $devis->total,
+            'total_tva' => 0,
+            'total_ttc' => 0,
+            'statut' => 'impayee',
+            'user_id' => $request->user()->id,
         ]);
+
+            $total = 0;
+            $total_tva = 0;
+            $total_ttc = 0;
 
         // Ajouter les produits
         foreach ($devis->details as $detail) {
 
+         $entreprise= entreprise::findOrFail(1); // Recuperation de la TVA de l'entreprise
+
             venteItem::create([
                 'vente_id' => $vente->id,
-                'article_id' => $detail->produit_id,
+                'article_id' => $detail->article_id,
                 'quantite' => $detail->quantite,
-                'prix' => $detail->prix_unitaire,
+                'prix_unitaire' => $detail->prix_unitaire,
+                'taux_tva' => $entreprise->taux_tva,
+                'montant_tva' => ($detail['quantite'] * $detail['prix_unitaire']) * ($entreprise->taux_tva /100 ),
+                'total_ttc' => ($detail['quantite'] * $detail['prix_unitaire']) + (($detail['quantite'] * $detail['prix_unitaire']) * ($entreprise->taux_tva /100 )),
+                'total' => $detail['quantite'] * $detail['prix_unitaire'],
             ]);
+
+             // Calcule total + total_tva + total_ttc
+            $total += $detail['quantite'] *  $detail['prix_unitaire'];
+            $total_tva += ($detail['quantite'] * $detail['prix_unitaire']) * ($entreprise->taux_tva /100 );
+            $total_ttc += ($detail['quantite'] * $detail['prix_unitaire']) + (($detail['quantite'] * $detail['prix_unitaire']) * ($entreprise->taux_tva /100 ));
+
+             // Mise a jour total + total_tva + total_ttc
+            $vente->update([
+                'total' => $total,
+                'total_tva' => $total_tva,
+                'total_ttc' => $total_ttc,
+            ]);
+            
         }
 
         return redirect()->route('commandes.index', $vente->id)->with('success', 'Devis converti en vente');

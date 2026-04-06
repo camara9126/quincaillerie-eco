@@ -30,7 +30,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{{ route('article.index') }}">
+                        <a href="{{ route('articles.index') }}">
                             <i class="fas fa-box"></i>
                             <span>Articles</span>
                             <span class="badge">{{$articles->count()}}</span>
@@ -43,12 +43,29 @@
                             <span class="badge">{{$categories->count()}}</span>
                         </a>
                     </li>
+
+                    <div class="sidebar-divider"></div>
+
+                    <li>
+                        <a href="{{ route('fournisseurs.index') }}">
+                            <i class="fas fa-truck"></i>
+                            <span>Fournisseurs</span>
+                        </a>
+                    </li>
                     <li>
                         <a href="{{ route('mouvements') }}">
                             <i class="fas fa-bars-staggered"></i>
                             <span>Mouvement stock</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ route('bonCommande.index') }}">
+                            <i class="fas fa-list"></i>
+                            <span>Bon de commande</span>
+                            <span class="badge">3</span>
+                        </a>
+                    </li>
+
 
                     <div class="sidebar-divider"></div>
 

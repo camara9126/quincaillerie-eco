@@ -98,12 +98,14 @@
 
 <br>
     @if($entreprise->taux_tva > 1)
-        <h4>TVA ({{$item->taux_tva}} %) : {{ number_format($item->montant_tva) }} XOF</h4>
+        <h4>TVA ({{$item->taux_tva}} %) : {{ number_format($vente->total_tva, 0, ',', ' ') }} XOF</h4>
     @endif
-    <h2 style="color: red;">Total-HT : {{ number_format($item->total, 0, ',', ' ') }} XOF</h2>
+    
 
     @if($entreprise->taux_tva > 1)
-        <h2 style="color: red;">Total-TTC : {{ number_format($item->total_ttc, 0, ',', ' ') }} XOF</h2>
+        <h2 style="color: red;">Total-TTC : {{ number_format($vente->total_ttc, 0, ',', ' ') }} XOF</h2>
+    @else
+        <h2 style="color: red;">Total-HT : {{ number_format($vente->total, 0, ',', ' ') }} XOF</h2>
     @endif
 
         <!-- Pied de page -->

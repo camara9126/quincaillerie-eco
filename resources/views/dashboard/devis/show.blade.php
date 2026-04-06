@@ -52,7 +52,6 @@
                             </div>
                         @endif
 
-                        <div class="card-body">
 
                             <!-- INFOS ENTREPRISE -->
                             <div class="mb-4">
@@ -137,7 +136,6 @@
                                     </form>
                                 @endif
                                 
-                            </div>
                     </div>
                 </div>
 
