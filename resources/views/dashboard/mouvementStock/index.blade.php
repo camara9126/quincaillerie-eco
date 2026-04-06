@@ -36,7 +36,6 @@
                 <div class="card">
                     <div class="card-header">
                         <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i> Liste des mouvements</span>
-                        <a href="{{ route('article.index') }}" style="color: var(--primary); text-decoration: none; font-weight: 500;"></a>
                     </div>
                      @if(Session::has('success'))
                         <div class="alert alert-success" role="alert">
