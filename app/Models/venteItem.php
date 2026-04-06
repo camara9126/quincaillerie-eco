@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class enteItem extends Model
+class VenteItem extends Model
 {
     protected $fillable = [
         'vente_id',
