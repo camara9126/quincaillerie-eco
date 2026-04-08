@@ -1,21 +1,21 @@
 <?php
 
-    use App\Models\article;
-    use App\Models\categorie;
-    use App\Models\entreprise;
-    use App\Models\recettes;
+    use App\Models\Article;
+    use App\Models\Categorie;
+    use App\Models\Entreprise;
+    use App\Models\Recettes;
 
-    $categories= categorie::latest()->get();
-    $articles= article::latest()->get();
+    $categories= Categorie::latest()->get();
+    $articles= Article::latest()->get();
 
     // Alert sotck
-    $alerte = article::produitsEnAlerte()->count();
+    $alerte = Article::produitsEnAlerte()->count();
 
      // chiffre d'affaire mois actuel ttc
-    $caMoisActuel = recettes::where('statut', 'recu')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('montant');
+    $caMoisActuel = Recettes::where('statut', 'recu')->whereMonth('created_at', now()->month)->whereYear('created_at', now()->year)->sum('montant');
 
     //Chiffre d'affaire HT + montant TVA
-    $entreprise = entreprise::findOrFail(1);
+    $entreprise = Entreprise::findOrFail(1);
     $montant_tva = $caMoisActuel * ($entreprise->taux_tva / 100) /(1 + ($entreprise->taux_tva / 100));
     $ca_ht = $caMoisActuel - $montant_tva;
 ?>
