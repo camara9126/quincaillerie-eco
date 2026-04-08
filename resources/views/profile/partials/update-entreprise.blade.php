@@ -1,8 +1,8 @@
  <?php
 
-    use App\Models\entreprise;
+    use App\Models\Entreprise;
 
-    $entreprise = entreprise::latest()->get();
+    $entreprise = Entreprise::latest()->get();
 ?>
  <section>
         <header>
