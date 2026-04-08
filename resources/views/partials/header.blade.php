@@ -35,6 +35,8 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <!-- Customized Bootstrap Stylesheet -->
     <link href="{{ asset('assets/css/bootstrap.min.css') }}" rel="stylesheet">
+     <!-- Icon Logo -->
+     <link rel="shortcut icon" href="{{asset('images/logo-vert.jpeg')}}"/>
     <style>
         * {
             margin: 0;
