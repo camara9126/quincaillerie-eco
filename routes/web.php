@@ -92,7 +92,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/rapports', [RapportController::class, 'rapport'])->name('rapports');
+    Route::get('/rapport', [RapportController::class, 'rapport'])->name('rapports');
 });
 
 
