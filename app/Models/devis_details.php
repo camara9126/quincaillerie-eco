@@ -14,6 +14,7 @@ class Devis_details extends Model
         'total',
     ];
 
+    
     public function details()
     {
         return $this->hasMany(Devis_details::class);
