@@ -29,7 +29,7 @@ class Article extends Model
 
 
     public function categorie() {
-        return $this->belongsTo(categorie::class);
+        return $this->belongsTo(Categorie::class);
     }
 
      public function fournisseur()
@@ -38,11 +38,11 @@ class Article extends Model
     }
 
     public function ventes() {
-        return $this->hasMany(vente::class);
+        return $this->hasMany(Vente::class);
     }
 
     public function mouvements() {
-        return $this->hasMany(mouvement_stock::class);
+        return $this->hasMany(Mouvement_stock::class);
     }
 
     // Alerte stock minimum

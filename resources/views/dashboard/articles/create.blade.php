@@ -105,8 +105,8 @@
                                             </select>
                                         </div>
                                         <div class="col-6">
-                                            <label>Designation </label>
-                                            <input type="text" name="designation" placeholder="Ex: Perceuse Bosch GBH 2-26">
+                                            <label>Designation *</label>
+                                            <input type="text" name="designation" placeholder="Ex: Perceuse Bosch GBH 2-26" required>
                                         </div>
                                     </div>
                                     
