@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
-use App\Models\entreprise;
+use App\Models\Entreprise;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -45,7 +45,7 @@ class ProfileController extends Controller
      */
     public function entrepriseUpdate(Request $request, string $entreprise)
     {
-        $entreprise = entreprise::FindOrFail($entreprise);
+        $entreprise = Entreprise::FindOrFail($entreprise);
 
          $request->validate([
             'telephone' => 'nullable|string|max:50',
