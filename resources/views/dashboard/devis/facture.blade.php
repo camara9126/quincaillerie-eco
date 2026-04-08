@@ -24,9 +24,7 @@
     </div>
 
     <div>
-        @if($devis->entreprise->logo)
-            <img src="{{ public_path('images/logo-blanc.jpeg') }}" width="100">
-        @endif
+        <img src="{{ public_path('images/logo-blanc.jpeg') }}" width="100">
     </div>
 </div>
 
