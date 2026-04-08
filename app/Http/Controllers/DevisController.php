@@ -43,7 +43,6 @@ class DevisController extends Controller
         $request->validate([
             'client_id' => 'required',
             'articles' => 'required|array',
-            'entreprise_id',
             'articles.*.article_id' => 'required',
             'articles.*.quantite' => 'required|numeric|min:1',
             'articles.*.prix' => 'required|numeric|min:0',
@@ -53,7 +52,6 @@ class DevisController extends Controller
         $devis = Devis::create([
             'reference' => 'DEV-' . strtoupper(Str::random(6)),
             'client_id' => $request->client_id,
-            'entreprise_id' => 1,
             'total' => 0,
             'statut' => 'en_attente',
             'date_devis' => now(),
