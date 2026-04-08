@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class bon_commande extends Model
+class Bon_commande extends Model
 {
       protected $fillable = [
         'fournisseur_id',
@@ -17,13 +17,18 @@ class bon_commande extends Model
 
      public function fournisseur()
     {
-        return $this->belongsTo(fournisseur::class);
+        return $this->belongsTo(Fournisseur::class);
     }
 
 
     public function details()
     {
-        return $this->hasMany(bon_commande_details::class);
+        return $this->hasMany(Bon_commande_details::class);
+    }
+
+     public function entreprise()
+    {
+        return $this->belongsTo(Entreprise::class);
     }
 
 }

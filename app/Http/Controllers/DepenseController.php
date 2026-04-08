@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\depenses;
+use App\Models\Depenses;
 use Illuminate\Http\Request;
 
 class DepenseController extends Controller
@@ -12,7 +12,7 @@ class DepenseController extends Controller
     public function index(Request $request)
     {
 
-        $depenses = depenses::latest()->simplePaginate(10);
+        $depenses = Depenses::latest()->simplePaginate(10);
 
         return view('dashboard.depenses.index', compact('depenses'));
     }
@@ -22,7 +22,7 @@ class DepenseController extends Controller
     {
         $search = $request->query('search');
 
-        $depenses = depenses::when($search, function ($query, $search) {
+        $depenses = Depenses::when($search, function ($query, $search) {
 
                 $query->where('reference', 'like', "%{$search}%");
 
@@ -41,7 +41,7 @@ class DepenseController extends Controller
             'mode_paiement' => 'required'
         ]);
 
-        depenses::create([
+        Depenses::create([
             'entreprise_id' => $request->user()->entreprise_id,
             'user_id' => $request->user()->id,
             'reference' => 'DEP-' . now()->timestamp,
@@ -59,7 +59,7 @@ class DepenseController extends Controller
 
     public function annuler($id)
     {
-        $depense = depenses::findOrFail($id);
+        $depense = Depenses::findOrFail($id);
         $depense->update(['statut' => 'annulee']);
 
         return back()->with('success', 'Dépense annulée avec succès');

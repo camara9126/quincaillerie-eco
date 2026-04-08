@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\client;
+use App\Models\Client;
 use Illuminate\Http\Request;
 
 class ClientController extends Controller
@@ -100,7 +100,7 @@ class ClientController extends Controller
             'email' => 'nullable|email',
         ]);
 
-        client::create([
+        Client::create([
             'nom' => $request->nom,
             'telephone' => $request->telephone,
             'email' => $request->email,

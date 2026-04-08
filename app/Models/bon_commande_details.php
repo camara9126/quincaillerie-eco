@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class bon_commande_details extends Model
+class Bon_commande_details extends Model
 {
      protected $fillable = [
         'bon_commande_id',
@@ -15,6 +15,6 @@ class bon_commande_details extends Model
     ];
 
     public function article() {
-        return $this->belongsTo(article::class);
+        return $this->belongsTo(Article::class);
     }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\fournisseur;
+use App\Models\Fournisseur;
 use Illuminate\Http\Request;
 
 class FournisseurController extends Controller

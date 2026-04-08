@@ -57,7 +57,7 @@
                     <div class="stat-card">
                         <div class="stat-info">
                             <h3>Commandes</h3>
-                            <div class="number">48</div>
+                            <div class="number">{{$commandes->count()}}</div>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-shopping-cart"></i>
@@ -66,7 +66,7 @@
                     <div class="stat-card">
                         <div class="stat-info">
                             <h3>Clients</h3>
-                            <div class="number">324</div>
+                            <div class="number">{{$clients->count()}}</div>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-users"></i>

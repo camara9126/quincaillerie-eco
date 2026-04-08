@@ -12,36 +12,38 @@ use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RapportController;
+use App\Http\Controllers\RecetteController;
 use App\Http\Controllers\VenteController;
-use App\Models\article;
-use App\Models\bon_commande;
-use App\Models\categorie;
+use App\Models\Article;
+use App\Models\Categorie;
+use App\Models\Client;
+use App\Models\Vente;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
 
-    $categories= categorie::latest()->get();
-    $nouveau= article::where('etiquette', 'nouveau')->where('statut', true)->latest()->simplePaginate(4);
-    $promo= article::where('etiquette', 'promo')->where('statut', true)->latest()->simplePaginate(3);
-    $materiaux= article::where('categorie_id', 7)->where('statut', true)->latest()->get();
-    $outillages= article::where('categorie_id', 6)->where('statut', true)->latest()->get();
-    $plomberies= article::where('categorie_id', 2)->latest()->get();
-    $articles= article::where('statut', true)->latest()->simplePaginate(8);
+    $categories= Categorie::latest()->get();
+    $nouveau= Article::where('etiquette', 'nouveau')->where('statut', true)->latest()->simplePaginate(4);
+    $promo= Article::where('etiquette', 'promo')->where('statut', true)->latest()->simplePaginate(3);
+    $materiaux= Article::where('categorie_id', 7)->where('statut', true)->latest()->get();
+    $outillages= Article::where('categorie_id', 6)->where('statut', true)->latest()->get();
+    $plomberies= Article::where('categorie_id', 2)->latest()->get();
+    $articles= Article::where('statut', true)->latest()->simplePaginate(8);
     return view('home.index', compact('nouveau','promo','articles','categories','materiaux','outillages','plomberies'));
 })->name('home');
 
 Route::get('/boutique', function () {
 
-    $categories= categorie::latest()->get();
-    $articles= article::where('statut', true)->latest()->paginate(12);
-    $phares= article::where('etiquette', 'nouveau')->where('statut', true)->latest()->get();
+    $categories= Categorie::latest()->get();
+    $articles= Article::where('statut', true)->latest()->paginate(12);
+    $phares= Article::where('etiquette', 'nouveau')->where('statut', true)->latest()->get();
 
     return view('home.shop', compact('categories','articles','phares'));
 })->name('boutique');
 
 Route::get('/contact', function () {
 
-    $categories= categorie::latest()->get();
+    $categories= Categorie::latest()->get();
 
     return view('home.contact', compact('categories'));
 })->name('contact');
@@ -64,13 +66,20 @@ Route::get('/recherche', [HomeController::class, 'search'])->name('recherche');
 // Route Commande en ligne
 Route::post('/commande', [HomeController::class, 'commande'])->name('commande');
 
+// Route Parametre
+Route::get('/parametre', function() {
+    return view('dashboard.parametre');
+})->name('parametre');
+
 
 Route::get('/dashboard', function () {
-    $categories= categorie::latest()->get();
-    $articles= article::latest()->get();
-    $article= article::limit(5)->latest()->get();
+    $categories= Categorie::latest()->get();
+    $articles= Article::latest()->get();
+    $article= Article::limit(5)->latest()->get();
+    $clients= Client::latest()->get();
+    $commandes= Vente::latest()->get();
 
-    return view('dashboard.index', compact('articles','categories','article'));
+    return view('dashboard.index', compact('articles','categories','article','clients','commandes'));
     
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -83,7 +92,7 @@ Route::middleware('auth')->group(function () {
 
 
 Route::middleware('auth')->group(function () {
-    Route::get('/rapports', [RapportController::class, 'rapport'])->name('rapports.rapport');
+    Route::get('/rapports', [RapportController::class, 'rapport'])->name('rapports');
 });
 
 
@@ -144,7 +153,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('/paiements', PaiementController::class);
     Route::put('/paiements/{id}/annuler', [PaiementController::class, 'annuler'])->name('paiements.annuler');
 
-    Route::resource('/recettes', VenteController::class);
+    Route::resource('/recettes', RecetteController::class);
     Route::resource('/depenses', DepenseController::class);
     //Route::post('/client', [MouvementController::class, 'stock']);
 

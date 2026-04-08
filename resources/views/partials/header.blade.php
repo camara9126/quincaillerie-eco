@@ -1,11 +1,14 @@
 <?php
 
-    use App\Models\article;
-    use App\Models\categorie;
+    use App\Models\Article;
+    use App\Models\Categorie;
+    use App\Models\Client;
+    use App\Models\Vente;
 
-    $categories= categorie::latest()->get();
-    $articles= article::latest()->get();
-
+    $categories= Categorie::latest()->get();
+    $articles= Article::latest()->get();
+    $clients= Client::latest()->get();
+    $commandes= Vente::latest()->get();
     // Alert sotck
     $alerte = article::produitsEnAlerte()->count();
 ?>

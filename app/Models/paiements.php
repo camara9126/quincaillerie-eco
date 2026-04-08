@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class paiements extends Model
+class Paiements extends Model
 {
      use HasFactory;
 
@@ -30,7 +30,7 @@ class paiements extends Model
 
     public function recette()
     {
-        return $this->hasOne(recettes::class, 'paiement_id');
+        return $this->hasOne(Recettes::class, 'paiement_id');
     }
 
 }

@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paiements;
-use App\Models\Recette;
-use App\Models\recettes;
+use App\Models\Recettes;
 use App\Models\Vente;
 use Illuminate\Http\Request;
 
@@ -90,7 +89,7 @@ class PaiementController extends Controller
         $vente->save();
 
         // 2. Création automatique de la recette
-        recettes::create([
+        Recettes::create([
             'user_id' => $request->user()->id,
             'paiement_id' => $paiement->id,
             'reference' => 'REC-' . now()->timestamp,

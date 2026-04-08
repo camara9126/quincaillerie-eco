@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
-use App\Models\mouvement_stock;
+use App\Models\Article;
+use App\Models\Mouvement_stock;
 use Illuminate\Http\Request;
 
 class MouvementController extends Controller
 {
 
     public function index() {
-        $mouvements= mouvement_stock::latest()->paginate(10);
-        $articles= article::latest()->get();
+        $mouvements= Mouvement_stock::latest()->paginate(10);
+        $articles= Article::latest()->get();
 
         return view('dashboard.mouvementStock.index', compact('mouvements','articles'));
     }
@@ -25,9 +25,9 @@ class MouvementController extends Controller
             'type' => 'required',
         ]);
 
-        $article = article::findOrFail($request->article_id);
+        $article = Article::findOrFail($request->article_id);
 
-        mouvement_stock::create([
+        Mouvement_stock::create([
             'article_id' => $article->id,
             'type' => $request->type,
             'quantite' => $request->quantite,

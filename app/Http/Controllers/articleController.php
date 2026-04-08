@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
-use App\Models\categorie;
-use App\Models\fournisseur;
+use App\Models\Article;
+use App\Models\Categorie;
+use App\Models\Fournisseur;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 class articleController extends Controller
 {
@@ -16,7 +15,7 @@ class articleController extends Controller
      */
     public function index()
     {
-        $articles= article::latest()->paginate(10);
+        $articles= Article::latest()->paginate(10);
 
         return view('dashboard.articles.index', compact('articles'));
     }
@@ -28,7 +27,7 @@ class articleController extends Controller
     {
         $search = $request->query('search');
 
-        $articles = article::with('categorie')->when($search, function ($query, $search) {
+        $articles = Article::with('categorie')->when($search, function ($query, $search) {
 
                 $query->where('nom', 'like', "%{$search}%")->orWhereHas('categorie', function ($q) use ($search) {
 
@@ -133,7 +132,7 @@ class articleController extends Controller
      */
     public function edit(string $id)
     {
-        $article= article::findOrfail($id);
+        $article= Article::findOrfail($id);
         $categorie= categorie::latest()->get();
         $fournisseur= fournisseur::latest()->get();
 
@@ -145,7 +144,7 @@ class articleController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $article= article::findorFail($id);
+        $article= Article::findorFail($id);
 
         $request->validate([
             'fournisseur_id' => 'required|exists:fournisseurs,id',
@@ -235,7 +234,7 @@ class articleController extends Controller
      */
     public function destroy(string $id)
     {
-        $article= article::findOrFail($id);
+        $article= Article::findOrFail($id);
 
         $article->destroy($id);
 
@@ -245,7 +244,7 @@ class articleController extends Controller
     // Generateur de code produit 
     private function generateCode(): string
     {
-        $lastProduit = article::orderBy('id', 'desc')->first();
+        $lastProduit = Article::orderBy('id', 'desc')->first();
 
         $number = $lastProduit ? intval(substr($lastProduit->code, -5)) + 1 : 1;
 

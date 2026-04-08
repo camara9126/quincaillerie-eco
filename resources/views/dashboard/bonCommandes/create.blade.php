@@ -71,7 +71,7 @@
                                 </div>
 
                                 <!-- TABLE articles -->
-                                <table class="table table-bordered" id="table-articles">
+                                <table class="" id="table-articles">
                                     <thead>
                                         <tr>
                                             <th>article</th>

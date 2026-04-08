@@ -25,12 +25,12 @@ class Devis extends Model
 
     public function details()
     {
-        return $this->hasMany(devis_details::class);
+        return $this->hasMany(Devis_details::class);
     }
 
     public function entreprise()
     {
-        return $this->belongsTo(entreprise::class);
+        return $this->belongsTo(Entreprise::class);
     }
 
 }

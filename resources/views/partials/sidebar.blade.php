@@ -1,16 +1,16 @@
 <?php
 
-    use App\Models\article;
-    use App\Models\categorie;
-    use App\Models\client;
-    use App\Models\devis;
-    use App\Models\vente;
+    use App\Models\Article;
+    use App\Models\Categorie;
+    use App\Models\Client;
+    use App\Models\Devis;
+    use App\Models\Vente;
 
-    $categories= categorie::latest()->get();
-    $articles= article::latest()->get();
-    $clients= client::latest()->get();
-    $commandes= vente::latest()->get();
-    $devis= devis::latest()->get();
+    $categories= Categorie::latest()->get();
+    $articles= Article::latest()->get();
+    $clients= Client::latest()->get();
+    $commandes= Vente::latest()->get();
+    $devis= Devis::latest()->get();
 
 ?>
        <aside class="sidebar" id="sidebar">
@@ -100,6 +100,12 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{ route('recettes.index') }}">
+                            <i class="fas fa-right-left"></i>
+                            <span>Recettes</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('depenses.index') }}">
                             <i class="fas fa-arrow-right-from-bracket"></i>
                             <span>Depenses</span>
@@ -109,18 +115,13 @@
                     <div class="sidebar-divider"></div>
 
                     <li>
-                        <a href="{{ route('rapports.rapport') }}">
+                        <a href="{{ route('rapports') }}">
                             <i class="fas fa-chart-bar"></i>
                             <span>Rapports</span>
                         </a>
                     </li>
+                    
                     <!--<li>
-                        <a href="#">
-                            <i class="fas fa-users"></i>
-                            <span>Clients</span>
-                        </a>
-                    </li>
-                    <li>
                         <a href="#">
                             <i class="fas fa-star"></i>
                             <span>Avis</span>
@@ -130,7 +131,7 @@
                     <div class="sidebar-divider"></div>
 
                     <li>
-                        <a href="#">
+                        <a href="{{ route('parametre') }}">
                             <i class="fas fa-cog"></i>
                             <span>Paramètres</span>
                         </a>

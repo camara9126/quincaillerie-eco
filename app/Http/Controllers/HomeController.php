@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
-use App\Models\categorie;
+use App\Models\Article;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -13,9 +13,9 @@ class HomeController extends Controller
     public function search(Request $request)
     {
         $search = $request->query('search');
-        $categories= categorie::latest()->get();
+        $categories= Categorie::latest()->get();
 
-        $articles = article::with('categorie')->where('statut', true)->when($search, function ($query, $search) {
+        $articles = Article::with('categorie')->where('statut', true)->when($search, function ($query, $search) {
 
                 $query->where('nom', 'like', "%{$search}%")->orWhereHas('categorie', function ($q) use ($search) {
 
@@ -31,9 +31,9 @@ class HomeController extends Controller
     // Detail article
     public function detail($slug) {
 
-        $categories= categorie::latest()->get();
-        $article= article::where('slug', $slug)->where('statut', true)->firstOrfail();
-        $phares= article::where('categorie_id', $article->categorie_id)->where('statut', true)->latest()->get();
+        $categories= Categorie::latest()->get();
+        $article= Article::where('slug', $slug)->where('statut', true)->firstOrfail();
+        $phares= Article::where('categorie_id', $article->categorie_id)->where('statut', true)->latest()->get();
 
         return view('home.detail', compact('article','categories','phares'));
     }
@@ -42,9 +42,9 @@ class HomeController extends Controller
     // Detail categorie
     public function category($slug) {
 
-        $categorie= categorie::where('slug', $slug)->firstOrfail();
-        $article= article::where('categorie_id', $categorie->id)->where('statut', true)->latest()->get();
-        $categories= categorie::latest()->get();
+        $categorie= Categorie::where('slug', $slug)->firstOrfail();
+        $article= Article::where('categorie_id', $categorie->id)->where('statut', true)->latest()->get();
+        $categories= Categorie::latest()->get();
 
         return view('home.catProduit', compact('categorie','article','categories'));
     }

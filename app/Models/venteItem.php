@@ -25,6 +25,6 @@ class VenteItem extends Model
    
     public function article()
     {
-        return $this->belongsTo(article::class);
+        return $this->belongsTo(Article::class);
     }
 }

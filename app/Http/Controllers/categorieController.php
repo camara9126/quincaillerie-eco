@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\categorie;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
 class categorieController extends Controller
@@ -12,7 +12,7 @@ class categorieController extends Controller
      */
     public function index()
     {
-        $categorie= categorie::latest()->simplePaginate(10);
+        $categorie= Categorie::latest()->simplePaginate(10);
         return view('dashboard.categories.index', compact('categorie'));
     }
 
@@ -24,7 +24,7 @@ class categorieController extends Controller
     {
         $search = $request->query('search');
 
-        $categorie = categorie::when($search, function ($query, $search) {
+        $categorie = Categorie::when($search, function ($query, $search) {
 
                 $query->where('nom', 'like', "%{$search}%");
 
@@ -62,7 +62,7 @@ class categorieController extends Controller
         }
 
         // creation du categorie
-        $categories= categorie::create([
+        $categories= Categorie::create([
             'nom' => $request->nom,
             'description' => $request->description,
             'image' => $path,
@@ -100,7 +100,7 @@ class categorieController extends Controller
      */
     public function destroy(string $id)
     {
-        $categorie= categorie::findOrFail($id);
+        $categorie= Categorie::findOrFail($id);
 
         $categorie->destroy($id);
 

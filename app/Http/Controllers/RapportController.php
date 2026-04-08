@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
-use App\Models\depenses;
-use App\Models\entreprise;
-use App\Models\recettes;
-use App\Models\vente;
-use App\Models\venteItem;
+use App\Models\Depenses;
+use App\Models\Entreprise;
+use App\Models\Recettes;
+use App\Models\Vente;
+use App\Models\VenteItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +16,7 @@ class RapportController extends Controller
     public function rapport(Request $request)
     {
 
-        $entreprise = entreprise::findOrFail(1);
+        $entreprise = Entreprise::findOrFail(1);
 
         /* Changement de mois */ 
         $mois = $request->mois ?? now()->month;
@@ -25,14 +24,14 @@ class RapportController extends Controller
 
 
         /* 1️⃣ Commandes par mois */
-        $commandesParJour = vente::selectRaw('DAY(created_at) jour, COUNT(*) total')->whereMonth('created_at', $mois)->whereYear('created_at', $annee)->groupBy('jour')->orderBy('jour')->get();
+        $commandesParJour = Vente::selectRaw('DAY(created_at) jour, COUNT(*) total')->whereMonth('created_at', $mois)->whereYear('created_at', $annee)->groupBy('jour')->orderBy('jour')->get();
 
         $commandesMoisLabels = $commandesParJour->pluck('jour');
         $commandesMoisData = $commandesParJour->pluck('total');
 
 
         /* 2️⃣ Chiffre d’affaires par mois */
-        $caParMois = recettes::selectRaw('MONTH(created_at) as mois, SUM(montant) as total')->whereMonth('created_at', $mois)->whereYear('created_at', $annee)->where('statut', 'recu')->groupBy('mois')->orderBy('mois')->get();
+        $caParMois = Recettes::selectRaw('MONTH(created_at) as mois, SUM(montant) as total')->whereMonth('created_at', $mois)->whereYear('created_at', $annee)->where('statut', 'recu')->groupBy('mois')->orderBy('mois')->get();
 
         $caLabels = $caParMois->pluck('mois')->map(fn ($m)=>
             Carbon::create()->month($m)->translatedFormat('M')
@@ -41,7 +40,7 @@ class RapportController extends Controller
 
 
         /* 3️⃣ Top articles du mois */
-        $toparticles = venteItem::selectRaw('article_id, SUM(quantite) as total')->whereMonth('created_at', $mois)->whereYear('created_at', $annee)->groupBy('article_id')->orderByDesc('total')->with('article:id,nom')->limit(5)->get();
+        $toparticles = VenteItem::selectRaw('article_id, SUM(quantite) as total')->whereMonth('created_at', $mois)->whereYear('created_at', $annee)->groupBy('article_id')->orderByDesc('total')->with('article:id,nom')->limit(5)->get();
 
         $toparticlesLabels = $toparticles->pluck('article.nom');
         $toparticlesData = $toparticles->pluck('total');
@@ -83,9 +82,9 @@ class RapportController extends Controller
 
             for ($i = 1; $i <= 12; $i++) {
 
-                $recette = recettes::whereMonth('created_at', $i)->where('statut', 'recu')->whereYear('created_at', now()->year)->sum('montant');
+                $recette = Recettes::whereMonth('created_at', $i)->where('statut', 'recu')->whereYear('created_at', now()->year)->sum('montant');
 
-                $depense = depenses::whereMonth('created_at', $i)->where('statut', 'payee')->whereYear('created_at', now()->year)->sum('montant');
+                $depense = Depenses::whereMonth('created_at', $i)->where('statut', 'payee')->whereYear('created_at', now()->year)->sum('montant');
 
                 $months[] = Carbon::create()->month($i)->translatedFormat('F');
                 $revenues[] = round($recette, 2);
@@ -111,9 +110,9 @@ class RapportController extends Controller
 
             for ($q = 1; $q <= 4; $q++) {
 
-                $recette = recettes::where('statut', 'recu')->whereBetween(DB::raw('MONTH(created_at)'), [($q-1)*3+1, $q*3])->sum('montant');
+                $recette = Recettes::where('statut', 'recu')->whereBetween(DB::raw('MONTH(created_at)'), [($q-1)*3+1, $q*3])->sum('montant');
 
-                $depense = depenses::where('statut', 'payee')->whereBetween(DB::raw('MONTH(created_at)'), [($q-1)*3+1, $q*3])->sum('montant');
+                $depense = Depenses::where('statut', 'payee')->whereBetween(DB::raw('MONTH(created_at)'), [($q-1)*3+1, $q*3])->sum('montant');
 
                 $quarterlyData['revenues'][] = $recette;
                 $quarterlyData['expenses'][] = $depense;
@@ -129,9 +128,9 @@ class RapportController extends Controller
 
             for ($y = now()->year - 2; $y <= now()->year; $y++) {
 
-                $r = recettes::where('statut', 'recu')->whereYear('created_at', $y)->sum('montant');
+                $r = Recettes::where('statut', 'recu')->whereYear('created_at', $y)->sum('montant');
 
-                $d = depenses::where('statut', 'payee')->whereYear('created_at', $y)->sum('montant');
+                $d = Depenses::where('statut', 'payee')->whereYear('created_at', $y)->sum('montant');
 
                 $years[] = $y;
                 $yearRevenue[] = $r;

@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Models\Devis;
 use App\Models\Client;
-use App\Models\devis_details;
-use App\Models\entreprise;
-use App\Models\vente;
-use App\Models\venteItem;
+use App\Models\Devis_details;
+use App\Models\Entreprise;
+use App\Models\Vente;
+use App\Models\VenteItem;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 
@@ -30,7 +30,7 @@ class DevisController extends Controller
     public function create()
     {
         $clients = Client::all();
-        $articles = article::all();
+        $articles = Article::all();
 
         return view('dashboard.devis.create', compact('clients', 'articles'));
     }
@@ -67,7 +67,7 @@ class DevisController extends Controller
 
             $ligneTotal = $item['quantite'] * $item['prix'];
 
-            devis_details::create([
+            Devis_details::create([
                 'devis_id' => $devis->id,
                 'article_id' => $item['article_id'],
                 'quantite' => $item['quantite'],
@@ -92,7 +92,7 @@ class DevisController extends Controller
      */
     public function show($id)
     {
-        $articles= article::latest()->get();
+        $articles= Article::latest()->get();
 
         $devis = Devis::with('client', 'details')->findOrFail($id);
 //dd($devis);
@@ -146,7 +146,7 @@ class DevisController extends Controller
         $devis = Devis::with('client', 'details')->findOrFail($id);
 
         // Créer la vente
-        $vente = vente::create([
+        $vente = Vente::create([
             'reference' => 'VNT-' . time(),
             'date' => now(),
             'client_id' => $devis->client_id,
@@ -164,9 +164,9 @@ class DevisController extends Controller
         // Ajouter les produits
         foreach ($devis->details as $detail) {
 
-         $entreprise= entreprise::findOrFail(1); // Recuperation de la TVA de l'entreprise
+         $entreprise= Entreprise::findOrFail(1); // Recuperation de la TVA de l'entreprise
 
-            venteItem::create([
+            VenteItem::create([
                 'vente_id' => $vente->id,
                 'article_id' => $detail->article_id,
                 'quantite' => $detail->quantite,
@@ -199,9 +199,9 @@ class DevisController extends Controller
     public function facture($id)
     {
 
-        $articles= article::latest()->get();
+        $articles= Article::latest()->get();
 
-        $devis = devis::with('client', 'details')->findOrFail($id);
+        $devis = Devis::with('client', 'details')->findOrFail($id);
 
         $devis->load(['client', 'details']);
 //dd($devis);

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class devis_details extends Model
+class Devis_details extends Model
 {
     protected $fillable = [
         'devis_id',
@@ -16,10 +16,10 @@ class devis_details extends Model
 
     public function details()
     {
-        return $this->hasMany(devis_details::class);
+        return $this->hasMany(Devis_details::class);
     }
 
     public function article() {
-        return $this->belongsTo(article::class);
+        return $this->belongsTo(Article::class);
     }
 }

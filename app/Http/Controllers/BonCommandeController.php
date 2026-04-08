@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
-use App\Models\bon_commande;
-use App\Models\bon_commande_details;
+use App\Models\Article;
+use App\Models\Bon_commande;
+use App\Models\Bon_commande_details;
 use Illuminate\Http\Request;
 use App\Models\Fournisseur;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 
 class BonCommandeController extends Controller
@@ -16,7 +17,7 @@ class BonCommandeController extends Controller
      */
     public function index()
     {
-        $bonCommandes = bon_commande::with('fournisseur')->latest()->get();
+        $bonCommandes = Bon_commande::with('fournisseur')->latest()->get();
 
         return view('dashboard.bonCommandes.index', compact('bonCommandes'));
     }
@@ -26,8 +27,8 @@ class BonCommandeController extends Controller
      */
     public function create()
     {
-        $fournisseurs = fournisseur::all();
-        $articles = article::all();
+        $fournisseurs = Fournisseur::all();
+        $articles = Article::all();
 
         return view('dashboard.bonCommandes.create', compact('fournisseurs', 'articles'));
     }
@@ -47,7 +48,7 @@ class BonCommandeController extends Controller
         ]);
 
         // Création du bon de commande
-        $bonCommande = bon_commande::create([
+        $bonCommande = Bon_commande::create([
             'reference' => 'BC-' . strtoupper(Str::random(6)),
             'fournisseur_id' => $request->fournisseur_id,
             'total' => 0,
@@ -62,7 +63,7 @@ class BonCommandeController extends Controller
 
             $ligneTotal = $item['quantite'] * $item['prix'];
 
-            bon_commande_details::create([
+            Bon_commande_details::create([
                 'bon_commande_id' => $bonCommande->id,
                 'article_id' => $item['article_id'],
                 'quantite' => $item['quantite'],
@@ -86,7 +87,7 @@ class BonCommandeController extends Controller
      */
     public function show($id)
     {
-        $bonCommande = bon_commande::with('fournisseur', 'details.article')->findOrFail($id);
+        $bonCommande = Bon_commande::with('fournisseur', 'details.article')->findOrFail($id);
 
         return view('dashboard.bonCommandes.show', compact('bonCommande'));
     }
@@ -96,7 +97,7 @@ class BonCommandeController extends Controller
      */
     public function destroy($id)
     {
-        $bonCommande = bon_commande::findOrFail($id);
+        $bonCommande = Bon_commande::findOrFail($id);
         $bonCommande->delete();
 
         return back()->with('success', 'Bon de commande supprimé');
@@ -107,7 +108,7 @@ class BonCommandeController extends Controller
      */
     public function envoyer($id)
     {
-        $bonCommande = bon_commande::findOrFail($id);
+        $bonCommande = Bon_commande::findOrFail($id);
 
         $bonCommande->update([
             'statut' => 'envoye'
@@ -121,7 +122,7 @@ class BonCommandeController extends Controller
      */
     public function recevoir($id)
     {
-        $bonCommande = bon_commande::with('details.article')->findOrFail($id);
+        $bonCommande = Bon_commande::with('details.article')->findOrFail($id);
 
         // Mise à jour du stock
         foreach ($bonCommande->details as $detail) {
@@ -144,6 +145,14 @@ class BonCommandeController extends Controller
     // Facture
     public function facture($id)
     {
-       return view('dashboard.bonCommandes.facture');
+        $articles= Article::latest()->get();
+
+        $bonCommande = Bon_commande::with('fournisseur', 'details')->findOrFail($id);
+
+        $bonCommande->load(['fournisseur', 'details']);
+//dd($devis);
+        $pdf = Pdf::loadView('dashboard.bonCommandes.facture', compact('bonCommande'));
+
+        return $pdf->stream ('Facture-' . $bonCommande->reference . '.pdf');
     }
 }

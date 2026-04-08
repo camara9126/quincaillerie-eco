@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class mouvement_stock extends Model
+class Mouvement_stock extends Model
 {
     protected $fillable = [
         'article_id',
@@ -15,6 +15,6 @@ class mouvement_stock extends Model
 
     public function article()
     {
-        return $this->belongsTo((article::class));
+        return $this->belongsTo((Article::class));
     } 
 }

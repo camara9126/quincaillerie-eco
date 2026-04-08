@@ -71,15 +71,15 @@
                                 </p>
                             </div>
 
-                            <!-- CLIENT -->
+                            <!-- FOURNISSEUUR -->
                             <div class="mb-4">
-                                <h5>Client</h5>
+                                <h5>Fournisseur</h5>
                                 <p>Nom : {{ $bonCommande->fournisseur->nom }}</p>
                                 <p>Téléphone : {{ $bonCommande->fournisseur->telephone ?? '-' }}</p>
                             </div>
 
                             <!-- TABLE PRODUITS -->
-                            <table class="table table-bordered">
+                            <table class="">
                                 <thead>
                                     <tr>
                                         <th>Produit</th>

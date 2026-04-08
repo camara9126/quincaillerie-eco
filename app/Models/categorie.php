@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class categorie extends Model
+class Categorie extends Model
 {
     protected $fillable = [
         'nom',
@@ -16,7 +16,7 @@ class categorie extends Model
 
 
     public function article() {
-        return $this->hasMany(article::class);
+        return $this->hasMany(Article::class);
     }
 
 
@@ -32,7 +32,7 @@ class categorie extends Model
             
                         // Vérifier l'unicité du slug
                         $count = 1;
-                        while (categorie::where('slug', $slug)->exists()) {
+                        while (Categorie::where('slug', $slug)->exists()) {
                             $slug = $originalSlug . '-' . $count;
                             $count++;
                         }

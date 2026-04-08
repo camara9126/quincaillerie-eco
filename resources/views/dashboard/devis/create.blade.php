@@ -67,7 +67,7 @@
                             </div>
 
                             <!-- PRODUITS -->
-                            <table class="table table-bordered" id="table-produits">
+                            <table class="" id="table-produits">
                                 <thead>
                                     <tr>
                                         <th>Produit</th>

@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class article extends Model
+class Article extends Model
 {
     protected $fillable = [
         'fournisseur_id',
@@ -36,7 +36,7 @@ class article extends Model
     {
         return $this->belongsTo(Fournisseur::class);
     }
-    
+
     public function ventes() {
         return $this->hasMany(vente::class);
     }
@@ -63,7 +63,7 @@ class article extends Model
             
                         // Vérifier l'unicité du slug
                         $count = 1;
-                        while (article::where('slug', $slug)->exists()) {
+                        while (Article::where('slug', $slug)->exists()) {
                             $slug = $originalSlug . '-' . $count;
                             $count++;
                         }

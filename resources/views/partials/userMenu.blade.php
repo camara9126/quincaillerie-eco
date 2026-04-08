@@ -3,7 +3,7 @@
     use App\Models\article;
 
     // Alert sotck
-    $alerte = article::produitsEnAlerte()->count();
+    $alerte = Article::produitsEnAlerte()->count();
 ?>
 
 <div class="user-menu">

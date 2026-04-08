@@ -2,12 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\article;
-use App\Models\client;
-use App\Models\entreprise;
-use App\Models\paiements;
-use App\Models\vente;
-use App\Models\venteItem;
+use App\Models\Article;
+use App\Models\Client;
+use App\Models\Entreprise;
+use App\Models\Paiements;
+use App\Models\Vente;
+use App\Models\VenteItem;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 
@@ -42,8 +42,8 @@ class VenteController extends Controller
 
     public function create()
     {
-        $clients = client::latest()->get();
-        $articles = article::where('statut', true)->latest()->get();
+        $clients = Client::latest()->get();
+        $articles = Article::where('statut', true)->latest()->get();
 
         return view('dashboard.commandes.create', compact('clients', 'articles'));
     }
@@ -85,7 +85,7 @@ class VenteController extends Controller
                 continue;
             }
 
-            $produit = article::where('id', $item['article_id'])->lockForUpdate()->firstOrFail(); // verrou stock
+            $produit = Article::where('id', $item['article_id'])->lockForUpdate()->firstOrFail(); // verrou stock
 
             // Verification stock mouvement
             if ($produit->stock == 0) {
@@ -107,10 +107,10 @@ class VenteController extends Controller
        
 
             // Creation vente item
-            $entreprise= entreprise::findOrFail(1); // Recuperation de la TVA de l'entreprise
+            $entreprise= Entreprise::findOrFail(1); // Recuperation de la TVA de l'entreprise
 
             
-            venteItem::create([
+            VenteItem::create([
                 'vente_id' => $vente->id,
                 'article_id' => $item['article_id'],
                 'quantite' => $item['quantite'],
@@ -147,7 +147,7 @@ class VenteController extends Controller
     public function destroy(string $id)
     {
         $vente= Vente::findOrFail($id);
-        $paiement= paiements::where('vente_id', $vente->id)->get();
+        $paiement= Paiements::where('vente_id', $vente->id)->get();
         //dd($paiement);
          $vente->destroy($id);
 
@@ -166,8 +166,8 @@ class VenteController extends Controller
     public function show($id)
     {
 
-        $entreprise= entreprise::findOrFail(1);
-        $vente= vente::with('client', 'items')->findOrFail($id);
+        $entreprise= Entreprise::findOrFail(1);
+        $vente= Vente::with('client', 'items')->findOrFail($id);
 //dd($vente);
         $vente->load(['client', 'items']);
 
@@ -178,7 +178,7 @@ class VenteController extends Controller
 
 
     // Facture
-    public function facture(vente $vente)
+    public function facture(Vente $vente)
     {
 
         $vente->load(['client', 'items.produit']);
