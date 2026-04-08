@@ -10,10 +10,11 @@ use App\Models\VenteItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
+
 class RapportController extends Controller
 {
      // Calcule des rapport
-    public function rapport(Request $request)
+    public function rapports(Request $request)
     {
 
         $entreprise = Entreprise::findOrFail(1);
