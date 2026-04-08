@@ -160,6 +160,6 @@ class RapportController extends Controller
             $yearCategories = $yearToparticles->pluck('articles');
             $yearAmounts = $yearToparticles->pluck('total');
 
-        return view('dashboard.rapports', compact('commandesMoisLabels','commandesMoisData','caLabels','caData','toparticlesLabels','toparticlesData','statutLabels','statutData', 'entreprise','monthlyData','quarterlyData','yearlyData','categories', 'amounts','yearAmounts','yearCategories'));
+        return view('dashboard.rapports', compact('entreprise','monthlyData','quarterlyData','yearlyData','categories', 'amounts','yearAmounts','yearCategories'));
     }
 }
