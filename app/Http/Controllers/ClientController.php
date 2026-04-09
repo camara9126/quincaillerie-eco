@@ -25,7 +25,7 @@ class ClientController extends Controller
 
         })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=;
 
-        return view('commercial.clients.index', compact('clients','search'));
+        return view('dashboard.clients.index', compact('clients','search'));
     }
     
 

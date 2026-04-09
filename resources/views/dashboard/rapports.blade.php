@@ -1020,7 +1020,7 @@
         
         .period-btn.active {
             background-color: var(--secondary-color);
-            color: white;
+            color: green;
             border-color: var(--secondary-color);
         }
         

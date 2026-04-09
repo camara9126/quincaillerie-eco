@@ -16,6 +16,24 @@ class MouvementController extends Controller
         return view('dashboard.mouvementStock.index', compact('mouvements','articles'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->query('search');
+        $articles= Article::latest()->get();
+
+        $mouvements = Mouvement_stock::with('article')->when($search, function ($query, $search) {
+
+                $query->where('reference', 'like', "%{$search}%")->orWhereHas('article', function ($q) use ($search) {
+
+                        $q->where('nom', 'like', "%{$search}%");
+                });
+
+        })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=
+
+        return view('dashboard.mouvementStock.index', compact('mouvements','articles','search'));
+
+    }
+
     
     public function stock(Request $request) {
 

@@ -17,7 +17,7 @@ class VenteController extends Controller
     {
 
 
-        $ventes = Vente::with('client')->latest()->simplePaginate(5); 
+        $ventes = Vente::with('client')->latest()->simplePaginate(10); 
 
         return view('dashboard.commandes.index', compact('ventes'));
     }
@@ -26,7 +26,7 @@ class VenteController extends Controller
     {
         $search = $request->query('search');
 
-        $ventes = Vente::with('client')->when($search, function ($query, $search) {
+        $ventes = Vente::when($search, function ($query, $search) {
 
                 $query->where('reference', 'like', "%{$search}%")->orWhereHas('client', function ($q) use ($search) {
 

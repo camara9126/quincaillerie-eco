@@ -13,9 +13,9 @@
 
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <form method="get" action="{{route('article.search')}}" class="form-inline">
+                    <form method="get" action="{{route('bonCommande.search')}}" class="form-inline">
                         
-                        <input type="text" name="search"  placeholder="Rechercher...">                                                   
+                        <input type="text" name="search"  placeholder="Recherche bon...">                                                   
                             
                     </form>
                 </div>
@@ -28,10 +28,7 @@
                 <!-- Page Header -->
 
                 <div class="card">
-                    <div class="card-header">
-                        <span><i class="fas fa-file-invoice" style="color: var(--primary); margin-right: 0.5rem;"></i>Creation de bon de commande </span>
-                        <a href="{{ route('bonCommande.index') }}" class="btn btn-outline-danger">Annuler</a>
-                    </div>
+                   
                     
                     @if(Session::has('success'))
                         <div class="alert alert-success" role="alert">

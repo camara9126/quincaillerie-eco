@@ -13,4 +13,8 @@ class Fournisseur extends Model
         'adresse',
         'statut',
     ];
+
+    public function article() {
+        return $this->hasMany(Article::class);
+    }
 }

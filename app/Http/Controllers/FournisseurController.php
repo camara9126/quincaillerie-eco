@@ -24,9 +24,9 @@ class FournisseurController extends Controller
     {
         $search = $request->query('search');
 
-        $fournisseurs = Fournisseur::with('produit')->when($search, function ($query, $search) {
+        $fournisseurs = Fournisseur::with('article')->when($search, function ($query, $search) {
 
-                $query->where('nom', 'like', "%{$search}%")->orWhereHas('produit', function ($q) use ($search) {
+                $query->where('nom', 'like', "%{$search}%")->orWhereHas('article', function ($q) use ($search) {
 
                         $q->where('telephone', 'like', "%{$search}%");
                 });

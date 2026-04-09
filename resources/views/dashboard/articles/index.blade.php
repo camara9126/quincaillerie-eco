@@ -48,6 +48,7 @@
                             <table>
                                 <thead>
                                     <tr>
+                                        <th>Image</th>
                                         <th>Code</th>
                                         <th>Produit</th>
                                         <th>Catégorie</th>
@@ -64,10 +65,12 @@
                                         <td>
                                             <div class="product-info">
                                                 <img src="{{asset('storage/'. $a->image)}}" width="50" alt="">
-                                                <div>
-                                                    <div style="font-weight: 600;">{{$a->code}}</div>
-                                                    <!--<div style="font-size: 0.85rem; color: var(--gray-600);">GBH 2-26</div>-->
-                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="product-info">
+                                                <div style="font-weight: 600;">{{$a->code}}</div>
+                                                <!--<div style="font-size: 0.85rem; color: var(--gray-600);">GBH 2-26</div>-->
                                             </div>
                                         </td>
                                         <td>{{$a->nom}}</td>

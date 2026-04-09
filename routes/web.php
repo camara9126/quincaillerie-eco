@@ -116,17 +116,22 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/mouvements', [MouvementController::class, 'index'])->name('mouvements');
     Route::post('/mouvements', [MouvementController::class, 'stock'])->name('stock');
+    Route::get('/mouvementSearch', [MouvementController::class, 'search'])->name('mouvements.search');
 
 });
 
-// Routes Bon de Commande et Fournisseur
+// Routes Bon_Commande et Fournisseur
 Route::middleware('auth')->group(function () {
     Route::resource('/bonCommande', BonCommandeController::class);
+    Route::get('/bonCommandeSearch', [BonCommandeController::class, 'search'])->name('bonCommande.search');
+
     Route::get('bonCommande/{id}/envoyer', [BonCommandeController::class, 'envoyer'])->name('bonCommande.envoyer');
     Route::get('bonCommande/{id}/recevoir', [BonCommandeController::class, 'recevoir'])->name('bonCommande.recevoir');
     Route::get('bonCommande/{id}/facture', [BonCommandeController::class, 'facture'])->name('bonCommande.facture');
 
     Route::resource('/fournisseurs', FournisseurController::class);
+    Route::get('/fournisseurSearch', [FournisseurController::class, 'search'])->name('fournisseurs.search');
+
 
 });
 
@@ -135,8 +140,13 @@ Route::middleware('auth')->group(function () {
 // Routes Clients, Devis et Commandes
 Route::middleware('auth')->group(function () {
     Route::resource('/clients', ClientController::class);
+    Route::get('/clientSearch', [ClientController::class, 'search'])->name('clients.search');
+
     Route::resource('/commandes', VenteController::class);
+    Route::get('/commandeSearch', [VenteController::class, 'search'])->name('commandes.search');
+
     Route::resource('/devis', DevisController::class);
+    Route::get('/devisSearch', [DevisController::class, 'search'])->name('devis.search');
 
     Route::get('/devis/{devis}/facture', [DevisController::class, 'facture'])->name('devis.facture');
 
@@ -151,11 +161,12 @@ Route::middleware('auth')->group(function () {
 // Routes Depenses, Recettes et Paiements
 Route::middleware('auth')->group(function () {
     Route::resource('/paiements', PaiementController::class);
+    Route::get('/paiementSearch', [PaiementController::class, 'search'])->name('paiements.search');
+
     Route::put('/paiements/{id}/annuler', [PaiementController::class, 'annuler'])->name('paiements.annuler');
 
     Route::resource('/recettes', RecetteController::class);
     Route::resource('/depenses', DepenseController::class);
-    //Route::post('/client', [MouvementController::class, 'stock']);
 
 });
 

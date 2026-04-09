@@ -13,7 +13,11 @@
 
                 <div class="search-bar">
                     <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Rechercher...">
+                    <form method="get" action="{{route('mouvements.search')}}" class="form-inline">
+                        
+                        <input type="text" name="search"  placeholder="Recherche stock...">                                                   
+                            
+                    </form>
                 </div>
 
                 @include('partials.userMenu')
@@ -35,7 +39,7 @@
                 <!-- Recent Products Table -->
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i> Liste des mouvements</span>
+                        <span><i class="fas fa-list" style="color: var(--primary); margin-right: 0.5rem;"></i> Liste des mouvements</span>
                     </div>
                      @if(Session::has('success'))
                         <div class="alert alert-success" role="alert">

@@ -22,6 +22,23 @@ class BonCommandeController extends Controller
         return view('dashboard.bonCommandes.index', compact('bonCommandes'));
     }
 
+    public function search(Request $request)
+    {
+        $search = $request->query('search');
+
+        $bonCommandes = Bon_commande::with('fournisseur')->when($search, function ($query, $search) {
+
+                $query->where('reference', 'like', "%{$search}%")->orWhereHas('fournisseur', function ($q) use ($search) {
+
+                        $q->where('nom', 'like', "%{$search}%");
+                });
+
+        })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=
+
+        return view('dashboard.bonCommandes.index', compact('bonCommandes','search'));
+
+    }
+
     /**
      * Formulaire création
      */

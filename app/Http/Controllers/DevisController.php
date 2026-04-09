@@ -24,6 +24,22 @@ class DevisController extends Controller
         return view('dashboard.devis.index', compact('devis'));
     }
 
+
+    public function search(Request $request)
+    {
+        $search = $request->query('search');
+
+        $devis = Devis::with('client')->when($search, function ($query, $search) {
+
+                $query->where('reference', 'like', "%{$search}%")->orWhereHas('client', function ($q) use ($search) {
+
+                        $q->where('nom', 'like', "%{$search}%");
+                });
+
+        })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=;
+
+        return view('dashboard.devis.index', compact('devis','search'));
+    }
     /**
      * Formulaire création
      */
