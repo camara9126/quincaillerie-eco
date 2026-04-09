@@ -140,7 +140,7 @@
                                                 <select name="mode_paiement" class="form-select" required>
                                                     <option value="cash">Cash</option>
                                                     <option value="wave">Wave</option>
-                                                    <option value="mobile_money">Orange Money</option>
+                                                    <option value="orange_money">Orange Money</option>
                                                     <option value="autre">Autre</option>
                                                 </select>
                                             </div>
