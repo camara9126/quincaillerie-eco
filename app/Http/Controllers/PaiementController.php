@@ -73,7 +73,7 @@ class PaiementController extends Controller
         $paiement= Paiements::create([
             'vente_id' => $vente->id,
             'montant' => $request->montant,
-            'mode_paiement' => '$request->mode_paiement',
+            'mode_paiement' => $request->mode_paiement,
             'date_paiement' => now(),
             'reference' => 'PAY-' . time()
         ]);
