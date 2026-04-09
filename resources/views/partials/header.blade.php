@@ -312,8 +312,27 @@
             margin-bottom: 2rem;
         }
 
+
+         /* Chart Container */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+        
         .stat-card {
             background: var(--white);
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: transform 0.2s;
+        }
+
+        .stat-card2 {
+            background: var(--primary);
             padding: 1.5rem;
             border-radius: 1rem;
             box-shadow: var(--shadow);

@@ -38,8 +38,10 @@
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-info">
-                            <h3>Articles</h3>
-                            <div class="number">{{$articles->count()}}</div>
+                            <a href="{{ route('articles.create') }}">
+                                <h3>Articles</h3>
+                                <div class="number">{{$articles->count()}}</div>
+                            </a>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-box"></i>
@@ -47,17 +49,22 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-info">
-                            <h3>Catégories</h3>
-                            <div class="number">{{$categories->count()}}</div>
+                            <a href="{{ route('clients.index') }}">
+                                <h3>Clients</h3>
+                                <div class="number">{{$clients->count()}}</div>
+                            </a>    
                         </div>
                         <div class="stat-icon">
-                            <i class="fas fa-tags"></i>
+                            <i class="fas fa-users"></i>
                         </div>
                     </div>
+                    
                     <div class="stat-card">
                         <div class="stat-info">
-                            <h3>Commandes</h3>
-                            <div class="number">{{$commandes->count()}}</div>
+                            <a href="{{ route('commandes.create') }}">
+                                <h3>Commandes</h3>
+                                <div class="number">{{$commandes->count()}}</div>
+                            </a>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-shopping-cart"></i>
@@ -65,11 +72,61 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-info">
-                            <h3>Clients</h3>
-                            <div class="number">{{$clients->count()}}</div>
+                            <a href="{{ route('devis.create') }}">
+                                <h3>Devis</h3>
+                                <div class="number">{{$devis->count()}}</div>
+                            </a>
                         </div>
                         <div class="stat-icon">
-                            <i class="fas fa-users"></i>
+                            <i class="fas fa-file-invoice"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card2">
+                        <div class="stat-info">
+                            <a href="{{ route('articles.create') }}">
+                                <h3 class="text-white">Nouveau produit</h3>
+                                <div class="number text-white">{{$articles->count()}}</div>
+                            </a>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-box"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card2">
+                        <div class="stat-info">
+                            <a href="{{ route('mouvements') }}">
+                                <h3 class="text-white">Stock</h3>
+                                <div class="number text-white">{{$mouvements->count()}}</div>
+                            </a>    
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-bars-staggered"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card2">
+                        <div class="stat-info">
+                            <a href="{{ route('bonCommande.create') }}">
+                                <h3 class="text-white">Bon commande</h3>
+                                <div class="number text-white">{{$bonCommandes->count()}}</div>
+                            </a>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card2">
+                        <div class="stat-info">
+                            <a href="{{ route('devis.create') }}">
+                                <h3 class="text-white">Devis</h3>
+                                <div class="number text-white">{{$devis->count()}}</div>
+                            </a>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-file-invoice"></i>
                         </div>
                     </div>
                 </div>
@@ -121,8 +178,77 @@
                     </div>
                 </div>
 
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Ventes mensuelles</h5>
+                         <select class="form-select form-select-sm w-auto">
+                            <option>{{$annee}}</option> 
+                        </select>
+                    </div>
+                    <div class="card body">
+                        <div class="chart-container">
+                            <canvas id="ordersChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                
+
             </div>
         </main>
     </div>
+
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Donnees du graphique -->
+    <script>
+        const commandesMoisLabels = @json($commandesMoisLabels);
+        const commandesMoisData = @json($commandesMoisData);
+
+        // Graphique des commandes
+        const ordersCtx = document.getElementById('ordersChart').getContext('2d');
+        const ordersChart = new Chart(ordersCtx, {
+            type: 'line',
+            data: {
+                labels: commandesMoisLabels, //['1', '5', '10', '15', '20', '25', '30'],
+                datasets: [{
+                    label: 'Commandes',
+                    data: commandesMoisData, //[45, 52, 48, 65, 70, 75, 82],
+                    borderColor: '#3498db',
+                    backgroundColor: 'rgba(52, 152, 219, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Nombre de commandes'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Jours du mois'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 
 @include('partials.footer')

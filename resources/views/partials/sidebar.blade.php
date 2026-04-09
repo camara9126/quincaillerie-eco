@@ -1,6 +1,7 @@
 <?php
 
     use App\Models\Article;
+    use App\Models\Bon_commande;
     use App\Models\Categorie;
     use App\Models\Client;
     use App\Models\Devis;
@@ -11,6 +12,7 @@
     $clients= Client::latest()->get();
     $commandes= Vente::latest()->get();
     $devis= Devis::latest()->get();
+    $bonCommandes= Bon_commande::latest()->get();
 
 ?>
        <aside class="sidebar" id="sidebar">
@@ -62,7 +64,7 @@
                         <a href="{{ route('bonCommande.index') }}">
                             <i class="fas fa-list"></i>
                             <span>Bon de commande</span>
-                            <span class="badge">3</span>
+                            <span class="badge">{{$bonCommandes->count()}}</span>
                         </a>
                     </li>
 

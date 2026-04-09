@@ -30,6 +30,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Nouvelle comannde</span>
+                        <a href="{{ route('commandes.index') }}" class="btn btn-outline-danger">Annuler</a>
                     </div>
                     
                     @if(Session::has('success'))
@@ -50,12 +51,12 @@
                                     @endforeach
                                 </div>
                             @endif
-                            <h2 class="text-center mb-2">Nouvelle vente</h2>
+                            <h2 class="text-center mb-3">Nouvelle commande</h2>
 
                             <form action="{{ route('commandes.store') }}" method="POST" class="contact-form">
                                 @csrf
                                 {{-- CLIENT --}}
-                                <div class="row mt-2">
+                                <div class="row mt-3">
                                     <div class="col-7">
                                         <div class="mb-3">
                                             <label for="name" class="form-label">Client</label><br>

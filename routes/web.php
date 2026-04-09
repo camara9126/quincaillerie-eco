@@ -15,8 +15,11 @@ use App\Http\Controllers\RapportController;
 use App\Http\Controllers\RecetteController;
 use App\Http\Controllers\VenteController;
 use App\Models\Article;
+use App\Models\Bon_commande;
 use App\Models\Categorie;
 use App\Models\Client;
+use App\Models\Devis;
+use App\Models\Mouvement_stock;
 use App\Models\Vente;
 use Illuminate\Support\Facades\Route;
 
@@ -78,8 +81,22 @@ Route::get('/dashboard', function () {
     $article= Article::limit(5)->latest()->get();
     $clients= Client::latest()->get();
     $commandes= Vente::latest()->get();
+    $devis= Devis::latest()->get();
+    $mouvements= Mouvement_stock::latest()->get();
+    $bonCommandes= Bon_commande::latest()->get();
 
-    return view('dashboard.index', compact('articles','categories','article','clients','commandes'));
+    /* Changement de mois */ 
+    $mois = $request->mois ?? now()->month;
+    $annee = $request->annee ?? now()->year;
+
+
+    /* 1️⃣ Commandes par mois */
+    $commandesParJour = Vente::selectRaw('DAY(created_at) jour, COUNT(*) total')->whereMonth('created_at', $mois)->whereYear('created_at', $annee)->groupBy('jour')->orderBy('jour')->get();
+
+    $commandesMoisLabels = $commandesParJour->pluck('jour');
+    $commandesMoisData = $commandesParJour->pluck('total');
+
+    return view('dashboard.index', compact('articles','categories','article','clients','commandes','devis','mouvements','bonCommandes','commandesMoisLabels','commandesMoisData','annee'));
     
 })->middleware(['auth', 'verified'])->name('dashboard');
 
