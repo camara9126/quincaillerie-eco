@@ -73,7 +73,7 @@ class PaiementController extends Controller
         $paiement= Paiements::create([
             'vente_id' => $vente->id,
             'montant' => $request->montant,
-            'mode_paiement' => $request->mode_paiement,
+            'mode_paiement' => '$request->mode_paiement',
             'date_paiement' => now(),
             'reference' => 'PAY-' . time()
         ]);
@@ -96,7 +96,7 @@ class PaiementController extends Controller
             'libelle' => 'Paiement vente ' . $paiement->vente->reference,
             'montant' => $paiement->montant,
             'date_recette' => now(),
-            'mode_paiement' => $paiement->mode_paiement,
+            'mode_paiement' => 'cash',
             'statut' => 'recu',
         ]);
 

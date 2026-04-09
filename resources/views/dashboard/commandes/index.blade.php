@@ -139,8 +139,9 @@
                                                 <label>Mode de paiement</label>
                                                 <select name="mode_paiement" class="form-select" required>
                                                     <option value="cash">Cash</option>
-                                                    <option value="wave">Wave</option>
-                                                    <option value="orange_money">Orange Money</option>
+                                                    <option value="virement">Virement</option>
+                                                    <option value="mobile_money">Mobile Money</option>
+                                                    <option value="banque">Banque</option>
                                                     <option value="autre">Autre</option>
                                                 </select>
                                             </div>

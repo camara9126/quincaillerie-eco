@@ -118,7 +118,7 @@
                                                     <select name="mode_paiement" class="form-control" required>
                                                         <option value="">-- Choisir --</option>
                                                         <option value="cash">Cash</option>
-                                                        <option value="mobile_money">Orange Money</option>
+                                                        <option value="mobile_money">Mobile Money</option>
                                                         <option value="virement">Virement</option>
                                                         <option value="cheque">Cheque</option>
                                                         <option value="autre">Autre</option>

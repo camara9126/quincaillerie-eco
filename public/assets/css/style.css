@@ -15,6 +15,12 @@
 }
 /*** Spinner End ***/
 
+
+body{
+    overflow-x: hidden;
+}
+
+
 .back-to-top {
     position: fixed;
     right: 30px;
