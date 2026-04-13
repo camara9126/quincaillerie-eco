@@ -106,7 +106,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile/{entreprise}', [ProfileController::class, 'entrepriseUpdate'])->name('entreprise.eUpdate');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/users', [ProfileController::class, 'user'])->name('users');
+    Route::get('/users', [ProfileController::class, 'user'])->name('users.index');
     Route::post('/users', [ProfileController::class, 'userAdd'])->name('users.add');
     Route::delete('/users', [ProfileController::class, 'statut'])->name('users.statut');
 

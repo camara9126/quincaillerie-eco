@@ -150,7 +150,7 @@
                     </li>-->
 
                     <li>
-                        <a href="{{ route('users') }}">
+                        <a href="{{ route('users.index') }}">
                             <i class="fas fa-user"></i>
                             <span>Utilisateur</span>
                         </a>
