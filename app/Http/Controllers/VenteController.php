@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Client;
+use App\Models\Depenses;
 use App\Models\Entreprise;
 use App\Models\Paiements;
 use App\Models\Vente;
@@ -19,8 +20,22 @@ class VenteController extends Controller
 
         $ventes = Vente::with('client')->latest()->simplePaginate(10); 
 
-        return view('dashboard.commandes.index', compact('ventes'));
+       $today = now()->toDateString();
+
+        $total = Vente::whereDate('created_at', $today)->sum('total');
+
+        $depensesJour = Depenses::where('statut', 'payee')->whereDate('created_at', $today)->sum('montant');
+
+        $totalEncaisse = (Paiements::with('vente')->where('statut', 'valide')->whereDate('created_at', $today)->sum('montant') - $depensesJour);
+
+        $totalReste = $total - $totalEncaisse;
+        
+        $ventesJour = Vente::whereDate('created_at', $today)->get();
+
+
+        return view('dashboard.commandes.index', compact('ventes','ventesJour','total','totalEncaisse','totalReste','depensesJour'));
     }
+
 
     public function search(Request $request)
     {
@@ -167,9 +182,9 @@ class VenteController extends Controller
     {
 
         $entreprise= Entreprise::findOrFail(1);
-        $vente= Vente::with('client', 'items')->findOrFail($id);
+        $vente= Vente::with('client', 'items', 'paiements')->findOrFail($id);
 //dd($vente);
-        $vente->load(['client', 'items']);
+        $vente->load(['client', 'items', 'paiements']);
 
         $pdf = Pdf::loadView('dashboard.commandes.facture', compact('vente', 'entreprise'));
 

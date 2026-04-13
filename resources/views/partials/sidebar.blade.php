@@ -81,7 +81,7 @@
                     <li>
                         <a href="{{ route('commandes.index') }}">
                             <i class="fas fa-shopping-cart"></i>
-                            <span>Commandes</span>
+                            <span>Caisses</span>
                             <span class="badge">{{$commandes->count()}}</span>
                         </a>
                     </li>
@@ -139,7 +139,7 @@
                         </a>
                     </li>
                     
-                    <li>
+                    <!--<li>
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
                             <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();">
@@ -147,6 +147,13 @@
                                 <span>Déconnexion</span>
                             </a>
                         </form>
+                    </li>-->
+
+                    <li>
+                        <a href="{{ route('users') }}">
+                            <i class="fas fa-user"></i>
+                            <span>Utilisateur</span>
+                        </a>
                     </li>
                 </ul>
             </nav>

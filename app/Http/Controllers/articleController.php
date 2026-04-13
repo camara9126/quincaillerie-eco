@@ -103,7 +103,7 @@ class articleController extends Controller
             'prix_achat' => $request->prix_achat,
             'prix' => $request->prix,
             'designation' => $request->designation ?? null,
-            'code' => $this->generateCode($request->user()->id),
+            'code' => $this->generateCode(),
             'reference' => 'REF-' . now()->timestamp,
             'gal_1' => $gal_1 ?? null,
             'gal_2' => $gal_2 ?? null,

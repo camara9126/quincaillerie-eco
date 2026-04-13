@@ -27,9 +27,58 @@
             <div class="content">
                 <!-- Page Header -->
 
+                <h2>Caisse journaliere</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Ventes du jour</h3>
+                            <div class="number">{{$ventesJour->count()}}</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-tags text-info"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Montant Total</h3>
+                            <div class="number">{{number_format($total, 0, ',', ' ')}} XOF</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Montant Encaisse</h3>
+                            <div class="number">{{number_format($totalEncaisse, 0, ',', ' ')}} XOF</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave text-warning"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Montant Restant</h3>
+                            <div class="number">{{number_format($totalReste, 0, ',', ' ')}} XOF</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave text-danger"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <h3>Depenses du jour</h3>
+                            <div class="number">{{number_format($depensesJour, 0, ',', ' ')}} XOF</div>
+                        </div>
+                        <div class="stat-icon">
+                            <i class="fas fa-money-bill-wave text-danger"></i>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des commandes ( {{$ventes->count()}} )</span>
+                        <span><i class="fas fa-shopping-cart" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des commandes ( {{$ventes->count()}} )</span>
                         <a href="{{ route('commandes.create') }}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Nouvelle commande →</a>
                     </div>
                     
@@ -80,9 +129,9 @@
                                         <td>{{$v->created_at->format('d/m/y')}}</td>
                                         <td>
                                             @if($v->statut == 'payee')
-                                                <span class="status-badge badge-paid">{{$v->statut}}</span>
+                                                <span class="status-badge badge bg-success">{{$v->statut}}</span>
                                             @elseif($v->statut == 'partielle')
-                                                <span class="status-badge badge-pending">{{$v->statut}}</span>
+                                                <span class="status-badge badge bg-info">{{$v->statut}}</span>
                                             @else
                                                 <span class="status-badge badge bg-danger">{{$v->statut}}</span>
                                             @endif

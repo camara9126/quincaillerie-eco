@@ -65,7 +65,7 @@
                                         <td>{{$d->libelle}}</td>
                                         <td>{{number_format($d->montant, 0, ',',' ')}} XOF</td>
                                         <td>
-                                            <span class="badge bg-{{ $d->statut == 'payee' ? 'success' : 'danger' }}">
+                                            <span class="badge bg-{{ $d->statut == 'recu' ? 'success' : 'danger' }}">
                                                 {{ ucfirst($d->statut) }}
                                             </span>
                                         </td>

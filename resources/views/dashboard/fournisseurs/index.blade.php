@@ -40,7 +40,7 @@
                     @endif
 
                     <div class="card-header">
-                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des founisseurs (  )</span>
+                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des founisseurs ({{$fournisseurs->count()}})</span>
                        <button type="button" class="btn btn-primary" data-bs-toggle="modal"  data-bs-target="#fournisseurModal">
                             Nouveau fournisseur →
                         </button>
@@ -55,6 +55,7 @@
                                             <th>Telephone</th>
                                             <th>Email</th>
                                             <th>Adresse</th>
+                                            <th>Statut</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
@@ -66,20 +67,37 @@
                                             <td>{{$f->email ?? 'Vide'}}</td>
                                             <td>{{$f->adresse ?? 'Vide'}}</td>
                                             <td>
-                                            <div class="action-buttons">
-                                                <a href="" class="action-btn" data-bs-toggle="modal" data-id="{{ $f->id }}" data-name="{{ $f->nom }}" data-phone="{{ $f->telephone }}" data-email="{{ $f->email }}" data-adress="{{$f->adresse }}" data-bs-target="#fournisseurEditModal" title="Modifier">
-                                                    <i class="fas fa-edit"></i>
-                                                </a>
-                                                <form action="{{route('fournisseurs.destroy', $f->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="action-btn delete" title="Supprimer">
-                                                        <i class="fa fa-trash"></i>
-                                                    </button>
-                                                </form>
-                                                <!--<a href="" class="action-btn" title="Dupliquer"><i class="fas fa-copy"></i></a>-->
-                                            </div>
-                                        </td>
+                                                @if($f->statut)
+                                                    <span class="badge bg-success">Activé</span>
+                                                    @else
+                                                    <span class="badge bg-danger">Desactivé</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <div class="action-buttons">
+                                                    <a href="" class="action-btn" data-bs-toggle="modal" data-id="{{ $f->id }}" data-name="{{ $f->nom }}" data-phone="{{ $f->telephone }}" data-email="{{ $f->email }}" data-adress="{{$f->adresse }}" data-bs-target="#fournisseurEditModal" title="Modifier">
+                                                        <i class="fas fa-edit"></i>
+                                                    </a>
+                                                    @if($f->statut)
+                                                        <form action="{{route('fournisseurs.destroy', $f->id)}}" type="button" method="post" onsubmit="return confirm('Desactiver ?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="action-btn " title="Desactiver">
+                                                                <i class="fa fa-toggle-on"></i>
+                                                            </button>
+                                                        </form>
+                                                    @else
+                                                        <form action="{{route('fournisseurs.destroy', $f->id)}}" type="button" method="post" onsubmit="return confirm('Activer ?')">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="action-btn delete" title="Activer">
+                                                                <i class="fa fa-toggle-off"></i>
+                                                            </button>
+                                                        </form>
+                                                    @endif
+                                                    <!--<a href="" class="action-btn" title="Dupliquer"><i class="fas fa-copy"></i></a>-->
+                                                </div>
+                                            </td>
                                         </tr>
                                         @empty
                                         <tr>
@@ -215,7 +233,7 @@
                 modal.querySelector('#adress').value = adress;
                 
                 // Mettre à jour l'action du formulaire avec l'ID récupéré
-                const updateUrl = `/founisseurs/${id}`;
+                const updateUrl = `/fournisseurs/${id}`;
                 form.action = updateUrl;
             });
         });

@@ -96,7 +96,6 @@
     </tbody>
 </table>
 
-<br>
     @if($entreprise->taux_tva > 1)
         <h4>TVA ({{$item->taux_tva}} %) : {{ number_format($vente->total_tva, 0, ',', ' ') }} XOF</h4>
     @endif
@@ -107,16 +106,48 @@
     @else
         <h2 style="color: red;">Total-HT : {{ number_format($vente->total, 0, ',', ' ') }} XOF</h2>
     @endif
+    
+        <table>
+            <h4>Detail paiements</h4>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Montant</th>
+                </tr>
+            </thead>
+            <tbody>
+                @forelse($vente->paiements as $paiement)
+                    <tr>
+                        <td>{{ $paiement->date_paiement }}</td>
+                        <td>{{number_format($paiement->montant, 0, ',',' ') }} XOF</td>
+                    </tr>
+                @empty
+                    <tr>
+                        <td colspan="7" align="center">Aucun paiement !</td>
+                    </tr>
+                @endforelse
+            </tbody>
+        </table>
+ 
+        <br>
 
         <!-- Pied de page -->
         <div class="invoice-footer">
-            <!--<div class="footer-left">
-                <div>Solutions Pro - SAS au capital de 50 000 €</div>
-                <div>RCS Paris 123 456 789 - TVA intracommunautaire FR 12 123456789</div>
-            </div>-->
+             @if($vente->montant_restant !== 0)
+                <div class="footer-left">
+                    <h3>Montant Restant : {{ number_format($vente->montant_restant, 0, ',',' ')}} XOF</h3>
+                </div>
+            @endif
+
             <div class="footer-right">
-                <div class="status-paid">FACTURE PAYÉE</div>
-                <div style="margin-top: 10px; font-size: 12px;">Date de paiement: {{ $vente->created_at->format('d/m/Y') }}</div>
+                <div class="status-paid">
+                    @if($vente->montant_restant == 0)
+                        PAIEMENT COMPLET
+                    @else
+                        PAIEMENT INCOMPLET
+                    @endif
+                </div>
+                <div style="margin-top: 10px; font-size: 12px;">Date du commande: {{ $vente->created_at->format('d/m/Y') }}</div>
             </div>
         </div>
 <p>

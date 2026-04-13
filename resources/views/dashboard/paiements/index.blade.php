@@ -51,7 +51,7 @@
                                         <th>Client</th>
                                         <th>Montant</th>
                                         <th>Date de paiement</th>
-                                        <th>Mode de paiement</th>
+                                        <!--<th>Mode de paiement</th>-->
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -62,7 +62,7 @@
                                         <td>{{optional($p->vente->client)->nom ?? '-'}}</td>
                                         <td>{{max(0, number_format($p->montant, 0, ',',' '))}} XOF</td>
                                         <td>{{$p->date_paiement}}</td>
-                                        <td>{{$p->mode_paiement}}</td>
+                                        <!--<td>{{$p->mode_paiement}}</td>-->
                                         <td>
                                             @if($p->statut === 'valide')
                                                 <form action="{{ route('paiements.annuler', $p->id) }}" method="POST" onsubmit="return confirm('Confirmer l’annulation du paiement ?')">

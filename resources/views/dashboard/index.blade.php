@@ -35,10 +35,11 @@
                 </div>
 
                 <!-- Stats Cards -->
+                 <!-- 1er ligne -->
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-info">
-                            <a href="{{ route('articles.create') }}">
+                            <a href="{{ route('articles.index') }}">
                                 <h3>Articles</h3>
                                 <div class="number">{{$articles->count()}}</div>
                             </a>
@@ -70,7 +71,7 @@
                             <i class="fas fa-shopping-cart"></i>
                         </div>
                     </div>
-                    <div class="stat-card">
+                    <!--<div class="stat-card">
                         <div class="stat-info">
                             <a href="{{ route('devis.create') }}">
                                 <h3>Devis</h3>
@@ -80,9 +81,10 @@
                         <div class="stat-icon">
                             <i class="fas fa-file-invoice"></i>
                         </div>
-                    </div>
+                    </div>-->
                 </div>
 
+                <!-- 2nd ligne -->
                 <div class="stats-grid">
                     <div class="stat-card2">
                         <div class="stat-info">
@@ -99,7 +101,7 @@
                         <div class="stat-info">
                             <a href="{{ route('mouvements') }}">
                                 <h3 class="text-white">Stock</h3>
-                                <div class="number text-white">{{$mouvements->count()}}</div>
+                                <div class="number text-white">{{$mouvements->count()}} produits</div>
                             </a>    
                         </div>
                         <div class="stat-icon">
@@ -143,6 +145,7 @@
                             <table>
                                 <thead>
                                     <tr>
+                                        <th>Image</th>
                                         <th>Code</th>
                                         <th>Produit</th>
                                         <th>Catégorie</th>

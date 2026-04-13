@@ -4,15 +4,70 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use App\Models\Entreprise;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\Rules;
 use Illuminate\View\View;
 
 class ProfileController extends Controller
 {
+
+    /**
+     * Liste des utilisateurs
+     */
+    public function user() {
+        $users= User::latest()->get();
+
+        return view('profile.users', compact('users'));
+    }
+
+
+    /**
+     * Ajout nouveau utilisateur
+     */
+     public function userAdd(Request $request)
+    {
+        $request->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role' => ['string', 'max:250'],
+        ]);
+        //dd($request);
+        User::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'role' => $request->role,
+            'password' => Hash::make($request->password),
+        ]);
+
+        return redirect()->route('users')->with('success', 'Utilisateur ajouté avec succès');
+    }
+
+
+    /**
+     *Changement de statut.
+     */
+     public function statut(User $id)
+    {
+        $user= user::findOrFail($id)->get();
+
+        if($user->statut) {
+            $user->update(['statut' => false]);
+            return redirect()->route('users')->with('success', 'Utilisateur désactivé');
+        }
+        else {
+            $user->update(['statut' => true]);
+            return redirect()->route('users')->with('success', 'Utilisateur activé');
+        }
+
+    }
+
     /**
      * Display the user's profile form.
      */

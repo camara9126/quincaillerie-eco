@@ -59,29 +59,9 @@ class FournisseurController extends Controller
             'adresse' => $request->adresse,
         ]);
 
-        return redirect()->route('fournisseurs.index')
-            ->with('success', 'Fournisseur ajouté avec succès');
+        return redirect()->route('fournisseurs.index')->with('success', 'Fournisseur ajouté avec succès');
     }
 
-
-    public function storeAjax(Request $request)
-    {
-        $request->validate([
-            'nom' => 'required|string|max:255',
-            'telephone' => 'nullable|string',
-            'email' => 'nullable|email',
-            'adresse' => 'nullable|string',
-        ]);
-
-        Fournisseur::create([
-            'nom' => $request->nom,
-            'telephone' => $request->telephone,
-            'email' => $request->email,
-            'adresse' => $request->adresse,
-        ]);
-
-        return redirect()->route('produits.create')->with('success', 'Fournisseur ajouté avec succès');
-    }
 
     public function edit(Fournisseur $fournisseur)
     {
@@ -106,7 +86,6 @@ class FournisseurController extends Controller
             'telephone' => $request->telephone,
             'email' => $request->email,
             'adresse' => $request->adresse,
-            'statut' => $request->statut,
         ]);
 
         return redirect()->route('fournisseurs.index')
@@ -115,9 +94,14 @@ class FournisseurController extends Controller
 
     public function destroy(Fournisseur $fournisseur)
     {
+        if($fournisseur->statut) {
+            $fournisseur->update(['statut' => false]);
+            return redirect()->route('fournisseurs.index')->with('success', 'Fournisseur désactivé');
+        }
+        else {
+            $fournisseur->update(['statut' => true]);
+            return redirect()->route('fournisseurs.index')->with('success', 'Fournisseur activé');
+        }
 
-        $fournisseur->update(['statut' => false]);
-
-        return redirect()->route('fournisseurs.index')->with('success', 'Fournisseur désactivé');
     }
 }
