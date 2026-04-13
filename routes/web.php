@@ -108,7 +108,6 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/users', [ProfileController::class, 'user'])->name('users.index');
     Route::post('/users', [ProfileController::class, 'userAdd'])->name('users.add');
-    Route::delete('/users', [ProfileController::class, 'statut'])->name('users.statut');
 
 });
 

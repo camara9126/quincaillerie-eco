@@ -54,7 +54,6 @@
                                             <th>Nom</th>
                                             <th>Email</th>
                                             <th>Role</th>
-                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -62,26 +61,7 @@
                                         <tr>
                                             <td>{{$u->name}}</td>
                                             <td>{{$u->email ?? 'Vide'}}</td>
-                                            <td>{{$u->role ?? 'Vide'}}</td> 
-                                            <td>
-                                                 @if($u->statut)
-                                                        <form action="{{route('users.statut', $u->id)}}" type="button" method="post" onsubmit="return confirm('Desactiver ?')">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="action-btn " title="Desactiver">
-                                                                <i class="fa fa-toggle-on"></i>
-                                                            </button>
-                                                        </form>
-                                                    @else
-                                                        <form action="{{route('users.statut', $u->id)}}" type="button" method="post" onsubmit="return confirm('Activer ?')">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="action-btn delete" title="Activer">
-                                                                <i class="fa fa-toggle-off"></i>
-                                                            </button>
-                                                        </form>
-                                                    @endif
-                                            </td>    
+                                            <td>{{$u->role ?? 'Vide'}}</td>    
                                         </tr>
                                         @empty
                                         <tr>
