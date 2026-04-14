@@ -29,7 +29,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-file-invoice" style="color: var(--primary); margin-right: 0.5rem;"></i>Creation de devis </span>
+                        <span><i class="fas fa-file-invoice" style="color: var(--primary); margin-right: 0.5rem;"></i>Modification de devis </span>
                         <a href="{{ route('devis.index') }}" class="btn btn-outline-danger">Annuler</a>
                     </div>
                     
@@ -52,14 +52,14 @@
                             </div>
                         @endif
 
-                       <form action="{{ route('devis.store') }}" method="POST">
+                       <form method="post" action="{{ route('devis.update', $devis) }}">
                             @csrf
-
+                            @method('Put')
                             <!-- CLIENT -->
                             <div class="mb-3">
                                 <label>Client</label>
                                 <select name="client_id" class="form-control" required>
-                                    <option value="">-- Choisir un client --</option>
+                                    <option value="{{$devis->client->id}}">{{$devis->client->nom}}</option>
                                     @foreach($clients as $client)
                                         <option value="{{ $client->id }}">{{ $client->nom }}</option>
                                     @endforeach
@@ -78,10 +78,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @foreach($devis->details as $index => $detail)
                                     <tr>
                                         <td>
-                                            <select name="articles[0][article_id]" class="form-control produit-select">
-                                                <option value="">Choisir</option>
+                                            <select name="articles[{{$index}}][article_id]" class="form-control produit-select">
+                                                <option value="{{$detail->article->id}}" data-prix="{{ $detail->article->prix }}">{{$detail->article->nom}}</option>
                                                 @foreach($articles as $article)
                                                     <option value="{{ $article->id }}" data-prix="{{ $article->prix }}">
                                                         {{ $article->nom }}
@@ -91,21 +92,22 @@
                                         </td>
 
                                         <td>
-                                            <input type="number" name="articles[0][prix]" class="form-control prix" >
+                                            <input type="number" name="articles[{{$index}}][prix]" value="{{$detail->prix_unitaire}}" class="form-control prix" >
                                         </td>
 
                                         <td>
-                                            <input type="number" name="articles[0][quantite]" class="form-control quantite" value="1">
+                                            <input type="number" name="articles[{{$index}}][quantite]" value="{{$detail->quantite}}" class="form-control quantite" value="1">
                                         </td>
 
                                         <td>
-                                            <input type="number" class="form-control total-ligne" readonly>
+                                            <input type="number" value="{{$detail->total}}" class="form-control total-ligne" readonly>
                                         </td>
 
                                         <td>
                                             <button type="button" class="btn btn-danger remove">X</button>
                                         </td>
                                     </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
 
@@ -116,7 +118,7 @@
                                 <h4>Total : <span id="total-global">0</span> FCFA</h4>
                             </div>
 
-                            <button type="submit" class="btn btn-success mt-3">Enregistrer</button>
+                            <button type="submit" class="btn btn-success mt-3">Modifier</button>
                         </form>
                     </div>
                 </div>
@@ -129,10 +131,11 @@
         document.getElementById('addRow').addEventListener('click', function () {
 
             let row = `
+            @foreach($devis->details as $detail)
             <tr>
                 <td>
                     <select name="articles[${index}][article_id]" class="form-control produit-select">
-                        <option value="">Choisir</option>
+                        <option value="{{$detail->article->id}}" data-prix="{{ $detail->article->prix }}>{{$detail->article->nom}}</option>
                         @foreach($articles as $article)
                             <option value="{{ $article->id }}" data-prix="{{ $article->prix }}">
                                 {{ $article->nom }}
@@ -142,21 +145,22 @@
                 </td>
 
                 <td>
-                    <input type="number" name="articles[${index}][prix]" class="form-control prix" >
+                    <input type="number" name="articles[${index}][prix]" value="{{$detail->prix_unitaire}}" class="form-control prix" >
                 </td>
 
                 <td>
-                    <input type="number" name="articles[${index}][quantite]" class="form-control quantite" value="1">
+                    <input type="number" name="articles[${index}][quantite]" value="{{$detail->quantite}}" class="form-control quantite" value="1">
                 </td>
 
                 <td>
-                    <input type="number" class="form-control total-ligne" readonly>
+                    <input type="number" value="{{$detail->total}}" class="form-control total-ligne" readonly>
                 </td>
 
                 <td>
                     <button type="button" class="btn btn-danger remove">X</button>
                 </td>
             </tr>
+            @endforeach
             `;
 
             document.querySelector('#table-produits tbody').insertAdjacentHTML('beforeend', row);

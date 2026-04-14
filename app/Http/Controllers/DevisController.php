@@ -40,6 +40,7 @@ class DevisController extends Controller
 
         return view('dashboard.devis.index', compact('devis','search'));
     }
+
     /**
      * Formulaire création
      */
@@ -70,6 +71,7 @@ class DevisController extends Controller
             'client_id' => $request->client_id,
             'total' => 0,
             'statut' => 'en_attente',
+            'entreprise_id' => 1,
             'date_devis' => now(),
             'date_expiration' => now()->addDays(7),
         ]);
@@ -97,8 +99,7 @@ class DevisController extends Controller
             'total' => $total
         ]);
 
-        return redirect()->route('devis.index')
-            ->with('success', 'Devis créé avec succès');
+        return redirect()->route('devis.index')->with('success', 'Devis créé avec succès');
     }
 
     /**
@@ -111,6 +112,67 @@ class DevisController extends Controller
         $devis = Devis::with('client', 'details')->findOrFail($id);
 //dd($devis);
         return view('dashboard.devis.show', compact('devis','articles'));
+    }
+
+    /**
+     * Formulaire d'edit
+     */
+    public function edit(string $id)
+    {
+        $devis= Devis::with('client', 'details')->findOrFail($id);
+//dd($devis);
+        $clients = Client::all();
+        $articles = Article::all();
+
+        return view('dashboard.devis.edit', compact('devis', 'clients', 'articles'));
+    }
+
+    /**
+     * Enregistrer un devis
+     */
+    public function update(Request $request, string $id)
+    {
+
+        $request->validate([
+            'client_id' => 'required',
+            'articles' => 'required|array',
+            'articles.*.article_id' => 'required',
+            'articles.*.quantite' => 'required|numeric|min:1',
+            'articles.*.prix' => 'required|numeric|min:0',
+        ]);
+
+        $devis= Devis::with('client', 'details')->findOrFail($id);
+
+        // Suppressionm des anciens details devis
+        $devis->details()->delete();
+
+        $total = 0;
+//dd($devis);
+
+        // Recreer les nouveaux details
+        foreach ($request->articles as $item) {
+
+            $ligneTotal = $item['quantite'] * $item['prix'];
+
+            Devis_details::create([
+                'devis_id' => $devis->id,
+                'article_id' => $item['article_id'],
+                'quantite' => $item['quantite'],
+                'prix_unitaire' => $item['prix'],
+                'total' => $ligneTotal,
+            ]);
+
+            $total += $ligneTotal;
+        }
+
+        // Mise à jour du total
+        $devis->update([
+            'client_id' => $request->client_id,
+            'total' => $total,
+            'date_devis' => now()
+        ]);
+
+        return redirect()->route('devis.index')->with('success', 'Devis modifié avec succès');
     }
 
     /**

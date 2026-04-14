@@ -26,9 +26,9 @@ class VenteController extends Controller
 
         $depensesJour = Depenses::where('statut', 'payee')->whereDate('created_at', $today)->sum('montant');
 
-        $totalEncaisse = (Paiements::with('vente')->where('statut', 'valide')->whereDate('created_at', $today)->sum('montant') - $depensesJour);
+        $totalEncaisse = ((Paiements::with('vente')->where('statut', 'valide')->whereDate('created_at', $today)->sum('montant')) - ($depensesJour));
 
-        $totalReste = $total - $totalEncaisse;
+        $totalReste = $totalEncaisse - $depensesJour;
         
         $ventesJour = Vente::whereDate('created_at', $today)->get();
 
@@ -129,11 +129,11 @@ class VenteController extends Controller
                 'vente_id' => $vente->id,
                 'article_id' => $item['article_id'],
                 'quantite' => $item['quantite'],
-                'prix_unitaire' => $produit->prix,
+                'prix_unitaire' => $item['prix'],
                 'taux_tva' => $entreprise->taux_tva,
-                'montant_tva' => ($item['quantite'] * $produit->prix) * ($entreprise->taux_tva /100 ),
-                'total_ttc' => ($item['quantite'] * $produit->prix) + (($item['quantite'] * $produit->prix) * ($entreprise->taux_tva /100 )),
-                'total' => $item['quantite'] * $produit->prix,
+                'montant_tva' => ($item['quantite'] * $item['prix']) * ($entreprise->taux_tva /100 ),
+                'total_ttc' => ($item['quantite'] * $item['prix']) + (($item['quantite'] * $item['prix']) * ($entreprise->taux_tva /100 )),
+                'total' => $item['quantite'] * $item['prix'],
             ]);
 
             // Mise a jour stock

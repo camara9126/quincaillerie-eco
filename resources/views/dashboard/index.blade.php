@@ -63,7 +63,7 @@
                     <div class="stat-card">
                         <div class="stat-info">
                             <a href="{{ route('commandes.create') }}">
-                                <h3>Commandes</h3>
+                                <h3>factures</h3>
                                 <div class="number">{{$commandes->count()}}</div>
                             </a>
                         </div>
@@ -161,10 +161,12 @@
                                         <td>
                                             <div class="product-info">
                                                 <img src="{{asset('storage/'. $a->image)}}" width="50" alt="">
-                                                <div>
-                                                    <div style="font-weight: 600;">{{$a->code}}</div>
-                                                    <!--<div style="font-size: 0.85rem; color: var(--gray-600);">GBH 2-26</div>-->
-                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div>
+                                                <div style="font-weight: 600;">{{$a->code}}</div>
+                                                <!--<div style="font-size: 0.85rem; color: var(--gray-600);">GBH 2-26</div>-->
                                             </div>
                                         </td>
                                         <td>{{$a->nom}}</td>

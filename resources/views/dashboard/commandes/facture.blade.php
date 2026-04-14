@@ -83,6 +83,7 @@
             <th>Produit</th>
             <th>Quantité</th>
             <th>Prix unitaire (XOF)</th>
+            <th>Total (XOF)</th>
         </tr>
     </thead>
     <tbody>
@@ -91,6 +92,7 @@
             <td>{{ $item->article->nom }}</td>
             <td>{{ $item->quantite }}</td>
             <td>{{ number_format($item->prix_unitaire, 0, ',', ' ') }}</td>
+            <td>{{ number_format($item->total, 0, ',', ' ') }}</td>
         </tr>
         @endforeach
     </tbody>
@@ -147,11 +149,11 @@
                         PAIEMENT INCOMPLET
                     @endif
                 </div>
-                <div style="margin-top: 10px; font-size: 12px;">Date du commande: {{ $vente->created_at->format('d/m/Y') }}</div>
+                <div style="margin-top: 10px; font-size: 12px;">Date de la facture: {{ $vente->created_at->format('d/m/Y') }}</div>
             </div>
         </div>
 <p>
-    Merci pour votre confiance.
+   Facture générée par {{strtoupper($vente->user->name)}}.
 </p>
 
 </body>

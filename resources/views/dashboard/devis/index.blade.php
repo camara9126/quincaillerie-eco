@@ -78,7 +78,12 @@
                                             <div class="row">
                                                 <div class="col-md-6">
                                                     <a href="{{route('devis.show', $d->id)}}" class="btn btn-outline-warning mr-2" title="afficher le devis">
-                                                        <i class="fa fa-eye text-warning"></i>
+                                                        <i class="fa fa-eye"></i>
+                                                    </a>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <a href="{{route('devis.edit', $d->id)}}" class="btn btn-outline-info mr-2" title="modifier le devis">
+                                                        <i class="fa fa-edit"></i>
                                                     </a>
                                                 </div>
                                             </div>

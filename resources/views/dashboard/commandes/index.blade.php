@@ -15,7 +15,7 @@
                     <i class="fas fa-search"></i>
                     <form method="get" action="{{route('commandes.search')}}" class="form-inline">
                         
-                        <input type="text" name="search"  placeholder="Recherche commande...">                                                   
+                        <input type="text" name="search"  placeholder="Recherche facture...">                                                   
                             
                     </form>
                 </div>
@@ -58,8 +58,8 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-info">
-                            <h3>Montant Restant</h3>
-                            <div class="number">{{number_format($totalReste, 0, ',', ' ')}} XOF</div>
+                            <h3>Depenses du jour</h3>
+                            <div class="number">{{number_format($depensesJour, 0, ',', ' ')}} XOF</div>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-money-bill-wave text-danger"></i>
@@ -67,8 +67,8 @@
                     </div>
                     <div class="stat-card">
                         <div class="stat-info">
-                            <h3>Depenses du jour</h3>
-                            <div class="number">{{number_format($depensesJour, 0, ',', ' ')}} XOF</div>
+                            <h3>Montant Restant</h3>
+                            <div class="number">{{number_format($totalReste, 0, ',', ' ')}} XOF</div>
                         </div>
                         <div class="stat-icon">
                             <i class="fas fa-money-bill-wave text-danger"></i>
@@ -78,8 +78,8 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-shopping-cart" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des commandes ( {{$ventes->count()}} )</span>
-                        <a href="{{ route('commandes.create') }}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Nouvelle commande →</a>
+                        <span><i class="fas fa-shopping-cart" style="color: var(--primary); margin-right: 0.5rem;"></i>Liste des factures ( {{$ventes->count()}} )</span>
+                        <a href="{{ route('commandes.create') }}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Nouvelle facture →</a>
                     </div>
                     
                     @if(Session::has('success'))
@@ -107,7 +107,7 @@
                                     <tr>
                                         <th>Reference</th>
                                         <th>Client</th>
-                                        <th>Montant TVA</th>
+                                        <!--<th>Montant TVA</th>-->
                                         <th>Montant Total</th>
                                         <th>Montant Payer</th>
                                         <th>Montant Restant</th>
@@ -122,7 +122,7 @@
                                     <tr>
                                         <td>{{$v->reference}}</td>
                                         <td>{{$v->client->nom ?? 'Client supprimee'}}</td>
-                                        <td>{{number_format($v->total_tva, 0, ',',' ')}} XOF</td>
+                                        <!--<td>{{number_format($v->total_tva, 0, ',',' ')}} XOF</td>-->
                                         <td>{{number_format($v->total_ttc, 0, ',',' ')}} XOF</td>
                                         <td>{{number_format($v->montant_paye, 0, ',', ' ')}} XOF</td>
                                         <td>{{number_format($v->montant_restant, 0, ',',' ')}} XOF</td>

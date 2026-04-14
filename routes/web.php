@@ -75,6 +75,7 @@ Route::get('/parametre', function() {
 })->name('parametre');
 
 
+// Route dashboard
 Route::get('/dashboard', function () {
     $categories= Categorie::latest()->get();
     $articles= Article::latest()->get();
@@ -100,6 +101,8 @@ Route::get('/dashboard', function () {
     
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
+// Route profile
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

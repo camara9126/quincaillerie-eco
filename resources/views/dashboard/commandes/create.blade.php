@@ -12,12 +12,12 @@
                 </button>
 
                 <div class="search-bar">
-                    <i class="fas fa-search"></i>
+                    <!--<i class="fas fa-search"></i>
                     <form method="get" action="{{route('article.search')}}" class="form-inline">
                         
-                        <input type="text" name="search"  placeholder="Rechercher...">                                                   
+                        <input type="text" name="search"  placeholder="Rechercher une facture...">                                                   
                             
-                    </form>
+                    </form>-->
                 </div>
 
                 @include('partials.userMenu')
@@ -29,7 +29,7 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Nouvelle comannde</span>
+                        <span><i class="fas fa-box" style="color: var(--primary); margin-right: 0.5rem;"></i>Nouvelle facture</span>
                         <a href="{{ route('commandes.index') }}" class="btn btn-outline-danger">Annuler</a>
                     </div>
                     
@@ -51,7 +51,7 @@
                                     @endforeach
                                 </div>
                             @endif
-                            <h2 class="text-center mb-3">Nouvelle commande</h2>
+                            <h2 class="text-center mb-3">Nouvelle facture</h2>
 
                             <form action="{{ route('commandes.store') }}" method="POST" class="contact-form">
                                 @csrf
@@ -114,7 +114,7 @@
                                             </td>
 
                                             <td>
-                                                <input type="number" name="articles[0][prix]" class="form-control prix" readonly>
+                                                <input type="number" name="articles[0][prix]" class="form-control prix">
                                             </td>
 
                                             <td>
@@ -204,7 +204,7 @@
                 </td>
 
                 <td>
-                    <input type="number" name="articles[${index}][prix]" class="form-control prix" readonly>
+                    <input type="number" name="articles[${index}][prix]" class="form-control prix" >
                 </td>
 
                 <td>

@@ -22,6 +22,10 @@ class Vente extends Model
         return $this->hasMany(VenteItem::class);
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
     public function client()
     {
