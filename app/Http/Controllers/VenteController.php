@@ -3,10 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
-use App\Models\Client;
 use App\Models\Depenses;
 use App\Models\Entreprise;
 use App\Models\Paiements;
+use App\Models\Tiers;
 use App\Models\Vente;
 use App\Models\VenteItem;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -18,7 +18,7 @@ class VenteController extends Controller
     {
 
 
-        $ventes = Vente::with('client')->latest()->simplePaginate(10); 
+        $ventes = Vente::with('tiers')->latest()->simplePaginate(10); 
 
        $today = now()->toDateString();
 
@@ -41,26 +41,47 @@ class VenteController extends Controller
     {
         $search = $request->query('search');
 
+        $today = now()->toDateString();
+
+        $total = Vente::whereDate('created_at', $today)->sum('total');
+
+        $depensesJour = Depenses::where('statut', 'payee')->whereDate('created_at', $today)->sum('montant');
+
+        $totalEncaisse = ((Paiements::with('vente')->where('statut', 'valide')->whereDate('created_at', $today)->sum('montant')) - ($depensesJour));
+
+        $totalReste = $totalEncaisse - $depensesJour;
+        
+        $ventesJour = Vente::whereDate('created_at', $today)->get();
+
         $ventes = Vente::when($search, function ($query, $search) {
 
-                $query->where('reference', 'like', "%{$search}%")->orWhereHas('client', function ($q) use ($search) {
+                $query->where('reference', 'like', "%{$search}%")->orWhereHas('tiers', function ($q) use ($search) {
 
                         $q->where('nom', 'like', "%{$search}%");
                 });
 
         })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=
 
-        return view('dashboard.commandes.index', compact('ventes', 'search'));
+        $ventes = Vente::when($search, function ($query, $search) {
+
+                $query->where('reference', 'like', "%{$search}%")->orWhereHas('tiers', function ($q) use ($search) {
+
+                        $q->where('type', 'like', "%{$search}%");
+                });
+
+        })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=
+
+        return view('dashboard.commandes.index', compact('ventes', 'search', 'ventesJour','total','totalEncaisse','totalReste','depensesJour'));
     }
     
 
 
     public function create()
     {
-        $clients = Client::latest()->get();
+        $tiers = Tiers::latest()->get();
         $articles = Article::where('statut', true)->latest()->get();
 
-        return view('dashboard.commandes.create', compact('clients', 'articles'));
+        return view('dashboard.commandes.create', compact('tiers', 'articles'));
     }
 
 
@@ -68,6 +89,7 @@ class VenteController extends Controller
     {
         $request->validate([
             'client_id' => 'required|exists:clients,id',
+            'tiers_id' => 'required|exists:tiers,id',
             'articles' => 'required|array|min:1',
             'statut',
             'articles.*.article_id' => 'required',
@@ -79,7 +101,8 @@ class VenteController extends Controller
 
              //dd($request->all());
             $vente = Vente::create([
-                'client_id' => $request->client_id,
+                'client_id' => 1,
+                'tiers_id' => $request->tiers_id,
                 'reference' => 'VNT-' . time(),
                 'date' => now(),
                 'total' => 0,
@@ -182,9 +205,9 @@ class VenteController extends Controller
     {
 
         $entreprise= Entreprise::findOrFail(1);
-        $vente= Vente::with('client', 'items', 'paiements')->findOrFail($id);
+        $vente= Vente::with('tiers', 'items', 'paiements')->findOrFail($id);
 //dd($vente);
-        $vente->load(['client', 'items', 'paiements']);
+        $vente->load(['tiers', 'items', 'paiements']);
 
         $pdf = Pdf::loadView('dashboard.commandes.facture', compact('vente', 'entreprise'));
 
@@ -196,7 +219,7 @@ class VenteController extends Controller
     public function facture(Vente $vente)
     {
 
-        $vente->load(['client', 'items.produit']);
+        $vente->load(['tiers', 'items.produit']);
 
         $pdf = Pdf::loadView('dashboard.commandes.facture', compact('vente'));
 

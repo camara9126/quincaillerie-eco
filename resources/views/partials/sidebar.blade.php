@@ -5,11 +5,13 @@
     use App\Models\Categorie;
     use App\Models\Client;
     use App\Models\Devis;
+    use App\Models\Tiers;
     use App\Models\Vente;
 
     $categories= Categorie::latest()->get();
     $articles= Article::latest()->get();
     $clients= Client::latest()->get();
+    $tiers= Tiers::latest()->get();
     $commandes= Vente::latest()->get();
     $devis= Devis::latest()->get();
     $bonCommandes= Bon_commande::latest()->get();
@@ -49,9 +51,10 @@
                     <div class="sidebar-divider"></div>
 
                     <li>
-                        <a href="{{ route('fournisseurs.index') }}">
-                            <i class="fas fa-truck"></i>
-                            <span>Fournisseurs</span>
+                        <a href="{{ route('tiers.index') }}">
+                            <i class="fas fa-users"></i>
+                            <span>Tiers</span>
+                            <span class="badge">{{$tiers->count()}}</span>
                         </a>
                     </li>
                     <li>
@@ -71,13 +74,13 @@
 
                     <div class="sidebar-divider"></div>
 
-                    <li>
+                    <!--<li>
                         <a href="{{ route('clients.index') }}">
                            <i class="fas fa-users"></i>
                             <span>Client</span>
                             <span class="badge">{{$clients->count()}}</span>
                         </a>
-                    </li>
+                    </li>-->
                     <li>
                         <a href="{{ route('commandes.index') }}">
                             <i class="fas fa-shopping-cart"></i>
@@ -117,18 +120,17 @@
                     <div class="sidebar-divider"></div>
 
                     <li>
+                        <a href="{{ route('comptabilite.index') }}">
+                            <i class="fas fa-star"></i>
+                            <span>Comptabilite</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{ route('rapports') }}">
                             <i class="fas fa-chart-bar"></i>
                             <span>Rapports</span>
                         </a>
                     </li>
-                    
-                    <!--<li>
-                        <a href="#">
-                            <i class="fas fa-star"></i>
-                            <span>Avis</span>
-                        </a>
-                    </li>-->
 
                     <div class="sidebar-divider"></div>
 

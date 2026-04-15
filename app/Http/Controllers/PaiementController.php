@@ -53,7 +53,8 @@ class PaiementController extends Controller
         $request->validate([
             'vente_id' => 'required|exists:ventes,id',
             'montant' => 'required|numeric|min:1',
-            'mode_paiement' => 'required'
+            'mode_paiement' => 'required',
+            'date_paiement' => 'required'
         ]);
         //dd($request);
 
@@ -74,7 +75,7 @@ class PaiementController extends Controller
             'vente_id' => $vente->id,
             'montant' => $request->montant,
             'mode_paiement' => $request->mode_paiement,
-            'date_paiement' => now(),
+            'date_paiement' => $request->date_paiement,
             'reference' => 'PAY-' . time()
         ]);
 

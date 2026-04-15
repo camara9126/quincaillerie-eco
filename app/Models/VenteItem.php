@@ -17,7 +17,7 @@ class VenteItem extends Model
         'total',
     ];
 
-     public function vente()
+    public function vente()
     {
         return $this->belongsTo(Vente::class);
     }

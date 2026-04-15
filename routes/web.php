@@ -9,10 +9,12 @@ use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MouvementController;
+use App\Http\Controllers\MouvementTiersController;
 use App\Http\Controllers\PaiementController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RapportController;
 use App\Http\Controllers\RecetteController;
+use App\Http\Controllers\TiersController;
 use App\Http\Controllers\VenteController;
 use App\Models\Article;
 use App\Models\Bon_commande;
@@ -159,10 +161,14 @@ Route::middleware('auth')->group(function () {
 
 });
 
+// Route pour transferer les donnees clients et fournisseurs dans la table Tiers
 
 
-// Routes Clients, Devis et Commandes
+// Routes Tiers(client/fournisseur), Devis et Commandes
 Route::middleware('auth')->group(function () {
+    Route::resource('/tiers', TiersController::class);
+    Route::get('/tiersSearch', [TiersController::class, 'search'])->name('tiers.search');
+
     Route::resource('/clients', ClientController::class);
     Route::get('/clientSearch', [ClientController::class, 'search'])->name('clients.search');
 
@@ -182,8 +188,11 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// Routes Depenses, Recettes et Paiements
+// Routes Comptabilite, Depenses, Recettes et Paiements
 Route::middleware('auth')->group(function () {
+    Route::resource('/comptabilite', MouvementTiersController::class);
+    Route::get('/comptabiliteSearch', [MouvementTiersController::class, 'search'])->name('comptabilite.search');
+
     Route::resource('/paiements', PaiementController::class);
     Route::get('/paiementSearch', [PaiementController::class, 'search'])->name('paiements.search');
 

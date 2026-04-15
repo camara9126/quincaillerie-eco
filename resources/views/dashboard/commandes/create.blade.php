@@ -56,15 +56,16 @@
                             <form action="{{ route('commandes.store') }}" method="POST" class="contact-form">
                                 @csrf
                                 {{-- CLIENT --}}
+                                <input type="hidden" name="client_id" value="1">
                                 <div class="row mt-3">
                                     <div class="col-7">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Client</label><br>
-                                            <select name="client_id" class="form-select" required>
-                                                <option value="">-- Sélectionner un client --</option>
-                                                @foreach($clients as $client)
-                                                    <option value="{{ $client->id }}">
-                                                        {{ ucfirst($client->nom) }}
+                                            <label for="name" class="form-label">Tiers</label><br>
+                                            <select name="tiers_id" class="form-select" required>
+                                                <option value="">-- Sélectionner un tier --</option>
+                                                @foreach($tiers as $tier)
+                                                    <option value="{{ $tier->id }}">
+                                                        {{ ucfirst($tier->nom ) }} (<b>{{ $tier->type }}</b>)
                                                     </option>
                                                 @endforeach
                                             </select>
@@ -72,7 +73,7 @@
                                     </div>
                                     <div class="col-5">
                                         <div class="mb-3">
-                                            <label for="name" class="form-label">Nouveau Client</label><br>
+                                            <label for="name" class="form-label">Nouveau Tier</label><br>
                                             <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#clientModal">
                                                 Ajouter
                                             </button>
@@ -145,14 +146,14 @@
                                 </button>
                             </form>
                             
-                            <!-- Nouveau client -->
+                            <!-- Nouveau tier -->
                             <div class="modal fade" id="clientModal" tabindex="-1">
                                 <div class="modal-dialog">
-                                    <form method="post" action="{{route('clients.store')}}">
+                                    <form method="post" action="{{route('tiers.store')}}">
                                         @csrf
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title">Nouveau client</h5>
+                                                <h5 class="modal-title">Nouveau tiers</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                             </div>
 
@@ -170,6 +171,15 @@
                                                 <div class="mb-3">
                                                     <label>Email</label>
                                                     <input type="email" name="email" class="form-control">
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label>Type</label>
+                                                    <select name="type" id="type">
+                                                        <option value="client" >Client</option>
+                                                        <option value="fournisseur">Fournisseur</option>
+                                                        <option value="mixte">Mixte</option>
+                                                    </select>
                                                 </div>
                                             </div>
 

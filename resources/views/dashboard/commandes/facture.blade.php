@@ -70,9 +70,10 @@
 <hr>
 
 <p>
-    <b>Client :</b><br>
-    {{ $vente->client->nom }}<br>
-    {{ $vente->client->telephone ?? '' }}
+    <b>Type Tiers :</b> {{ strtoupper($vente->tiers->type) ?? '' }}<br>
+    {{ $vente->tiers->nom }}<br>
+    {{ $vente->tiers->telephone ?? '' }} <br>
+    {{ $vente->client->adresse ?? '' }} <br>
 </p>
 
 <br>

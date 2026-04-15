@@ -106,7 +106,7 @@
                                 <thead>
                                     <tr>
                                         <th>Reference</th>
-                                        <th>Client</th>
+                                        <th>Tiers</th>
                                         <!--<th>Montant TVA</th>-->
                                         <th>Montant Total</th>
                                         <th>Montant Payer</th>
@@ -121,7 +121,7 @@
                                     @forelse($ventes as $v)
                                     <tr>
                                         <td>{{$v->reference}}</td>
-                                        <td>{{$v->client->nom ?? 'Client supprimee'}}</td>
+                                        <td>{{$v->tiers->nom ?? 'Tiers supprimee'}} ({{$v->tiers->type }})</td>
                                         <!--<td>{{number_format($v->total_tva, 0, ',',' ')}} XOF</td>-->
                                         <td>{{number_format($v->total_ttc, 0, ',',' ')}} XOF</td>
                                         <td>{{number_format($v->montant_paye, 0, ',', ' ')}} XOF</td>
@@ -182,6 +182,11 @@
                                             <div class="mb-3">
                                                 <label>Montant à payer</label>
                                                 <input type="number" name="montant" class="form-control" required>
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">Date du paiement</label>
+                                                <input type="date" name="date_paiement" class="form-control" value="{{ date('Y-m-d') }}" required>
                                             </div>
 
                                             <div class="mb-3">

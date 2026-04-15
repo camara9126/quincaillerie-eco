@@ -8,6 +8,7 @@ class Vente extends Model
 {
      protected $fillable = [
         'client_id',
+        'tiers_id',
         'reference',
         'date',
         'total',
@@ -32,6 +33,10 @@ class Vente extends Model
         return $this->belongsTo(Client::class);
     }
 
+     public function tiers()
+    {
+        return $this->belongsTo(Tiers::class);
+    }
 
     public function paiements()
     {
