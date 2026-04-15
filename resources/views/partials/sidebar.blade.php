@@ -132,6 +132,13 @@
                         </a>
                     </li>
 
+                    <li>
+                        <a href="{{ route('magasin.index') }}">
+                            <i class="fas fa-shop"></i>
+                            <span>Depots</span>
+                        </a>
+                    </li>
+
                     <div class="sidebar-divider"></div>
 
                     <li>

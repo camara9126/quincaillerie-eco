@@ -16,5 +16,10 @@ class Mouvement_stock extends Model
     public function article()
     {
         return $this->belongsTo((Article::class));
-    } 
+    }
+    
+    public function magasin()
+    {
+        return $this->belongsTo((Magasin::class));
+    }
 }

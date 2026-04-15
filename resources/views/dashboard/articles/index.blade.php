@@ -76,7 +76,13 @@
                                         <td>{{$a->nom}}</td>
                                         <td>{{$a->categorie->nom}}</td>
                                         <td><strong>{{$a->prix}} FCFA</strong></td>
-                                        <td><span class="badge-success">{{$a->stock}} en stock</span></td>
+                                        <td>
+                                            @if($a->stock_min >= $a->stock)
+                                                <span class="badge bg-danger">Stock faible</span>
+                                            @else
+                                                 <span class="badge-success">{{$a->stock}} en stock</span>
+                                            @endif
+                                        </td>
                                         <td>{{$a->etiquette ?? 'Pas d"etiquette'}}</td>
                                         <td><span class="badge-{{$a->statut ? 'success' : 'warning'}}">{{$a->statut ? 'Publié' : 'En attente'}}</span></td>
                                         <td>

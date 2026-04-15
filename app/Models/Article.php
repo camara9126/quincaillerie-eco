@@ -41,6 +41,11 @@ class Article extends Model
         return $this->hasMany(Vente::class);
     }
 
+    public function magasin()
+    {
+        return $this->hasMany((Magasin::class));
+    }
+
     public function mouvements() {
         return $this->hasMany(Mouvement_stock::class);
     }

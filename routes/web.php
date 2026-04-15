@@ -8,6 +8,7 @@ use App\Http\Controllers\DevisController;
 use App\Http\Controllers\DepenseController;
 use App\Http\Controllers\FournisseurController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MagasinController;
 use App\Http\Controllers\MouvementController;
 use App\Http\Controllers\MouvementTiersController;
 use App\Http\Controllers\PaiementController;
@@ -138,11 +139,14 @@ Route::middleware('auth')->group(function () {
 
 });
 
-// Routes Mouvements
+// Routes Mouvements et Magasin
 Route::middleware('auth')->group(function () {
     Route::get('/mouvements', [MouvementController::class, 'index'])->name('mouvements');
     Route::post('/mouvements', [MouvementController::class, 'stock'])->name('stock');
     Route::get('/mouvementSearch', [MouvementController::class, 'search'])->name('mouvements.search');
+
+    Route::resource('/magasin', MagasinController::class);
+    Route::get('/magasinSearch', [MagasinController::class, 'search'])->name('magasins.search');
 
 });
 

@@ -117,6 +117,16 @@
                                             </div>
 
                                             <div class="mb-3">
+                                                <label>Magasin</label>
+                                                <select class="form-control" name="magasin_id" id="exampleFormControlSelect1">
+                                                    <option value="">-- Veuillez choisir un magasin --</option>
+                                                    @foreach($magasins as $m)
+                                                    <option value="{{$m->id}}">{{$m->nom}}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+
+                                            <div class="mb-3">
                                                 <label>Type</label>
                                                 <select class="form-control" name="type" id="exampleFormControlSelect1">
                                                     <option value="">-- Veuillez choisir le type de mouvement --</option>

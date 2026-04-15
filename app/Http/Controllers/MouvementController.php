@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Magasin;
 use App\Models\Mouvement_stock;
 use Illuminate\Http\Request;
 
@@ -12,8 +13,9 @@ class MouvementController extends Controller
     public function index() {
         $mouvements= Mouvement_stock::latest()->paginate(10);
         $articles= Article::latest()->get();
+        $magasins= Magasin::latest()->get();
 
-        return view('dashboard.mouvementStock.index', compact('mouvements','articles'));
+        return view('dashboard.mouvementStock.index', compact('mouvements','articles','magasins'));
     }
 
     public function search(Request $request)
