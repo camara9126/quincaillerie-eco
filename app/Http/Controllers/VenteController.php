@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Article_depot;
 use App\Models\Depenses;
 use App\Models\Entreprise;
+use App\Models\Magasin;
 use App\Models\Paiements;
 use App\Models\Tiers;
 use App\Models\Vente;
@@ -80,8 +82,9 @@ class VenteController extends Controller
     {
         $tiers = Tiers::latest()->get();
         $articles = Article::where('statut', true)->latest()->get();
+        $magasins = Magasin::latest()->get();
 
-        return view('dashboard.commandes.create', compact('tiers', 'articles'));
+        return view('dashboard.commandes.create', compact('tiers', 'articles','magasins'));
     }
 
 
@@ -90,6 +93,7 @@ class VenteController extends Controller
         $request->validate([
             'client_id' => 'required|exists:clients,id',
             'tiers_id' => 'required|exists:tiers,id',
+            'magasin_id' => 'required|exists:magasins,id',
             'articles' => 'required|array|min:1',
             'statut',
             'articles.*.article_id' => 'required',
@@ -118,12 +122,28 @@ class VenteController extends Controller
 
         foreach ($request->articles as $item) {
 
-            //dd($item);
+           
              if (empty($item['article_id'])) {
                 continue;
             }
 
             $produit = Article::where('id', $item['article_id'])->lockForUpdate()->firstOrFail(); // verrou stock
+            $magasin = Magasin::where('id', $request->magasin_id)->lockForUpdate()->firstOrFail(); // verrou stock
+ //dd($magasin);
+            // Verification de la disponibilite de l'article dans le magasin
+            $stock = Article_depot::where('article_id', $produit->id)->where('magasin_id', $magasin->id)->first();
+
+            if($stock) {
+                if ($stock->stock < $item['quantite']) {
+                    return redirect()->back()->with('danger', 'Stock insuffisant dans ce dépôt');
+                }
+
+                // 🔥 Déduire le stock
+                Article_depot::where('article_id', $produit->id)->where('magasin_id', $magasin->id)->decrement('stock', $item['quantite']);
+            } else {
+                return redirect()->back()->with('danger', 'Stock introuvable dans ce dépôt');
+            }
+            
 
             // Verification stock mouvement
             if ($produit->stock == 0) {
@@ -151,6 +171,7 @@ class VenteController extends Controller
             VenteItem::create([
                 'vente_id' => $vente->id,
                 'article_id' => $item['article_id'],
+                'magasin_id' => $request->magasin_id,
                 'quantite' => $item['quantite'],
                 'prix_unitaire' => $item['prix'],
                 'taux_tva' => $entreprise->taux_tva,

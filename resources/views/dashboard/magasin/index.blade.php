@@ -52,9 +52,7 @@
                                     <thead>
                                         <tr>
                                             <th>Nom</th>
-                                            <th>Nbre de stock</th>
                                             <th>Telephone</th>
-                                            <th>Email</th>
                                             <th>Adresse</th>
                                             <th>Action</th>
                                         </tr>
@@ -63,23 +61,21 @@
                                         @forelse($magasins as $m)
                                         <tr>
                                             <td>{{$m->nom}}</td>
-                                            <td>{{$m->stock->count()}}</td>
                                             <td>{{$m->telephone ?? 'Vide'}}</td>
-                                            <td>{{$m->email ?? 'Vide'}}</td>
                                             <td>{{$m->adresse ?? 'Vide'}}</td>
                                             <td>
                                             <div class="action-buttons">
                                                 <a href="" class="action-btn" data-bs-toggle="modal" data-id="{{ $m->id }}" data-name="{{ $m->nom }}" data-phone="{{ $m->telephone }}" data-email="{{ $m->email }}" data-adress="{{$m->adresse }}" data-bs-target="#magasinEditModal" title="Modifier">
                                                     <i class="fas fa-edit"></i>
                                                 </a>
-                                                <form action="{{route('magasin.destroy', $m->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
+                                                <!--<form action="{{route('magasin.destroy', $m->id)}}" type="button" method="post" onsubmit="return confirm('Supprimer ?')">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="action-btn delete" title="Supprimer">
                                                         <i class="fa fa-trash"></i>
                                                     </button>
-                                                </form>
-                                                <!--<a href="" class="action-btn" title="Dupliquer"><i class="fas fa-copy"></i></a>-->
+                                                </form>-->
+                                                <a href="{{route('magasin.liste', $m->id)}}" class="action-btn" title="afficher les articles"><i class="fas fa-list"></i></a>
                                             </div>
                                         </td>
                                         </tr>
@@ -127,11 +123,6 @@
                                                 </div>
 
                                                 <div class="mb-3">
-                                                    <label>Email</label>
-                                                    <input type="email" name="email" class="form-control">
-                                                </div>
-
-                                                <div class="mb-3">
                                                     <label>Adresse</label>
                                                     <textarea name="adresse" id=""></textarea>
                                                 </div>
@@ -169,11 +160,6 @@
                                                 <div class="mb-3">
                                                     <label>Téléphone</label>
                                                     <input type="text" name="telephone" id="phone" class="form-control">
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label>Email</label>
-                                                    <input type="email" name="email" id="email" class="form-control">
                                                 </div>
 
                                                 <div class="mb-3">

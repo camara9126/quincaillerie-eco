@@ -28,6 +28,12 @@ class Article extends Model
     ];
 
 
+    public function magasin()
+    {
+        $this->belongsToMany(Magasin::class, 'article_depots')->withPivot('stock')->withTimestamps();
+    }
+
+
     public function categorie() {
         return $this->belongsTo(Categorie::class);
     }
@@ -41,10 +47,6 @@ class Article extends Model
         return $this->hasMany(Vente::class);
     }
 
-    public function magasin()
-    {
-        return $this->hasMany((Magasin::class));
-    }
 
     public function mouvements() {
         return $this->hasMany(Mouvement_stock::class);

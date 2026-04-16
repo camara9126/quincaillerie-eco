@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Article;
 use App\Models\Magasin;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class MagasinController extends Controller
      */
     public function index()
     {
-        $magasins= Magasin::latest()->paginate(10);
+        $magasins= Magasin::with('stock')->latest()->paginate(10);
 
         return view('dashboard.magasin.index', compact('magasins'));
     }
@@ -24,9 +25,12 @@ class MagasinController extends Controller
     {
         $search = $request->query('search');
 
-        $magasins = Magasin::with('categorie')->when($search, function ($query, $search) {
+        $magasins = Magasin::with('stock')->when($search, function ($query, $search) {
 
-                $query->where('nom', 'like', "%{$search}%");
+                $query->where('nom', 'like', "%{$search}%")->orWhereHas('stock', function ($q) use ($search) {
+
+                        $q->where('article_id', 'like', "%{$search}%");
+                });
 
         })->latest()->paginate(10)->withQueryString(); // 🔑 garde ?search=;
 
@@ -61,7 +65,6 @@ class MagasinController extends Controller
         $request->validate([
             'nom' => 'required|string|max:255',
             'telephone' => 'nullable|string',
-            'email' => 'nullable|email',
             'adresse' => 'nullable|string',
             'statut' => 'nullable',
         ]);
@@ -69,10 +72,17 @@ class MagasinController extends Controller
         $magasin->update([
             'nom' => $request->nom,
             'telephone' => $request->telephone,
-            'email' => $request->email,
             'adresse' => $request->adresse,
         ]);
 
         return redirect()->route('magasin.index')->with('success', 'Magasin modifié');
+    }
+
+    public function liste($id)
+    {
+        $magasin= Magasin::findOrFail($id);
+        $articles= $magasin->article()->withPivot('stock')->paginate(10);
+
+        return view('dashboard.magasin.listeArticle', compact('magasin','articles'));
     }
 }

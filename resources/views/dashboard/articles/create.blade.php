@@ -66,6 +66,15 @@
                                                     @endforeach
                                             </select>
                                         </div>
+                                        <div class="col-6">
+                                            <label>Depot *</label>
+                                            <select name="magasin_id" required>
+                                                <option value="">Sélectionner le depot</option>
+                                                    @foreach($magasins as $m)
+                                                        <option value="{{$m->id}}">{{$m->nom}}</option>
+                                                    @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     
                                     <div class="row">

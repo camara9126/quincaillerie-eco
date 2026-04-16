@@ -11,6 +11,7 @@ class Mouvement_stock extends Model
         'type',
         'quantite',
         'reference',
+        'magasin_id',
     ];
 
     public function article()

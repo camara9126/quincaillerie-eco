@@ -52,32 +52,39 @@
                                 </div>
                             @endif
                             <h2 class="text-center mb-3">Nouvelle facture</h2>
-
+                            <br>
                             <form action="{{ route('commandes.store') }}" method="POST" class="contact-form">
                                 @csrf
                                 {{-- CLIENT --}}
                                 <input type="hidden" name="client_id" value="1">
                                 <div class="row mt-3">
-                                    <div class="col-7">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Tiers</label><br>
-                                            <select name="tiers_id" class="form-select" required>
-                                                <option value="">-- Sélectionner un tier --</option>
-                                                @foreach($tiers as $tier)
-                                                    <option value="{{ $tier->id }}">
-                                                        {{ ucfirst($tier->nom ) }} (<b>{{ $tier->type }}</b>)
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>                                
+                                    <div class="col-5">
+                                        <label for="name" class="form-label">Tiers</label>
+                                        <select name="tiers_id" class="form-select" required>
+                                            <option value="">-- Sélectionner un tier --</option>
+                                            @foreach($tiers as $tier)
+                                                <option value="{{ $tier->id }}">
+                                                    {{ ucfirst($tier->nom ) }} (<b>{{ $tier->type }}</b>)
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="col-2">
+                                        <label for="name" class="form-label">Nouveau Tier</label>
+                                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#clientModal">
+                                            Ajouter
+                                        </button>
                                     </div>
                                     <div class="col-5">
-                                        <div class="mb-3">
-                                            <label for="name" class="form-label">Nouveau Tier</label><br>
-                                            <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#clientModal">
-                                                Ajouter
-                                            </button>
-                                        </div>
+                                        <label for="name" class="form-label">Depot</label>
+                                        <select name="magasin_id" class="form-select" required>
+                                            <option value="">-- Sélectionner un depot --</option>
+                                            @foreach($magasins as $m)
+                                                <option value="{{ $m->id }}">
+                                                    {{ ucfirst($m->nom ) }} 
+                                                </option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
 

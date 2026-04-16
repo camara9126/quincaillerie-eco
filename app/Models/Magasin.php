@@ -10,12 +10,15 @@ class Magasin extends Model
         'nom',
         'telephone',
         'adresse',
-        'email',
     ];
 
     public function stock()
     {
-        return $this->hasMany((Mouvement_stock::class));
+        return $this->hasMany(Mouvement_stock::class);
+    }
+
+     public function article() {
+        return $this->belongsToMany(Article::class, 'Article_depots')->withPivot('stock')->withTimestamps();
     }
 
 }

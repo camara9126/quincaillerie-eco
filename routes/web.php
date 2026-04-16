@@ -147,6 +147,7 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('/magasin', MagasinController::class);
     Route::get('/magasinSearch', [MagasinController::class, 'search'])->name('magasins.search');
+    Route::get('/magasinListe/{id}', [MagasinController::class, 'liste'])->name('magasin.liste');
 
 });
 
@@ -166,7 +167,7 @@ Route::middleware('auth')->group(function () {
 });
 
 // Route pour transferer les donnees clients et fournisseurs dans la table Tiers
-
+Route::get('/transfers', [TiersController::class, 'transfer'])->name('transfers');
 
 // Routes Tiers(client/fournisseur), Devis et Commandes
 Route::middleware('auth')->group(function () {

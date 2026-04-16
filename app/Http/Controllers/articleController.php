@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Article_depot;
 use App\Models\Categorie;
 use App\Models\Fournisseur;
+use App\Models\Magasin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -46,8 +48,9 @@ class articleController extends Controller
     {
         $categorie= categorie::latest()->get();
         $fournisseur= fournisseur::latest()->get();
+        $magasins = Magasin::latest()->get();
 
-        return view('dashboard.articles.create', compact('categorie','fournisseur'));
+        return view('dashboard.articles.create', compact('categorie','fournisseur','magasins'));
     }
 
     /**
@@ -96,7 +99,7 @@ class articleController extends Controller
         }
 
         // creation de l'article
-        Article::create([
+        $articles= Article::create([
             'fournisseur_id' => $request->fournisseur_id,
             'nom' => $request->nom,
             'description' => $request->description ?? null,
@@ -113,6 +116,16 @@ class articleController extends Controller
             'etiquette' => $request->etiquette ?? null,
             'categorie_id' => $request->categorie_id,
             'image' => $path,
+        ]);
+
+
+        // Creation de l'article dans le depot
+        $magasin = Magasin::where('id', $request->magasin_id)->lockForUpdate()->firstOrFail(); // verrou stock
+
+        Article_depot::create([
+            'article_id' => $articles->id,
+            'magasin_id' => $magasin->id,
+            'stock' => $request->stock,
         ]);
 
         return redirect()->route('articles.index')->with('success', 'Article crée avec success.');
