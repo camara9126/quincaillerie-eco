@@ -18,7 +18,7 @@ class Magasin extends Model
     }
 
      public function article() {
-        return $this->belongsToMany(Article::class, 'Article_depots')->withPivot('stock')->withTimestamps();
+        return $this->belongsToMany(Article::class, 'article_depots')->withPivot('stock')->withTimestamps();
     }
 
 }
