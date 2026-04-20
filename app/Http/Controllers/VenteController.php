@@ -103,23 +103,6 @@ class VenteController extends Controller
 
 
 
-             //dd($request->all());
-            $vente = Vente::create([
-                'client_id' => 1,
-                'tiers_id' => $request->tiers_id,
-                'reference' => 'VNT-' . time(),
-                'date' => now(),
-                'total' => 0,
-                'total_tva' => 0,
-                'total_ttc' => 0,
-                'statut' => 'impayee',
-                'user_id' => $request->user()->id,
-            ]);
-
-            $total = 0;
-            $total_tva = 0;
-            $total_ttc = 0;
-
         foreach ($request->articles as $item) {
 
            
@@ -163,6 +146,23 @@ class VenteController extends Controller
                 return redirect()->back()->with('danger','Stock insuffisant pour cette article ');
             }
        
+
+              //dd($request->all());
+            $vente = Vente::create([
+                'client_id' => 1,
+                'tiers_id' => $request->tiers_id,
+                'reference' => 'VNT-' . time(),
+                'date' => now(),
+                'total' => 0,
+                'total_tva' => 0,
+                'total_ttc' => 0,
+                'statut' => 'impayee',
+                'user_id' => $request->user()->id,
+            ]);
+
+            $total = 0;
+            $total_tva = 0;
+            $total_ttc = 0;
 
             // Creation vente item
             $entreprise= Entreprise::findOrFail(1); // Recuperation de la TVA de l'entreprise
